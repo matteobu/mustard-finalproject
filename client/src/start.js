@@ -5,11 +5,13 @@ import Welcome from "./welcome.js";
 fetch("/user/id.json")
     .then((response) => response.json())
     .then((data) => {
-        if (!data.userId) {
+        if (!data.usersID) {
             ReactDOM.render(<Welcome />, document.querySelector("main"));
         } else {
             ReactDOM.render(
-                <img src="/logo.gif" alt="logo" />,
+                <div className="logo-navbar">
+                    <img src="/logoB.png" alt="logo" />
+                </div>,
                 document.querySelector("main")
             );
         }

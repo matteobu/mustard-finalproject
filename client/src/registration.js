@@ -12,6 +12,9 @@ export class Registration extends Component {
 
     componentDidMount() {
         console.log("REGISTRATION MOUNTED");
+        this.setState({
+            error: null,
+        });
     }
     handleChange({ target }) {
         // console.log("input field name, something happend");
@@ -30,23 +33,28 @@ export class Registration extends Component {
     }
 
     handleRegister(e) {
-        e.preventDefault(); // PREVENT REFRESH
-        // console.log(this.state);
-        fetch("/registration.json", {
+        e.preventDefault();
+        console.log("this.state", this.state);
+        fetch("/registration", {
             method: "POST",
-            headers: {
-                "Content-TYpe": "application/json",
-            },
             body: JSON.stringify(this.state),
+            headers: {
+                "Content-Type": "application/json",
+            },
         })
             .then((resp) => resp.json())
             .then((resp) => {
-                console.log("error in then-post-registration", resp);
-                // now we want
-                // a: user successfully registered --- sent to logged experience
-                // // in this case we want trigger the help of location.reload()
-
-                // b: registration component  to render with an error
+                if (resp.success) {
+                    // a: user successfully registered --- sent to logged experience
+                    // // in this case we want trigger the help of location.reload()
+                    console.log("resp in then-post-registration", resp);
+                    location.reload();
+                } else {
+                    // b: registration component  to render with an error
+                    this.setState({
+                        error: this.state.error,
+                    });
+                }
             })
             .catch((err) =>
                 console.log("error in catch-post-registration", err)
@@ -55,7 +63,7 @@ export class Registration extends Component {
 
     render() {
         return (
-            <div>
+            <div className="registration-container">
                 <h1> Registration</h1>
                 {this.state.error && <h2>{this.state.error}</h2>}
                 <form>

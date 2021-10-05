@@ -1,7 +1,42 @@
 body {
-    background-color: ghostwhite;
+    margin: 0;
+    background-color: deepskyblue;
 }
 
-.prettyColor {
-    background-color: deeppink;
+.main-container {
+    background-color: #2B2B2B;
+    display: grid;
+    grid-template-rows: 130px 500px;
+}
+/* NAV BAR */
+
+.navbar {
+    position: absolute;
+    height: 130px;
+    width: 100%;
+    background-color: #2B2B2B;
+}
+
+.logo {
+    top: 5px;
+    left: 5px;
+    position: absolute;
+    width: 125px;
+}
+
+/* MAIN CONTAINER REGISTRATION */
+
+.registration-container {
+    display: grid;
+    grid-template-rows: repeat(auto-fit, minmax(400px, 1fr));
+    justify-content: space-around;
+    justify-items: center;
+    align-items: center;
+}
+
+/* FOOTER */
+
+footer {
+    background-color: #171010;
+    color: #CA3E47;
 }

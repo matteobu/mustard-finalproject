@@ -8,7 +8,6 @@ const path = require("path");
 // server/sql/db.js
 // COOKIE SESSION
 const cookieSession = require("cookie-session");
-
 // COOKIE SESSION APP USE
 app.use(
     cookieSession({
@@ -20,33 +19,27 @@ app.use(
 // app.use(csurf());
 
 // ROUTES REQUIRE
-const registerRoutes = require("./routes/registration.js");
+const registrationRoute = require("./routes/registration");
 
 // ROUTES
-app.use("/registration.json", registerRoutes);
-
 app.use(compression());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "..", "client", "public")));
-
+app.use("/registration", registrationRoute);
 app.get("/user/id.json", function (req, res) {
     // res.json({
-    //     userId: req.session.userId
+    //     usersID: req.session.usersID
     // });
     // MOCKING THE RES.JSON NO USER ID
     res.json({
-        userId: undefined,
+        usersID: req.session.usersID,
     });
 
     // MOCKING THE RES.JSON  USER ID
     // res.json({
-    //     userId: 90,
+    //     usersID: 90,
     // });
 });
-
-
-
-
 
 app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "..", "client", "index.html"));
