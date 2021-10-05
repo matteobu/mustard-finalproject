@@ -4,3 +4,6 @@ secrets.json
 client/public/bundle.js
 client/public/bundle.js.LICENSE.txt
 bundle.css
+client/src/counter.js
+client/src/greetee.js
+client/src/helloWorld.js
