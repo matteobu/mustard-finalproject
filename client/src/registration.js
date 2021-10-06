@@ -49,12 +49,12 @@ export class Registration extends Component {
                 if (resp.success) {
                     // a: user successfully registered --- sent to logged experience
                     // // in this case we want trigger the help of location.reload()
-                    console.log("resp in then-post-registration", resp);
+                    // console.log("resp in then-post-registration", resp);
                     location.reload();
                 } else {
                     // b: registration component  to render with an error
                     this.setState({
-                        error: this.state.error,
+                        error: "whoops, something went wrong. Please try again.",
                     });
                 }
             })
@@ -67,7 +67,11 @@ export class Registration extends Component {
         return (
             <div className="registration-container">
                 <div className="left-registration">
-                    <h1>BIKEPACKING IRGENDWO</h1>{" "}
+                    <img
+                        className="logo-container"
+                        src="/img/no-logo-long-BPb.png"
+                        alt="logo"
+                    />
                     <h2>
                         is a community of people who love BIKEPACKING to ride
                         thereabouts in the world. Join us and spread the `FAR
@@ -75,7 +79,6 @@ export class Registration extends Component {
                     </h2>
                 </div>
                 <div className="right-registration">
-                    {this.state.error && <h2>{this.state.error}</h2>}
                     <form className="form-registration">
                         <input
                             type="text"
@@ -113,9 +116,10 @@ export class Registration extends Component {
                             REGISTER
                         </button>
                         <Link to="/login">Already registered? </Link>
+                        <div className="error-message">
+                            {this.state.error && <h2>{this.state.error}</h2>}
+                        </div>
                     </form>
-
-                   
                 </div>
             </div>
         );

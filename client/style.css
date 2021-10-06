@@ -23,8 +23,9 @@ body {
 }
 
 .logo {
-    top: 5px;
-    left: 5px;
+    
+    top: 10px;
+    left: 40px;
     position: absolute;
     width: 200px;
 }
@@ -35,7 +36,16 @@ body {
     justify-content: stretch;
     align-content: stretch;
 }
+.error-message {
+    color: firebrick;
+    font-size: 10px;
+    font-style: italic;
+    font-weight: bold;
+}
 
+.logo-container {
+    width: 600px;
+}
 /* ROUTE CONTAINER REGISTRATION */
 
 .registration-container {
@@ -75,12 +85,17 @@ input {
 }
 
 .btn-register {
+    color: #ca3e47;
     height: 70px;
     font-size: 20px;
     background-color: #2b2b2b;
     border: 1px solid #ca3e47;
     border-radius: 20px;
     margin-top: 10px;
+}
+
+.form-registration > a {
+    color: #ca3e47;
 }
 
 /* ROUTE CONTAINER LOGIN */
@@ -110,33 +125,10 @@ input {
 
 footer {
     grid-row-start: 3;
-
+    align-self: end;
+    line-height: 30px;
+    padding-left: 40px;
+    padding-right: 40px;
     background-color: #171010;
     color: #ca3e47;
-}
-
-/* MODAL COMPONENT REACT */
-
-#modal-root {
-    position: relative;
-    z-index: 999;
-}
-
-.app {
-    height: 10em;
-    width: 10em;
-    background: lightblue;
-    overflow: hidden;
-}
-
-.modal {
-    background-color: rgba(0, 0, 0, 0.5);
-    position: fixed;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }

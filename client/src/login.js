@@ -13,7 +13,7 @@ export class Login extends Component {
     componentDidMount() {
         console.log("LOGIN MOUNTED");
         this.setState({
-            error: null,
+            error: false,
         });
     }
     handleChange({ target }) {

@@ -1,15 +1,21 @@
 // FUNCTION COMPONENT
 import { Registration } from "./registration";
 import { Login } from "./login";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 
 export default function Welcome() {
     return (
         //  REACT FRAGMENT
         <BrowserRouter>
-            <div  className="body-container">
+            <div className="body-container">
                 <div className="navbar">
-                    <img className="logo" src="/logoBPb.png" alt="logo" />
+                    <Link to="/">
+                        <img
+                            className="logo"
+                            src="/img/logoBPb.png"
+                            alt="logo"
+                        />
+                    </Link>
                 </div>
                 <div className="central-container">
                     <Switch>
