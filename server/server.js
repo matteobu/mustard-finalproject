@@ -20,12 +20,14 @@ app.use(
 
 // ROUTES REQUIRE
 const registrationRoute = require("./routes/registration");
+const loginRoute = require("./routes/login");
 
 // ROUTES
 app.use(compression());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "..", "client", "public")));
 app.use("/registration", registrationRoute);
+app.use("/login", loginRoute);
 app.get("/user/id.json", function (req, res) {
     // res.json({
     //     usersID: req.session.usersID

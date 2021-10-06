@@ -10,7 +10,7 @@ fetch("/user/id.json")
         } else {
             ReactDOM.render(
                 <div className="logo-navbar">
-                    <img src="/logoB.png" alt="logo" />
+                    <img src="/logoBPw.png" alt="logo" />
                 </div>,
                 document.querySelector("main")
             );

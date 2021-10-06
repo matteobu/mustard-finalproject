@@ -1,5 +1,7 @@
 //CLASS COMPONENT
 import { Component } from "react";
+import { Link } from "react-router-dom";
+
 export class Registration extends Component {
     constructor(props) {
         super(props);
@@ -64,36 +66,57 @@ export class Registration extends Component {
     render() {
         return (
             <div className="registration-container">
-                <h1> Registration</h1>
-                {this.state.error && <h2>{this.state.error}</h2>}
-                <form>
-                    <input
-                        type="text"
-                        name="first"
-                        placeholder="first name"
-                        onChange={this.handleChange}
-                    ></input>
-                    <input
-                        type="text"
-                        name="last"
-                        placeholder="last name"
-                        onChange={this.handleChange}
-                    ></input>
-                    <input
-                        type="email"
-                        name="email"
-                        placeholder="e@mail.com"
-                        onChange={this.handleChange}
-                    ></input>
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="password"
-                        onChange={this.handleChange}
-                    ></input>
+                <div className="left-registration">
+                    <h1>BIKEPACKING IRGENDWO</h1>{" "}
+                    <h2>
+                        is a community of people who love BIKEPACKING to ride
+                        thereabouts in the world. Join us and spread the `FAR
+                        NOT FAST` motto!
+                    </h2>
+                </div>
+                <div className="right-registration">
+                    {this.state.error && <h2>{this.state.error}</h2>}
+                    <form className="form-registration">
+                        <input
+                            type="text"
+                            name="first"
+                            placeholder="first name"
+                            onChange={this.handleChange}
+                            required
+                        ></input>
+                        <input
+                            type="text"
+                            name="last"
+                            placeholder="last name"
+                            onChange={this.handleChange}
+                            required
+                        ></input>
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="e@mail.com"
+                            onChange={this.handleChange}
+                            required
+                        ></input>
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder="password"
+                            onChange={this.handleChange}
+                            required
+                        ></input>
 
-                    <button onClick={this.handleRegister}>REGISTER</button>
-                </form>
+                        <button
+                            className="btn-register"
+                            onClick={this.handleRegister}
+                        >
+                            REGISTER
+                        </button>
+                        <Link to="/login">Already registered? </Link>
+                    </form>
+
+                   
+                </div>
             </div>
         );
     }
