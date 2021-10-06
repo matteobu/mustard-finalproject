@@ -10,6 +10,7 @@ export class Reset extends Component {
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleStepOne = this.handleStepOne.bind(this);
+        this.handleStepTwo = this.handleStepTwo.bind(this);
     }
     componentDidMount() {
         console.log("RESET MOUNTED");
@@ -35,10 +36,10 @@ export class Reset extends Component {
     }
     handleStepOne(e) {
         e.preventDefault();
-        console.log("login button works");
-        console.log("this.state :>> ", this.state);
-        console.log("this.state.error :>> ", this.state.error);
-        fetch("/reset", {
+        // console.log("login button works");
+        // console.log("this.state :>> ", this.state);
+        // console.log("this.state.error :>> ", this.state.error);
+        fetch("/reset-code", {
             method: "POST",
             body: JSON.stringify(this.state),
             headers: {
@@ -47,16 +48,47 @@ export class Reset extends Component {
         })
             .then((resp) => resp.json())
             .then((resp) => {
-                // if (!resp.success) {
-                //     console.log("tut mir leid");
-                //     this.setState({
-                //         error: "whoops, something went wrong. Please try again.",
-                //     });
-                // } else {
-                //     location.reload();
-                //     //  SPLICE URL
-                //     console.log("Richtig gutes Zeug");
-                // }
+                if (!resp.success) {
+                    // console.log("tut mir leid");
+                    this.setState({
+                        error: "whoops, something went wrong. Please try again.",
+                    });
+                } else {
+                    this.setState({
+                        step: 2,
+                    });
+                    // location.reload();
+                    // console.log("Richtig gutes Zeug");
+                }
+            });
+    }
+
+    handleStepTwo(e) {
+        e.preventDefault();
+        console.log("login button works");
+        console.log("this.state :>> ", this.state);
+        console.log("this.state.error :>> ", this.state.error);
+        fetch("/reset-password", {
+            method: "POST",
+            body: JSON.stringify(this.state),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then((resp) => resp.json())
+            .then((resp) => {
+                if (!resp.success) {
+                    console.log("tut mir leid");
+                    this.setState({
+                        error: "whoops, something went wrong. Please try again.",
+                    });
+                } else {
+                    this.setState({
+                        step: 3,
+                    });
+                    // location.reload();
+                    console.log("Richtig gutes Zeug");
+                }
             });
     }
     render() {
@@ -89,12 +121,17 @@ export class Reset extends Component {
                     </form>
                 )}
                 {step == 2 && (
-                    <form className="login-registration">
+                    <form className="reset-form">
+                        <h3>
+                            {" "}
+                            please verify your code and insert a new password
+                        </h3>
+
                         <input
                             className="reset-input"
-                            type="email"
-                            name="email"
-                            placeholder="e@mail.com"
+                            type="text"
+                            name="code"
+                            placeholder="code"
                             onChange={this.handleChange}
                             required
                         ></input>
@@ -102,15 +139,15 @@ export class Reset extends Component {
                             className="reset-input"
                             type="password"
                             name="password"
-                            placeholder="password"
+                            placeholder="new password"
                             onChange={this.handleChange}
                             required
                         ></input>
                         <button
                             className="btn-send-code"
-                            onClick={this.handleLogin}
+                            onClick={this.handleStepTwo}
                         >
-                            UPDATE PASSWORD
+                            SEND CODE
                         </button>
                     </form>
                 )}

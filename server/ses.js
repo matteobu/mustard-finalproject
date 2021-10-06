@@ -13,21 +13,28 @@ const ses = new aws.SES({
     region: "eu-west-1",
 });
 
-exports.sendEmail = (toAddresses, subject, text) => {
-    return ses.sendEmail({
-        Source: "Bikepacking Irgendwo <stupendous.attic@spicedling.email>",
-        Destination: {
-            ToAddresses: [toAddresses],
-        },
-        Message: {
-            Body: {
-                Text: {
-                    Data: text,
+exports.sendEmail = (toAddress, subject, text) => {
+    return ses
+        .sendEmail({
+            Source: secrets.AWS_EMAIL,
+            Destination: {
+                ToAddresses: [toAddress],
+                //cc
+                //bc
+            },
+            Message: {
+                Body: {
+                    Text: {
+                        Data: text,
+                    },
+                    // HTML:{}
+                },
+                Subject: {
+                    Data: subject,
                 },
             },
-            Subject: {
-                Data: subject,
-            },
-        },
-    });
+        })
+        .promise()
+        .then(() => console.log("CODE SENT!"))
+        .catch((err) => console.log("error in sending the email", err));
 };

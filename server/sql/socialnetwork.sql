@@ -7,3 +7,9 @@
       password VARCHAR(255) NOT NULL,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
+CREATE TABLE password_reset_codes(
+      id SERIAL PRIMARY KEY,
+      code VARCHAR(255) NOT NULL,
+      email VARCHAR(255) NOT NULL ,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );

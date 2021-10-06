@@ -30,6 +30,40 @@ module.exports.checkEmail = (email) => {
         email,
     ]);
 };
+module.exports.addCode = (email, code) => {
+    const params = [email, code];
+    const q = `
+    INSERT INTO password_reset_codes
+    (email, code)
+    VALUES ($1, $2)
+     `;
+    return db.query(q, params);
+};
+
+module.exports.checkCode = (email) => {
+    const params = [email];
+    const q = `
+    SELECT  code
+    FROM password_reset_codes
+    WHERE email=$1 
+    AND CURRENT_TIMESTAMP - created_at < INTERVAL '10 minutes'
+    ORDER BY created_at DESC
+    LIMIT 1
+     `;
+    return db.query(q, params);
+};
+
+module.exports.updateUserPsw = (email, password) => {
+    const q = `UPDATE users 
+            SET password = $2 
+            WHERE email= $1 RETURNING id`;
+
+    const params = [email, password];
+    return db.query(q, params);
+};
+
+// OLD PASSWORD
+// $2a$10$l4KW2I9fZx4CNZiqci6zGOeuqfB7ziiwdVRmBsriyuVsuADPh0Egy
 
 // module.exports.listSignature = (usersID) => {
 //     console.log("usersID :>> ", usersID);

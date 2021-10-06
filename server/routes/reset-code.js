@@ -22,7 +22,7 @@ router.use((req, res, next) => {
 
 router.post("/", function (req, res) {
     console.log("SESSION VALUE ON POST RESET:>> ", req.body);
-    const { email, password } = req.body;
+    const { email } = req.body;
     // console.log("req.body :>> ", req.body);
 
     db.listID(email)
@@ -35,13 +35,13 @@ router.post("/", function (req, res) {
                     length: 6,
                 });
                 console.log("result FROM LIST ID:>> ", result);
-                // console.log("secretCode :>> ", secretCode);
-                let toAddresses = "ehisintonia@gmail.com";
+                db.addCode(email, secretCode);
+                let toAddress = email;
                 let subject = "Bikepacking Irgendwo - Reset Password";
-                let text = "please insert this code" + secretCode;
+                let text = "please insert this code " + secretCode;
 
-                ses.sendEmail(toAddresses, subject, text);
-                // res.json({ success: true });
+                ses.sendEmail(toAddress, subject, text);
+                res.json({ success: true });
             }
         })
         .catch(function (err) {
