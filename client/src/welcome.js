@@ -1,6 +1,7 @@
 // FUNCTION COMPONENT
 import { Registration } from "./registration";
 import { Login } from "./login";
+import { Reset } from "./reset";
 import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 
 export default function Welcome() {
@@ -19,6 +20,9 @@ export default function Welcome() {
                 </div>
                 <div className="central-container">
                     <Switch>
+                        <Route path="/reset">
+                            <Reset />
+                        </Route>
                         <Route path="/login">
                             <Login />
                         </Route>

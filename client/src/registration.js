@@ -6,7 +6,7 @@ export class Registration extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            error: "whoops, something went wrong. Please try again.",
+            error: "",
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleRegister = this.handleRegister.bind(this);
@@ -14,9 +14,6 @@ export class Registration extends Component {
 
     componentDidMount() {
         console.log("REGISTRATION MOUNTED");
-        this.setState({
-            error: null,
-        });
     }
     handleChange({ target }) {
         // console.log("input field name, something happend");
@@ -47,6 +44,7 @@ export class Registration extends Component {
             .then((resp) => resp.json())
             .then((resp) => {
                 if (resp.success) {
+                    this.setState({ userId: resp.userId });
                     // a: user successfully registered --- sent to logged experience
                     // // in this case we want trigger the help of location.reload()
                     // console.log("resp in then-post-registration", resp);
@@ -69,11 +67,11 @@ export class Registration extends Component {
                 <div className="left-registration">
                     <img
                         className="logo-container"
-                        src="/img/no-logo-long-BPb.png"
+                        src="/img/no-logo-long-BPw.png"
                         alt="logo"
                     />
                     <h2>
-                        is a community of people who love BIKEPACKING to ride
+                        is a community of people that love BIKEPACKING to ride
                         thereabouts in the world. Join us and spread the `FAR
                         NOT FAST` motto!
                     </h2>

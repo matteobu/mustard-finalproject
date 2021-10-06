@@ -25,6 +25,11 @@ module.exports.addUser = (first, last, email, password) => {
 module.exports.listID = (email) => {
     return db.query(`SELECT password, id FROM users WHERE email = $1`, [email]);
 };
+module.exports.checkEmail = (email) => {
+    return db.query(`SELECT id FROM users WHERE email = $1 RETURNING id`, [
+        email,
+    ]);
+};
 
 // module.exports.listSignature = (usersID) => {
 //     console.log("usersID :>> ", usersID);

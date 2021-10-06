@@ -1,21 +1,23 @@
 import { Component } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
-export class Login extends Component {
+export class Reset extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            error: "whoops, something went wrong. Please try again.",
+            error: "",
+            step: 1,
         };
         this.handleChange = this.handleChange.bind(this);
-        this.handleLogin = this.handleLogin.bind(this);
+        this.handleStepOne = this.handleStepOne.bind(this);
     }
     componentDidMount() {
-        console.log("LOGIN MOUNTED");
-        this.setState({
-            error: false,
-        });
+        console.log("RESET MOUNTED");
+        // this.setState({
+        //     error: false,
+        // });
     }
+
     handleChange({ target }) {
         console.log("input field name, something happend");
         // console.log("event object: >>", e);
@@ -31,12 +33,12 @@ export class Login extends Component {
             }
         );
     }
-    handleLogin(e) {
+    handleStepOne(e) {
         e.preventDefault();
         console.log("login button works");
         console.log("this.state :>> ", this.state);
         console.log("this.state.error :>> ", this.state.error);
-        fetch("/login", {
+        fetch("/reset", {
             method: "POST",
             body: JSON.stringify(this.state),
             headers: {
@@ -45,27 +47,51 @@ export class Login extends Component {
         })
             .then((resp) => resp.json())
             .then((resp) => {
-                if (!resp.success) {
-                    console.log("tut mir leid");
-                    this.setState({
-                        error: "whoops, something went wrong. Please try again.",
-                    });
-                } else {
-                    location.reload();
-                    //  SPLICE URL
-                    console.log("Richtig gutes Zeug");
-                }
+                // if (!resp.success) {
+                //     console.log("tut mir leid");
+                //     this.setState({
+                //         error: "whoops, something went wrong. Please try again.",
+                //     });
+                // } else {
+                //     location.reload();
+                //     //  SPLICE URL
+                //     console.log("Richtig gutes Zeug");
+                // }
             });
     }
     render() {
+        const step = this.state.step;
         return (
-            <div className="login-container">
-                <section id="login">
-                    {this.state.error && <h2>{this.state.error}</h2>}
+            <div className="reset-container">
+                <img
+                    className="logo-container-center"
+                    src="/img/no-logo-long-BPw.png"
+                    alt="logo"
+                />
 
+                {step == 1 && (
+                    <form className="reset-form">
+                        <h3> please insert your email address</h3>
+                        <input
+                            className="reset-input"
+                            type="email"
+                            name="email"
+                            placeholder="e@mail.com"
+                            onChange={this.handleChange}
+                            required
+                        ></input>
+                        <button
+                            className="btn-send-code"
+                            onClick={this.handleStepOne}
+                        >
+                            SEND CODE
+                        </button>
+                    </form>
+                )}
+                {step == 2 && (
                     <form className="login-registration">
                         <input
-                            className="login-input"
+                            className="reset-input"
                             type="email"
                             name="email"
                             placeholder="e@mail.com"
@@ -73,24 +99,24 @@ export class Login extends Component {
                             required
                         ></input>
                         <input
-                            className="login-input"
+                            className="reset-input"
                             type="password"
                             name="password"
                             placeholder="password"
                             onChange={this.handleChange}
                             required
                         ></input>
-
                         <button
-                            className="btn-login"
+                            className="btn-send-code"
                             onClick={this.handleLogin}
                         >
-                            LOGIN
+                            UPDATE PASSWORD
                         </button>
                     </form>
-                </section>
-                <Link to="/">Not registered? </Link>
-                <Link to="/reset">Forgot Password? </Link>
+                )}
+
+                {/* <Link to="/">Not registered? </Link>
+                <Link to="/reset">Forgot Password? </Link> */}
                 <div className="error-message">
                     {this.state.error && <h2>{this.state.error}</h2>}
                 </div>

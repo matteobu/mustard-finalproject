@@ -28,7 +28,7 @@ router.post("/", function (req, res) {
                 let id = result.rows[0].id;
                 req.session.usersID = id;
                 req.session.loginDone = true;
-                res.json({ success: true });
+                res.json({ success: true, usersID: id });
             });
         })
         .catch((err) => {
