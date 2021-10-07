@@ -2,9 +2,12 @@ const express = require("express");
 const app = express();
 const compression = require("compression");
 const path = require("path");
+const s3 = require("./s3");
+const db = require("./sql/db.js");
+const { uploader } = require("./upload");
+
 // const csurf = require("csurf");
 // DATABASE
-// const db = require("./sql/db.js");
 // server/sql/db.js
 // COOKIE SESSION
 const cookieSession = require("cookie-session");
@@ -23,7 +26,6 @@ const registrationRoute = require("./routes/registration");
 const loginRoute = require("./routes/login");
 const sendCodeRoute = require("./routes/reset-code");
 const resetPasswordRoute = require("./routes/reset-password");
-const uploadPicRoute = require("./routes/upload-pic");
 
 // ROUTES
 app.use(compression());
@@ -33,20 +35,38 @@ app.use("/registration", registrationRoute);
 app.use("/login", loginRoute);
 app.use("/reset-code", sendCodeRoute);
 app.use("/reset-password", resetPasswordRoute);
-app.use("/upload-pic", uploadPicRoute);
 app.get("/user/id.json", function (req, res) {
     res.json({
         usersID: req.session.usersID,
     });
 });
 app.get("/user.json", function (req, res) {
-    //MOCKING THE RES.JSON RESPONSE
-    res.json({
-        usersID: 1,
-        first: "matteo",
-        last: "mustard",
-        imageUrl: "img/profile-pic/default.png",
+    db.usersStarInformation(req.session.usersID).then((result) => {
+        const { id, first, last, pic_url, bio, email } = result.rows[0];
+        res.json({
+            usersID: id,
+            first: first,
+            last: last,
+            imageUrl: pic_url,
+            bio: bio,
+            email: email,
+        });
     });
+});
+
+app.post("/upload-pic", uploader.single("file"), s3.upload, (req, res) => {
+    let usersID = req.session.usersID;
+    const { filename } = req.file;
+    let url = `https://s3.amazonaws.com/spicedling/${filename}`;
+    if (req.file) {
+        db.uploadImages(url, usersID).then((response) => {
+            res.json({ success: true, url: url });
+        });
+    } else {
+        res.json({
+            success: false,
+        });
+    }
 });
 
 app.get("*", function (req, res) {

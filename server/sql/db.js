@@ -21,7 +21,9 @@ module.exports.addUser = (first, last, email, password) => {
     const params = [first, last, email, password];
     return db.query(q, params);
 };
-
+module.exports.usersStarInformation = (id) => {
+    return db.query(`SELECT * FROM users WHERE id = $1`, [id]);
+};
 module.exports.listID = (email) => {
     return db.query(`SELECT password, id FROM users WHERE email = $1`, [email]);
 };
@@ -62,7 +64,14 @@ module.exports.updateUserPsw = (email, password) => {
     return db.query(q, params);
 };
 
-
+// TO UPDATE ACCORDING TO THIS PROJECT , THIS IS FROM IMAGEBOARD
+module.exports.uploadImages = (url, id) => {
+    const q = `UPDATE users
+            SET pic_url = $1 
+            WHERE id = $2`;
+    const params = [url, id];
+    return db.query(q, params);
+};
 
 // module.exports.listSignature = (usersID) => {
 //     console.log("usersID :>> ", usersID);
