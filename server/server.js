@@ -23,6 +23,7 @@ const registrationRoute = require("./routes/registration");
 const loginRoute = require("./routes/login");
 const sendCodeRoute = require("./routes/reset-code");
 const resetPasswordRoute = require("./routes/reset-password");
+const uploadPicRoute = require("./routes/upload-pic");
 
 // ROUTES
 app.use(compression());
@@ -32,19 +33,20 @@ app.use("/registration", registrationRoute);
 app.use("/login", loginRoute);
 app.use("/reset-code", sendCodeRoute);
 app.use("/reset-password", resetPasswordRoute);
+app.use("/upload-pic", uploadPicRoute);
 app.get("/user/id.json", function (req, res) {
-    // res.json({
-    //     usersID: req.session.usersID
-    // });
-    // MOCKING THE RES.JSON NO USER ID
     res.json({
         usersID: req.session.usersID,
     });
-
-    // MOCKING THE RES.JSON  USER ID
-    // res.json({
-    //     usersID: 90,
-    // });
+});
+app.get("/user.json", function (req, res) {
+    //MOCKING THE RES.JSON RESPONSE
+    res.json({
+        usersID: 1,
+        first: "matteo",
+        last: "mustard",
+        imageUrl: "img/profile-pic/default.png",
+    });
 });
 
 app.get("*", function (req, res) {

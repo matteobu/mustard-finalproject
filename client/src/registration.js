@@ -67,7 +67,7 @@ export class Registration extends Component {
                 <div className="left-registration">
                     <img
                         className="logo-container"
-                        src="/img/no-logo-long-BPw.png"
+                        src="/img/logo/no-logo-long-BPw.png"
                         alt="logo"
                     />
                     <h2>

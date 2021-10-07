@@ -1,19 +1,21 @@
 import ReactDOM from "react-dom";
 import Welcome from "./welcome.js";
+import App from "./app";
 
-// ReactDOM.render(<Welcome />, document.querySelector("main"));
 fetch("/user/id.json")
     .then((response) => response.json())
     .then((data) => {
         if (!data.usersID) {
             ReactDOM.render(<Welcome />, document.querySelector("main"));
         } else {
-            ReactDOM.render(
-                <div className="logo-navbar">
-                    <img src="/logoBPw.png" alt="logo" />
-                </div>,
-                document.querySelector("main")
-            );
+            ReactDOM.render(<App />, document.querySelector("main"));
+
+            // ReactDOM.render(
+            //     <div className="logo-navbar">
+            //         <img src="/img/logo/logoBPw.png" alt="logo" />
+            //     </div>,
+            //     document.querySelector("main")
+            // );
         }
     });
 

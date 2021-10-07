@@ -62,8 +62,7 @@ module.exports.updateUserPsw = (email, password) => {
     return db.query(q, params);
 };
 
-// OLD PASSWORD
-// $2a$10$l4KW2I9fZx4CNZiqci6zGOeuqfB7ziiwdVRmBsriyuVsuADPh0Egy
+
 
 // module.exports.listSignature = (usersID) => {
 //     console.log("usersID :>> ", usersID);

@@ -13,7 +13,7 @@ export default function Welcome() {
                     <Link to="/">
                         <img
                             className="logo"
-                            src="/img/logoBPb.png"
+                            src="/img/logo/logoBPb.png"
                             alt="logo"
                         />
                     </Link>

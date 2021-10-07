@@ -97,7 +97,7 @@ export class Reset extends Component {
             <div className="reset-container">
                 <img
                     className="logo-container-center"
-                    src="/img/no-logo-long-BPw.png"
+                    src="/img/logo/no-logo-long-BPw.png"
                     alt="logo"
                 />
 

@@ -1,19 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const { hash } = require("../sql/bc.js");
-
-// import ReactDOM from "react-dom";
-const ses = require("../ses.js");
 const db = require("../sql/db.js");
-const { compare } = require("bcryptjs");
-const cryptoRandomString = require("crypto-random-string");
 
-// const {
-//     requireLoggedInUser,
-//     requireLoggedOutUser,
-//     requireNoSignature,
-//     requireSignature,
-// } = require("../server/middleware");
+
 
 router.use((req, res, next) => {
     console.log("RESET PASSWORD ROUTES");
