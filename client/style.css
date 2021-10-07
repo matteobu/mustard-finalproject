@@ -193,6 +193,27 @@ input {
     border: 1px solid salmon;
     padding: 10px;
 }
+
+.form-input {
+    height: 100%;
+    display: grid;
+    grid-template-rows: 50% 50%;
+}
+
+.inputfile {
+    grid-row-start: 1;
+    background-color: #ca3e47;
+    align-self: flex-end;
+    justify-self: center;
+}
+.form-input > button {
+    width: 100px;
+    grid-row-start: 2;
+    align-self: flex-end;
+    justify-self: center;
+    color: #2b2b2b;
+}
+
 /* FOOTER */
 
 footer {

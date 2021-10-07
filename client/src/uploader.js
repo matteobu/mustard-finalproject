@@ -9,10 +9,11 @@ export class Uploader extends Component {
         };
         this.handleUploadPic = this.handleUploadPic.bind(this);
         this.fileSelectHandler = this.fileSelectHandler.bind(this);
-        this.clickUploader = this.clickUploader.bind(this);
+        // this.clickUploader = this.clickUploader.bind(this);
     }
     componentDidMount() {
         console.log("UPLOADER MOUNTED");
+
         this.setState({
             usersID: this.props.usersID,
         });
@@ -48,19 +49,18 @@ export class Uploader extends Component {
                     // console.log("resp.success :>> ", resp.success);
                     // console.log("url from handleuploadpic :>> ", resp.url);
                     // console.log("THIS PROPS :>> ", );
-                    // this.props.clickUploader(resp.url);
-                    this.props.clickUploader(resp.url);
+                    this.props.functionUploadImage(resp.url);
                 } else {
                     this.setState({
                         error: "whoops, something went wrong. Please try again.",
                     });
                 }
             })
-            .catch((err) =>
-                console.log("error in catch-post-registration", err)
-            );
+            .catch((err) => console.log("error in catch-post-uploadpic", err));
     }
     render() {
+        console.log("STATE on DID MOUNT>> ", this.state);
+        console.log("PROPS on DID MOUNT>> ", this.props);
         return (
             <div className="uploader-container">
                 <form className="form-input">

@@ -6,6 +6,7 @@ export default class APP extends Component {
     constructor(props) {
         super(props);
         this.state = {};
+        this.functionUploadImage = this.functionUploadImage.bind(this);
     }
     componentDidMount() {
         console.log("APP MOUNTED");
@@ -15,6 +16,15 @@ export default class APP extends Component {
                 // console.log("data from user.json", data);
                 this.setState(data);
             });
+    }
+
+    functionUploadImage(newUrl) {
+        console.log("FUNCTION UPLOAD IS RUNNING");
+
+        this.setState((oldState) => ({
+            uploaderIsVisible: !oldState.uploaderIsVisible,
+            imageUrl: newUrl,
+        }));
     }
 
     render() {
@@ -52,11 +62,7 @@ export default class APP extends Component {
                     <Uploader
                         usersID={this.state.usersID}
                         imageUrl={this.state.imageUrl}
-                        clickHandler={() => {
-                            this.setState({
-                                imageUrl: this.state.imageUrl,
-                            });
-                        }}
+                        functionUploadImage={this.functionUploadImage}
                     />
                 )}
             </>
