@@ -12,7 +12,7 @@ export class Uploader extends Component {
         // this.clickUploader = this.clickUploader.bind(this);
     }
     componentDidMount() {
-        console.log("UPLOADER MOUNTED");
+        // console.log("UPLOADER MOUNTED");
 
         this.setState({
             usersID: this.props.usersID,
@@ -59,8 +59,8 @@ export class Uploader extends Component {
             .catch((err) => console.log("error in catch-post-uploadpic", err));
     }
     render() {
-        console.log("STATE on DID MOUNT>> ", this.state);
-        console.log("PROPS on RENDER UPLOADER>> ", this.props);
+        // console.log("STATE on DID MOUNT>> ", this.state);
+        // console.log("PROPS on RENDER UPLOADER>> ", this.props);
         return (
             <div className="uploader-container">
                 <form className="form-input">

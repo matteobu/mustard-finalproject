@@ -12,8 +12,7 @@ export class MenuBar extends Component {
         // this.clickUploader = this.clickUploader.bind(this);
     }
     componentDidMount() {
-        console.log("MENU BAR  MOUNTED");
-
+        // console.log("MENU BAR  MOUNTED");
         // this.setState({
         //     usersID: this.props.usersID,
         // });
@@ -59,11 +58,25 @@ export class MenuBar extends Component {
     //         .catch((err) => console.log("error in catch-post-uploadpic", err));
     // }
     render() {
-        console.log("STATE on DID MOUNT>> ", this.state);
-        console.log("PROPS on DID MOUNT>> ", this.props);
+        // console.log("STATE on DID MOUNT>> ", this.state);
+        // console.log("PROPS on DID MOUNT>> ", this.props);
         return (
             <div className="menu-bar-container">
-                <h5>MENU BAR WILL BE SUPER BEAUTIFUL</h5>
+                <div className="link-navbar">
+                    <h6>HOME |</h6>
+                </div>
+                <div className="link-navbar">
+                    <h6>LOGOUT |</h6>
+                </div>
+                <div className="link-navbar">
+                    <h6>FRIENDS |</h6>
+                </div>
+                <div className="link-navbar">
+                    <h6>CHAT |</h6>
+                </div>
+                <div className="link-navbar">
+                    <h6>PROFILE |</h6>
+                </div>
                 {/* <form className="form-input">
                     <input
                         type="file"

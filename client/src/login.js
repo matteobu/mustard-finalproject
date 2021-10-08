@@ -11,13 +11,13 @@ export class Login extends Component {
         this.handleLogin = this.handleLogin.bind(this);
     }
     componentDidMount() {
-        console.log("LOGIN MOUNTED");
+        // console.log("LOGIN MOUNTED");
         this.setState({
             error: false,
         });
     }
     handleChange({ target }) {
-        console.log("input field name, something happend");
+        // console.log("input field name, something happend");
         // console.log("event object: >>", e);
         // console.log("event object: >>", target.name);
         // console.log("event object: >>", target.value);
@@ -33,9 +33,9 @@ export class Login extends Component {
     }
     handleLogin(e) {
         e.preventDefault();
-        console.log("login button works");
-        console.log("this.state :>> ", this.state);
-        console.log("this.state.error :>> ", this.state.error);
+        // console.log("login button works");
+        // console.log("this.state :>> ", this.state);
+        // console.log("this.state.error :>> ", this.state.error);
         fetch("/login", {
             method: "POST",
             body: JSON.stringify(this.state),
@@ -46,14 +46,14 @@ export class Login extends Component {
             .then((resp) => resp.json())
             .then((resp) => {
                 if (!resp.success) {
-                    console.log("tut mir leid");
+                    // console.log("tut mir leid");
                     this.setState({
                         error: "whoops, something went wrong. Please try again.",
                     });
                 } else {
                     location.reload();
                     //  SPLICE URL
-                    console.log("Richtig gutes Zeug");
+                    // console.log("Richtig gutes Zeug");
                 }
             });
     }

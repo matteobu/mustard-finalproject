@@ -33,7 +33,7 @@ export class Registration extends Component {
 
     handleRegister(e) {
         e.preventDefault();
-        console.log("this.state", this.state);
+        // console.log("this.state", this.state);
         fetch("/registration", {
             method: "POST",
             body: JSON.stringify(this.state),

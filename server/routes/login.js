@@ -13,7 +13,7 @@ router.use((req, res, next) => {
 });
 
 router.post("/", function (req, res) {
-    console.log("SESSION VALUE ON POST LOGIN:>> ", req.body);
+    // console.log("SESSION VALUE ON POST LOGIN:>> ", req.body);
     const { email, password } = req.body;
 
     db.listID(email)
@@ -22,7 +22,7 @@ router.post("/", function (req, res) {
                 res.json({ success: false });
             } else {
                 compare(password, result.rows[0].password).then((match) => {
-                    console.log("match :>> ", match);
+                    // console.log("match :>> ", match);
                     if (match) {
                         req.session.usersID = result.rows[0].id;
                         req.session.loginDone = true;
@@ -32,7 +32,7 @@ router.post("/", function (req, res) {
             }
         })
         .catch(function (err) {
-            console.log("ERROR IN POST LOGIN:>> ", err);
+            "ERROR IN POST LOGIN:>> ", err;
             res.json({ success: false });
         });
 });

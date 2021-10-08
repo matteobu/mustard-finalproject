@@ -13,14 +13,14 @@ export class Reset extends Component {
         this.handleStepTwo = this.handleStepTwo.bind(this);
     }
     componentDidMount() {
-        console.log("RESET MOUNTED");
+        // console.log("RESET MOUNTED");
         // this.setState({
         //     error: false,
         // });
     }
 
     handleChange({ target }) {
-        console.log("input field name, something happend");
+        // console.log("input field name, something happend");
         // console.log("event object: >>", e);
         // console.log("event object: >>", target.name);
         // console.log("event object: >>", target.value);
@@ -65,9 +65,9 @@ export class Reset extends Component {
 
     handleStepTwo(e) {
         e.preventDefault();
-        console.log("login button works");
-        console.log("this.state :>> ", this.state);
-        console.log("this.state.error :>> ", this.state.error);
+        // console.log("login button works");
+        // console.log("this.state :>> ", this.state);
+        // console.log("this.state.error :>> ", this.state.error);
         fetch("/reset-password", {
             method: "POST",
             body: JSON.stringify(this.state),
@@ -78,7 +78,7 @@ export class Reset extends Component {
             .then((resp) => resp.json())
             .then((resp) => {
                 if (!resp.success) {
-                    console.log("tut mir leid");
+                    // console.log("tut mir leid");
                     this.setState({
                         error: "whoops, something went wrong. Please try again.",
                     });
@@ -87,7 +87,7 @@ export class Reset extends Component {
                         step: 3,
                     });
                     // location.reload();
-                    console.log("Richtig gutes Zeug");
+                    // console.log("Richtig gutes Zeug");
                 }
             });
     }

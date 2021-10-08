@@ -14,7 +14,7 @@ const cryptoRandomString = require("crypto-random-string");
 // } = require("../server/middleware");
 
 router.use((req, res, next) => {
-    console.log("LOGIN ROUTES");
+    // console.log("LOGIN ROUTES");
     // console.log("req.method: ", req.method);
     // console.log("req.url: ", req.url);
     next();

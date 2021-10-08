@@ -37,7 +37,7 @@ export class BioEditor extends Component {
         })
             .then((resp) => resp.json())
             .then((resp) => {
-                console.log(resp);
+                // console.log(resp);
                 if (resp.success) {
                     // console.log("resp.success :>> ", resp.success);
                     // console.log("url from handleuploadpic :>> ", resp.url);

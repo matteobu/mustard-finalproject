@@ -15,11 +15,11 @@ export default class APP extends Component {
         this.storeBioInApp = this.storeBioInApp.bind(this);
     }
     componentDidMount() {
-        console.log("APP MOUNTED");
+        // console.log("APP MOUNTED");
         fetch("/user.json")
             .then((response) => response.json())
             .then((data) => {
-                console.log("data from user.json", data.bio);
+                // console.log("data from user.json", data.bio);
                 if (data.bio) {
                     this.setState(data);
                 } else {
@@ -41,14 +41,14 @@ export default class APP extends Component {
     }
 
     storeBioInApp(bioOfficial) {
-        console.log("bioOfficial :>> ", bioOfficial);
+        // console.log("bioOfficial :>> ", bioOfficial);
         this.setState(() => ({
             bio: bioOfficial,
         }));
     }
 
     render() {
-        console.log("RENDER DONE");
+        // console.log("APP RENDER");
         // console.log("this.state.imageUrl :>> ", this.state.imageUrl);
 
         if (!this.state.usersID) {
@@ -71,8 +71,6 @@ export default class APP extends Component {
                             last={this.state.last}
                             clickHandler={() => {
                                 this.setState((oldState) => ({
-                                    uploaderIsVisible:
-                                        !oldState.uploaderIsVisible,
                                     menuIsVisible: !oldState.menuIsVisible,
                                 }));
                             }}
@@ -86,6 +84,11 @@ export default class APP extends Component {
                         first={this.state.first}
                         last={this.state.last}
                         storeBioInApp={this.storeBioInApp}
+                        clickHandler={() => {
+                            this.setState((oldState) => ({
+                                uploaderIsVisible: !oldState.uploaderIsVisible,
+                            }));
+                        }}
                     />
                 </div>
 

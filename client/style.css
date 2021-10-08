@@ -230,8 +230,16 @@ input {
     padding: 10px;
     z-index: 1;
     border-radius: 26px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
 }
-
+.link-navbar {
+    font-size: 20px;
+    color: salmon;
+    margin-right: 5px;
+    align-self: center;
+}
 /* PROFILE CONTAINER */
 
 .profile-container {

@@ -25,6 +25,7 @@ export default function Profile(props) {
                     imageUrl={props.imageUrl}
                     first={props.first}
                     last={props.last}
+                    clickHandler={props.clickHandler}
                 />
             </div>
         </div>
