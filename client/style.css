@@ -25,18 +25,21 @@ body {
 }
 
 .logo {
+    grid-column-start: 1;
     top: 10px;
     left: 40px;
     position: absolute;
     width: 200px;
 }
-.profile-pic {
+.profile-pic-small {
+    grid-column-start: 2;
     height: 50px;
     border: 1px solid salmon;
     border-radius: 50%;
     justify-self: flex-end;
     margin: 10px;
     padding: 2px;
+    z-index: 2;
 }
 /* CENTRAL CONTAINER */
 .central-container {
@@ -214,6 +217,68 @@ input {
     color: #2b2b2b;
 }
 
+/* MENU BAR CONTAINER */
+
+.menu-bar-container {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #ca3e47;
+    width: 350px;
+    height: 34px;
+    border: 1px solid salmon;
+    padding: 10px;
+    z-index: 1;
+    border-radius: 26px;
+}
+
+/* PROFILE CONTAINER */
+
+.profile-container {
+
+    border-top: 1px solid darkorange;
+    margin-top: 10px;
+    grid-row-start: 2;
+    display: grid;
+    grid-template-columns: 20% 80%;
+    padding: 40px;
+}
+.profile-right-container {
+    padding-left: 15px;
+}
+.profile-container-pic {
+    border: 1px solid salmon;
+    height: 250px;
+    background-color: deepskyblue;
+    grid-row-start: 1;
+    display: grid;
+    object-fit: cover;
+    justify-content: center;
+    object-fit: cover;
+}
+.bio-container {
+    background-color: darkolivegreen;
+}
+.profile-pic-big {
+    height: 150px;
+    justify-items: center;
+    object-fit: cover;
+}
+
+/* BIO CONTAINER */
+.bio-container {
+    background-color: deeppink;
+}
+
+.text-area {
+    width: 500px;
+    height: 150px;
+}
+
+.my-bio {
+    color: orange;
+    font-size: 16px;
+}
 /* FOOTER */
 
 footer {

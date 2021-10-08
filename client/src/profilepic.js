@@ -1,7 +1,7 @@
-export default function ({ imageUrl, first, last, clickHandler }) {
+export default function ({ imageUrl, first, last, clickHandler, className }) {
     return (
         <img
-            className="profile-pic"
+            className={className}
             src={imageUrl}
             alt={`${first} ${last}`}
             onClick={clickHandler}

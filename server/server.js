@@ -26,6 +26,7 @@ const registrationRoute = require("./routes/registration");
 const loginRoute = require("./routes/login");
 const sendCodeRoute = require("./routes/reset-code");
 const resetPasswordRoute = require("./routes/reset-password");
+const updateBio = require("./routes/update-bio");
 
 // ROUTES
 app.use(compression());
@@ -35,6 +36,8 @@ app.use("/registration", registrationRoute);
 app.use("/login", loginRoute);
 app.use("/reset-code", sendCodeRoute);
 app.use("/reset-password", resetPasswordRoute);
+app.use("/update-bio", updateBio);
+
 app.get("/user/id.json", function (req, res) {
     res.json({
         usersID: req.session.usersID,

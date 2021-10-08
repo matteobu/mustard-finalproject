@@ -60,7 +60,7 @@ export class Uploader extends Component {
     }
     render() {
         console.log("STATE on DID MOUNT>> ", this.state);
-        console.log("PROPS on DID MOUNT>> ", this.props);
+        console.log("PROPS on RENDER UPLOADER>> ", this.props);
         return (
             <div className="uploader-container">
                 <form className="form-input">

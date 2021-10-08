@@ -21,7 +21,7 @@ router.use((req, res, next) => {
 });
 
 router.post("/", function (req, res) {
-    console.log("SESSION VALUE ON POST RESET:>> ", req.body);
+    // console.log("SESSION VALUE ON POST RESET:>> ", req.body);
     const { email } = req.body;
     // console.log("req.body :>> ", req.body);
 
@@ -34,7 +34,7 @@ router.post("/", function (req, res) {
                 const secretCode = cryptoRandomString({
                     length: 6,
                 });
-                console.log("result FROM LIST ID:>> ", result);
+                // console.log("result FROM LIST ID:>> ", result);
                 db.addCode(email, secretCode);
                 let toAddress = email;
                 let subject = "Bikepacking Irgendwo - Reset Password";

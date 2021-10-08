@@ -13,14 +13,14 @@ router.use((req, res, next) => {
 });
 
 router.post("/", function (req, res) {
-    console.log("SESSION VALUE ON POST RESET PASSWORD:>> ", req.body);
+    // console.log("SESSION VALUE ON POST RESET PASSWORD:>> ", req.body);
 
     const { email, code, password } = req.body;
 
     db.checkCode(email).then((result) => {
-        console.log("rows[0].code :>> ", result.rows[0].code);
+        // console.log("rows[0].code :>> ", result.rows[0].code);
         if (code == result.rows[0].code) {
-            console.log("MATCH CODE TRUE");
+            // console.log("MATCH CODE TRUE");
             hash(password)
                 .then((hashedPsw) => {
                     db.updateUserPsw(email, hashedPsw).then((result) => {

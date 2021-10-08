@@ -64,6 +64,15 @@ module.exports.updateUserPsw = (email, password) => {
     return db.query(q, params);
 };
 
+module.exports.updateBio = (id, bio) => {
+    const q = `UPDATE users 
+            SET bio = $2 
+            WHERE id= $1 RETURNING id`;
+
+    const params = [id, bio];
+    return db.query(q, params);
+};
+
 // TO UPDATE ACCORDING TO THIS PROJECT , THIS IS FROM IMAGEBOARD
 module.exports.uploadImages = (url, id) => {
     const q = `UPDATE users
