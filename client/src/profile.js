@@ -6,7 +6,6 @@ export default function Profile(props) {
     return (
         <div className="profile-container">
             <div className="profile-right-container">
-                <h1>THIS IS MY PROFILE CONTAINER</h1>
                 <h2>Hi! {props.first}</h2>
                 <h1>
                     <BioEditor

@@ -69,24 +69,44 @@ export class BioEditor extends Component {
 
         return (
             <div>
-                <div className="bio-container">
-                    <h6 onClick={this.openTextArea}>my bio:</h6>
-                </div>
-                {this.state.showBio && <div className="my-bio">{this.props.bio} </div>}
-                {this.state.showTextArea && (
+                {this.state.showBio && (
                     <div>
-                        <textarea
-                            className="text-area"
-                            name="text-area"
-                            onChange={this.storeDraftBio}
-                            placeholder={this.props.bio}
-                        ></textarea>
+                        <div className="my-bio">{this.props.bio}</div>
+
                         <button
-                            onClick={this.sendOfficialBio}
+                            onClick={this.openTextArea}
                             className="btn-update-bio"
                         >
-                            UPDATE BIO
+                            UPDATE
                         </button>
+                    </div>
+                )}
+
+                {this.state.showTextArea && (
+                    <div>
+                        {" "}
+                        <div>
+                            <textarea
+                                className="text-area"
+                                name="text-area"
+                                onChange={this.storeDraftBio}
+                                placeholder={this.props.bio}
+                            ></textarea>{" "}
+                        </div>
+                        <div>
+                            <button
+                                onClick={this.sendOfficialBio}
+                                className="btn-update-bio"
+                            >
+                                SUBMIT
+                            </button>{" "}
+                            <button
+                                onClick={this.openTextArea}
+                                className="btn-update-bio"
+                            >
+                                CANCEL
+                            </button>
+                        </div>
                     </div>
                 )}
             </div>

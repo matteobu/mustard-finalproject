@@ -235,8 +235,7 @@ input {
 /* PROFILE CONTAINER */
 
 .profile-container {
-
-    border-top: 1px solid darkorange;
+    border-top: 1px solid salmon;
     margin-top: 10px;
     grid-row-start: 2;
     display: grid;
@@ -247,9 +246,7 @@ input {
     padding-left: 15px;
 }
 .profile-container-pic {
-    border: 1px solid salmon;
     height: 250px;
-    background-color: deepskyblue;
     grid-row-start: 1;
     display: grid;
     object-fit: cover;
@@ -260,6 +257,9 @@ input {
     background-color: darkolivegreen;
 }
 .profile-pic-big {
+    border: 1px solid salmon;
+    border-radius: 50%;
+
     height: 150px;
     justify-items: center;
     object-fit: cover;
@@ -270,13 +270,19 @@ input {
     background-color: deeppink;
 }
 
-.text-area {
+textarea {
+    background-color: salmon;
+    border-bottom: 1px solid salmon;
     width: 500px;
     height: 150px;
+    font-size: 16px;
 }
 
 .my-bio {
-    color: orange;
+    border-bottom: 1px solid salmon;
+    width: 500px;
+    height: 150px;
+    color: salmon;
     font-size: 16px;
 }
 /* FOOTER */
