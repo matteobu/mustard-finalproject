@@ -66,9 +66,6 @@ export class MenuBar extends Component {
                     <h6>HOME |</h6>
                 </div>
                 <div className="link-navbar">
-                    <h6>LOGOUT |</h6>
-                </div>
-                <div className="link-navbar">
                     <h6>FRIENDS |</h6>
                 </div>
                 <div className="link-navbar">
@@ -76,6 +73,9 @@ export class MenuBar extends Component {
                 </div>
                 <div className="link-navbar">
                     <h6>PROFILE |</h6>
+                </div>
+                <div className="link-navbar">
+                    <h6>LOGOUT |</h6>
                 </div>
                 {/* <form className="form-input">
                     <input
