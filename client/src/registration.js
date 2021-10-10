@@ -63,62 +63,48 @@ export class Registration extends Component {
 
     render() {
         return (
-            <div className="registration-container">
-                <div className="left-registration">
-                    <img
-                        className="logo-container"
-                        src="/img/logo/no-logo-long-BPw.png"
-                        alt="logo"
-                    />
-                    <h2>
-                        is a community of people that love BIKEPACKING to ride
-                        thereabouts in the world. Join us and spread the `FAR
-                        NOT FAST` motto!
-                    </h2>
-                </div>
-                <div className="right-registration">
-                    <form className="form-registration">
-                        <input
-                            type="text"
-                            name="first"
-                            placeholder="first name"
-                            onChange={this.handleChange}
-                            required
-                        ></input>
-                        <input
-                            type="text"
-                            name="last"
-                            placeholder="last name"
-                            onChange={this.handleChange}
-                            required
-                        ></input>
-                        <input
-                            type="email"
-                            name="email"
-                            placeholder="e@mail.com"
-                            onChange={this.handleChange}
-                            required
-                        ></input>
-                        <input
-                            type="password"
-                            name="password"
-                            placeholder="password"
-                            onChange={this.handleChange}
-                            required
-                        ></input>
+            <div className="right-registration">
+                <form className="form-registration">
+                    <input
+                        type="text"
+                        name="first"
+                        placeholder="first name"
+                        onChange={this.handleChange}
+                        required
+                    ></input>
+                    <input
+                        type="text"
+                        name="last"
+                        placeholder="last name"
+                        onChange={this.handleChange}
+                        required
+                    ></input>
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="e@mail.com"
+                        onChange={this.handleChange}
+                        required
+                    ></input>
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="password"
+                        onChange={this.handleChange}
+                        required
+                    ></input>
 
-                        <button
-                            className="btn-register"
-                            onClick={this.handleRegister}
-                        >
-                            REGISTER
-                        </button>
-                        <Link to="/login">Already registered? </Link>
-                        <div className="error-message">
-                            {this.state.error && <h2>{this.state.error}</h2>}
-                        </div>
-                    </form>
-                </div>
+                    <button
+                        className="btn-register"
+                        onClick={this.handleRegister}
+                    >
+                        REGISTER
+                    </button>
+                    <Link to="/login">Already registered? </Link>
+                    <div className="error-message">
+                        {this.state.error && <h2>{this.state.error}</h2>}
+                    </div>
+                </form>
             </div>
         );
     }

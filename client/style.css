@@ -1,5 +1,5 @@
 body {
-    background-color: #2b2b2b;
+    background-color: #3f72af;
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
         Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
@@ -7,7 +7,7 @@ body {
 }
 
 .body-container {
-    background-color: #2b2b2b;
+    background-color: #3f72af;
     display: grid;
     grid-template-rows: 10% 85% 5%;
     min-height: 100vh;
@@ -19,7 +19,7 @@ body {
     position: absolute;
     height: 70px;
     width: 100%;
-    background-color: #2b2b2b;
+    background-color: #3f72af;
     display: grid;
     grid-template-columns: 80% 20%;
 }
@@ -34,10 +34,11 @@ body {
 .profile-pic-small {
     grid-column-start: 2;
     height: 50px;
-    border: 1px solid salmon;
+    border: 1px solid #112d4e;
     border-radius: 50%;
     justify-self: flex-end;
-    margin: 10px;
+    margin-top: 10px;
+    margin-right: 40px;
     padding: 2px;
     z-index: 2;
 }
@@ -46,6 +47,8 @@ body {
     grid-row-start: 2;
     justify-content: stretch;
     align-content: stretch;
+    display: grid;
+    grid-template-columns: 50% 50%;
 }
 .error-message {
     color: firebrick;
@@ -64,21 +67,17 @@ body {
 }
 /* ROUTE CONTAINER REGISTRATION */
 
-.registration-container {
-    display: grid;
-    grid-template-columns: 0.5fr 0.5fr;
-    /* grid-template-rows: repeat(auto-fit, minmax(400px, 1fr)); */
-    justify-content: space-around;
-    justify-items: center;
-    align-items: center;
-}
 .left-registration {
-    padding: 40px;
+    padding-left: 40px;
+    padding-top: 40px;
 }
+
 .right-registration {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: space-around;
+    justify-items: center;
 }
 
 .form-registration {
@@ -91,51 +90,67 @@ input {
     width: 400px;
     height: 70px;
     font-size: 20px;
-    background-color: #2b2b2b;
+    background-color: #3f72af;
     border: 0;
-    border-bottom: 1px solid #ca3e47;
+    border-bottom: 1px solid #f9f7f7;
 }
 
 ::placeholder {
-    color: #ca3e47;
+    color: #f9f7f7;
 }
 
 .btn-register {
-    color: #ca3e47;
-    height: 70px;
-    font-size: 20px;
-    background-color: #2b2b2b;
-    border: 1px solid #ca3e47;
-    border-radius: 20px;
-    margin-top: 10px;
+    width: 100px;
+    justify-self: center;
+    border: 1px solid #f9f7f7;
+    background-color: #3f72af;
+    margin: 15px;
+    color: #f9f7f7;
+    border-radius: 10px;
 }
 
 .form-registration > a {
-    color: #ca3e47;
+    color: #f9f7f7;
 }
 
 /* ROUTE CONTAINER LOGIN */
 .login-container {
-    background-color: deeppink;
-    position: absolute;
-    right: 0;
-    display: grid;
-    width: 400px;
-    height: 400px;
-    /* grid-template-columns: 0.5fr 0.5fr; */
-    /* grid-template-rows: repeat(auto-fit, minmax(400px, 1fr)); */
-    /* justify-content: space-around;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
     justify-items: center;
-    align-items: center; */
+}
+
+.login-registration {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.link-login {
+    color: #f9f7f7;
+    padding-right: 10px;
+    padding-top: 10px;
+    font-style: italic;
 }
 
 .login-input {
-    width: 300px;
-    height: 30px;
-    font-size: 14px;
-    background-color: #2b2b2b;
+    width: 400px;
+    height: 70px;
+    font-size: 20px;
+    background-color: #3f72af;
     border: 0;
-    border-bottom: 1px solid #ca3e47;
+    border-bottom: 1px solid #f9f7f7;
+}
+.btn-login {
+    width: 100px;
+    justify-self: center;
+    border: 1px solid #f9f7f7;
+    background-color: #3f72af;
+    margin: 15px;
+    color: #f9f7f7;
+    border-radius: 10px;
 }
 
 /* ROUTE CONTAINER RESET */
@@ -153,9 +168,9 @@ input {
     width: 300px;
     height: 30px;
     font-size: 14px;
-    background-color: #2b2b2b;
+    background-color: #3f72af;
     border: 0;
-    border-bottom: 1px solid #ca3e47;
+    border-bottom: 1px solid #f9f7f7;
 }
 
 .reset-form {
@@ -168,18 +183,18 @@ input {
     width: 300px;
     height: 30px;
     font-size: 14px;
-    background-color: #2b2b2b;
+    background-color: #3f72af;
     border: 0;
-    border-bottom: 1px solid #ca3e47;
+    border-bottom: 1px solid #f9f7f7;
 }
 
 .btn-send-code {
-    color: #ca3e47;
+    color: #f9f7f7;
     height: 30px;
     width: 200px;
     font-size: 20px;
-    background-color: #2b2b2b;
-    border: 1px solid #ca3e47;
+    background-color: #3f72af;
+    border: 1px solid #f9f7f7;
     border-radius: 20px;
     margin-top: 10px;
 }
@@ -187,26 +202,28 @@ input {
 /* UPLOADER CONTAINER */
 .uploader-container {
     position: absolute;
-    top: 150px;
-    left: 30%;
-    background-color: #ca3e47;
-    width: 500px;
-    height: 200px;
-    border-radius: 50px;
-    border: 1px solid salmon;
+    top: 305px;
+    left: 40px;
+    background-color: #3f72af;
+    width: 140px;
+    height: 50px;
+    border-radius: 10px;
+    border: 1px solid #112d4e;
     padding: 10px;
 }
 
 .form-input {
-    height: 100%;
+    height: 50px;
     display: grid;
     grid-template-rows: 50% 50%;
 }
 
 .inputfile {
+    height: 20px;
+    width: 70px;
     grid-row-start: 1;
-    background-color: #ca3e47;
-    align-self: flex-end;
+    background-color: #f9f7f7;
+    align-self: center;
     justify-self: center;
 }
 .form-input > button {
@@ -214,7 +231,10 @@ input {
     grid-row-start: 2;
     align-self: flex-end;
     justify-self: center;
-    color: #2b2b2b;
+    border: 1px solid #112d4e;
+    background-color: #3f72af;
+
+    color: #112d4e;
 }
 
 /* MENU BAR CONTAINER */
@@ -222,11 +242,11 @@ input {
 .menu-bar-container {
     position: absolute;
     top: 10px;
-    right: 10px;
-    background-color: #ca3e47;
-    width: 350px;
+    right: 95px;
+    /* background-color: #f9f7f7; */
+    width: 360px;
     height: 34px;
-    border: 1px solid salmon;
+    border: 1px solid #112d4e;
     padding: 10px;
     z-index: 1;
     border-radius: 26px;
@@ -236,19 +256,19 @@ input {
 }
 .link-navbar {
     font-size: 20px;
-    color: salmon;
+    color: #112d4e;
     margin-right: 5px;
     align-self: center;
 }
 /* PROFILE CONTAINER */
 
 .profile-container {
-    border-top: 1px solid salmon;
+    border-top: 1px solid #112d4e;
     margin-top: 10px;
     grid-row-start: 2;
     display: grid;
     grid-template-columns: 20% 80%;
-    padding: 40px;
+    margin: 40px;
 }
 .profile-right-container {
     padding-left: 15px;
@@ -256,21 +276,33 @@ input {
 .profile-container-pic {
     height: 250px;
     grid-row-start: 1;
-    display: grid;
     object-fit: cover;
     justify-content: center;
     object-fit: cover;
+}
+.changepic {
+    position: relative;
+    left: 100px;
+    top: 155px;
+    width: 25px;
+    height: 25px;
+    z-index: 3;
+    border-radius: 50%;
+}
+.camera-icon {
+    width: 25px;
 }
 .bio-container {
     background-color: darkolivegreen;
 }
 .profile-pic-big {
-    border: 1px solid salmon;
+    border: 1px solid #112d4e;
     border-radius: 50%;
 
     height: 150px;
     justify-items: center;
     object-fit: cover;
+    z-index: 2;
 }
 
 /* BIO CONTAINER */
@@ -279,20 +311,34 @@ input {
 }
 
 textarea {
-    background-color: salmon;
-    border-bottom: 1px solid salmon;
+    background-color: #112d4e;
+    border-bottom: 1px solid #dbe2ef;
     width: 500px;
     height: 150px;
     font-size: 16px;
 }
 
 .my-bio {
-    border-bottom: 1px solid salmon;
+    border-bottom: 1px solid #dbe2ef;
     width: 500px;
     height: 150px;
-    color: salmon;
+    color: #dbe2ef;
     font-size: 16px;
 }
+.my-bio > h3 {
+    font-style: italic;
+    font-weight: lighter;
+}
+.btn-update-bio {
+    width: 100px;
+    justify-self: center;
+    border: 1px solid #f9f7f7;
+    background-color: #3f72af;
+    margin: 15px;
+    color: #f9f7f7;
+    border-radius: 10px;
+}
+
 /* FOOTER */
 
 footer {
@@ -301,6 +347,6 @@ footer {
     line-height: 30px;
     padding-left: 40px;
     padding-right: 40px;
-    background-color: #171010;
-    color: #ca3e47;
+    background-color: #112d4e;
+    color: #dbe2ef;
 }

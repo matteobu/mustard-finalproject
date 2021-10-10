@@ -10,6 +10,7 @@ export default class APP extends Component {
         this.state = {
             picProfileSmall: "profile-pic-small",
             picProfilebig: "profile-pic-big",
+            cameraPic: "./img/profile-pic/change-pic.png",
         };
         this.functionUploadImage = this.functionUploadImage.bind(this);
         this.storeBioInApp = this.storeBioInApp.bind(this);
@@ -76,11 +77,12 @@ export default class APP extends Component {
                             }}
                         />
                     </div>
-
+                    {/* <div className="profile-pic-big-container"> */}
                     <Profile
                         bio={this.state.bio}
                         className={this.state.picProfilebig}
                         imageUrl={this.state.imageUrl}
+                        cameraPic={this.state.cameraPic}
                         first={this.state.first}
                         last={this.state.last}
                         storeBioInApp={this.storeBioInApp}
@@ -90,6 +92,8 @@ export default class APP extends Component {
                             }));
                         }}
                     />
+                    {/* </div> */}
+                    <footer>©2021. FAR NOT FAST</footer>
                 </div>
 
                 {this.state.uploaderIsVisible && (

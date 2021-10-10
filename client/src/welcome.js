@@ -19,6 +19,18 @@ export default function Welcome() {
                     </Link>
                 </div>
                 <div className="central-container">
+                    <div className="left-registration">
+                        <img
+                            className="logo-container"
+                            src="/img/logo/no-logo-long-BPw.png"
+                            alt="logo"
+                        />
+                        <h2>
+                            is a community of people that love BIKEPACKING to
+                            ride thereabouts in the world. Join us and spread
+                            the `FAR NOT FAST` motto!
+                        </h2>
+                    </div>
                     <Switch>
                         <Route path="/reset">
                             <Reset />

@@ -88,12 +88,12 @@ export class Login extends Component {
                             LOGIN
                         </button>
                     </form>
+                    <Link className="link-login" to="/">Not registered? </Link>
+                    <Link className="link-login" to="/reset">Forgot Password? </Link>
+                    <div className="error-message">
+                        {this.state.error && <h2>{this.state.error}</h2>}
+                    </div>
                 </section>
-                <Link to="/">Not registered? </Link>
-                <Link to="/reset">Forgot Password? </Link>
-                <div className="error-message">
-                    {this.state.error && <h2>{this.state.error}</h2>}
-                </div>
             </div>
         );
     }

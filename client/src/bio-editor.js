@@ -71,7 +71,9 @@ export class BioEditor extends Component {
             <div>
                 {this.state.showBio && (
                     <div>
-                        <div className="my-bio">{this.props.bio}</div>
+                        <div className="my-bio">
+                            <h3> my bio:</h3> {this.props.bio}
+                        </div>
 
                         <button
                             onClick={this.openTextArea}

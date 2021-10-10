@@ -2,7 +2,7 @@ import ProfilePic from "./profilepic";
 import { BioEditor } from "./bio-editor";
 
 export default function Profile(props) {
-    // console.log("props in PROFILE  ", props);
+    console.log("props in PROFILE  ", props);
     return (
         <div className="profile-container">
             <div className="profile-right-container">
@@ -20,12 +20,18 @@ export default function Profile(props) {
             </div>
 
             <div className="profile-container-pic">
+                <div className="changepic">
+                    <img
+                        className="camera-icon"
+                        src={props.cameraPic}
+                        onClick={props.clickHandler}
+                    ></img>
+                </div>
                 <ProfilePic
                     className={props.className}
                     imageUrl={props.imageUrl}
                     first={props.first}
                     last={props.last}
-                    clickHandler={props.clickHandler}
                 />
             </div>
         </div>

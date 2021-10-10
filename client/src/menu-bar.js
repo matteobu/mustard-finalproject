@@ -18,52 +18,14 @@ export class MenuBar extends Component {
         // });
     }
 
-    // fileSelectHandler({ target }) {
-    //     // console.log("input field name, something happend");
-    //     // console.log("event object: >>", target.files[0]);
-
-    //     this.setState(
-    //         {
-    //             [target.name]: target.files[0],
-    //         },
-    //         () => {
-    //             // console.log("registration update", this.state);
-    //             // console.log("JSON THIS STATE", JSON.stringify(this.state));
-    //         }
-    //     );
-    // }
-    // handleUploadPic(e) {
-    //     e.preventDefault();
-    //     const fd = new FormData();
-    //     fd.append("file", this.state.file);
-    //     // console.log("this.state on HANDLE UPLOAD PIC", this.state);
-    //     // console.log("this.state on HANDLE UPLOAD PIC", fd);
-    //     fetch("/upload-pic", {
-    //         method: "POST",
-    //         body: fd,
-    //     })
-    //         .then((resp) => resp.json())
-    //         .then((resp) => {
-    //             if (resp.success) {
-    //                 // console.log("resp.success :>> ", resp.success);
-    //                 // console.log("url from handleuploadpic :>> ", resp.url);
-    //                 // console.log("THIS PROPS :>> ", );
-    //                 this.props.functionUploadImage(resp.url);
-    //             } else {
-    //                 this.setState({
-    //                     error: "whoops, something went wrong. Please try again.",
-    //                 });
-    //             }
-    //         })
-    //         .catch((err) => console.log("error in catch-post-uploadpic", err));
-    // }
+   
     render() {
         // console.log("STATE on DID MOUNT>> ", this.state);
         // console.log("PROPS on DID MOUNT>> ", this.props);
         return (
             <div className="menu-bar-container">
                 <div className="link-navbar">
-                    <h6>HOME |</h6>
+                    <h6>FIND BIKERZ |</h6>
                 </div>
                 <div className="link-navbar">
                     <h6>FRIENDS |</h6>
@@ -77,19 +39,7 @@ export class MenuBar extends Component {
                 <div className="link-navbar">
                     <h6>LOGOUT |</h6>
                 </div>
-                {/* <form className="form-input">
-                    <input
-                        type="file"
-                        className="inputfile"
-                        name="file"
-                        accept="image/*"
-                        onChange={this.fileSelectHandler}
-                    ></input>
-
-                    <button onClick={this.handleUploadPic} type="submit">
-                        UPLOAD
-                    </button>
-                </form> */}
+              
             </div>
         );
     }

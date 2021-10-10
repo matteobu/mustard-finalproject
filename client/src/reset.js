@@ -1,4 +1,6 @@
 import { Component } from "react";
+import ReactDOM from "react-dom";
+import App from "./app";
 // import { Link } from "react-router-dom";
 
 export class Reset extends Component {
@@ -83,9 +85,8 @@ export class Reset extends Component {
                         error: "whoops, something went wrong. Please try again.",
                     });
                 } else {
-                    this.setState({
-                        step: 3,
-                    });
+                    ReactDOM.render(<App />, document.querySelector("main"));
+
                     // location.reload();
                     // console.log("Richtig gutes Zeug");
                 }
@@ -95,12 +96,7 @@ export class Reset extends Component {
         const step = this.state.step;
         return (
             <div className="reset-container">
-                <img
-                    className="logo-container-center"
-                    src="/img/logo/no-logo-long-BPw.png"
-                    alt="logo"
-                />
-
+           
                 {step == 1 && (
                     <form className="reset-form">
                         <h3> please insert your email address</h3>
