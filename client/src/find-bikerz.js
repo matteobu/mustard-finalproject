@@ -2,52 +2,67 @@ import { useState, useEffect } from "react";
 // import { Link } from "react-router-dom";
 
 export default function FindBikerz(props) {
-    const [bikerz, setBikerz] = useState("");
-    const [countries, setCountries] = useState([]);
+    const [bikerz, setBikerz] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
+    // const [countries, setCountries] = useState([]);
 
     useEffect(() => {
-        fetch(`https://spicedworld.herokuapp.com/?q=${bikerz}`)
-            .then((res) => res.json())
-            .then((results) => {
-                console.log("results :>> ", results);
-                setCountries(results);
-            })
-            .catch(console.log);
+        // console.log("props.first ON FIRST USE EFFECT :>> ", props.first);
+        if (!searchTerm) {
+            fetch("/lastThreeUsers")
+                .then((res) => res.json())
+                .then(({ rows }) => {
+                    console.log("results :>> ", rows);
+                    // let biker = rows[0].first;
+                    setBikerz(rows);
+                })
+                .catch(console.log);
+        } else {
+            // fetch(`/allMatchUsers/:${searchTerm}`);
+            fetch(`/userList/${searchTerm}`)
+                .then((res) => res.json())
+                .then(({ rows }) => {
+                    console.log("results :>> ", rows);
+                    // let biker = rows[0].first;
+                    setBikerz(rows);
+                })
+                .catch(console.log);
+        }
 
         return () => {
-            console.log(`About to replace ${bikerz} with a new value :>> `);
+            console.log(`About to replace ${searchTerm} with a new value :>> `);
         };
-    }, [bikerz]);
-
-    useEffect(() => {
-        console.log("props.first :>> ", props.first);
-        return () => {
-            console.log(`component is unmounting`);
-        };
-    }, []);
-
-    // const updateGreeting = (e) => {
-    //     if (e.key === "Enter") {
-    //         setUsers([...users, e.target.value]);
-    //         e.target.value = "";
-    //     }
-    // };
+    }, [searchTerm]);
 
     return (
         <>
             <div className="find-bikerz-container">
-                <h1> FIND BIKERZ LIKE YOU {props.first} </h1>
+                <h1 className="title"> FIND BIKERZ LIKE YOU {props.first} </h1>
                 <input
                     className="find-bikerz-input"
                     type="text"
-                    onChange={(e) => setBikerz(e.target.value)}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                 />
-                {countries?.map((country) => (
-                    <p key={country}>{country}</p>
-                ))}
+                <div className="result-input">
+                    {bikerz &&
+                        bikerz.map((biker, i) => (
+                            <div key={i}>
+                                <h1>{biker.first}</h1>
+                                <h2>{biker.last}</h2>
+                                <img
+                                    className="camera-icon"
+                                    src={biker.pic_url}
+                                ></img>
+                            </div>
+                        ))}
+                </div>
             </div>
         </>
     );
+}
+
+{
+    /* first, last, id, pic_url, bio */
 }
 
 // HERE BELOW THERE IS THE CODE FROM THE ENCOUNTER PLEASE DO NOT CUT OR PASTE ANYTHING JUST COPY

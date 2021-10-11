@@ -345,16 +345,24 @@ textarea {
     border-top: 1px solid #112d4e;
     margin-top: 10px;
     grid-row-start: 2;
-    grid-template-columns: 20% 80%;
+
     margin: 40px;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-content: center;
+    display: grid;
+    justify-content: center;
 }
 .find-bikerz-input {
     background-color: salmon;
-    height: 10px;
+    height: 30px;
+    grid-row-start: 2;
+}
+.title {
+    grid-row-start: 1;
+}
+.result-input {
+    grid-row-start: 3;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+
 }
 /* FOOTER */
 

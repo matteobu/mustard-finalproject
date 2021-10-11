@@ -26,7 +26,9 @@ const registrationRoute = require("./routes/registration");
 const loginRoute = require("./routes/login");
 const sendCodeRoute = require("./routes/reset-code");
 const resetPasswordRoute = require("./routes/reset-password");
-const updateBio = require("./routes/update-bio");
+const updateBioRoute = require("./routes/update-bio");
+const lastThreeUsersRoute = require("./routes/lastThreeUsers");
+// const allMatchUsersRoute = require("./routes/allMatchUsers");
 
 // ROUTES
 app.use(compression());
@@ -36,13 +38,25 @@ app.use("/registration", registrationRoute);
 app.use("/login", loginRoute);
 app.use("/reset-code", sendCodeRoute);
 app.use("/reset-password", resetPasswordRoute);
-app.use("/update-bio", updateBio);
+app.use("/update-bio", updateBioRoute);
+app.use("/lastThreeUsers", lastThreeUsersRoute);
+// app.use(`/allMatchUsers/:searchTerm`, allMatchUsersRoute);
 
 app.get("/user/id.json", function (req, res) {
     res.json({
         usersID: req.session.usersID,
     });
 });
+
+app.get("/userList/:input", function (req, res) {
+    console.log("SEARCH FOR USERS SERVER SIDE IS WORKING", req.params.input);
+    db.allMatchUsers(req.params.input).then(({ rows }) => {
+        res.json({
+            rows,
+        });
+    });
+});
+
 app.get("/user.json", function (req, res) {
     db.usersStarInformation(req.session.usersID).then((result) => {
         const { id, first, last, pic_url, bio, email } = result.rows[0];
