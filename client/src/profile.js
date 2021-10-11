@@ -2,7 +2,9 @@ import ProfilePic from "./profilepic";
 import { BioEditor } from "./bio-editor";
 
 export default function Profile(props) {
+    /// TOP LEVEL OF THE FUNCTION COMPONENT////
     console.log("props in PROFILE  ", props);
+    /// TOP LEVEL OF THE FUNCTION COMPONENT ////
     return (
         <div className="profile-container">
             <div className="profile-right-container">

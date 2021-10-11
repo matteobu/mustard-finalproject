@@ -1,8 +1,11 @@
+// FUNCTION COMPONENT
 import { Component } from "react";
+import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
+import FindBikerz from "./find-bikerz";
 import ProfilePic from "./profilepic";
+import Profile from "./profile";
 import { Uploader } from "./uploader";
 import { MenuBar } from "./menu-bar";
-import Profile from "./profile";
 
 export default class APP extends Component {
     constructor(props) {
@@ -56,15 +59,16 @@ export default class APP extends Component {
             return <div>Loading...</div>;
         }
         return (
-            <>
+            <BrowserRouter>
                 <div className="body-container">
                     <div className="navbar">
-                        <img
-                            className="logo"
-                            src="/img/logo/logoBPw.png"
-                            alt="logo"
-                        />
-
+                        <Link to="/">
+                            <img
+                                className="logo"
+                                src="/img/logo/logoBPb.png"
+                                alt="logo"
+                            />
+                        </Link>
                         <ProfilePic
                             className={this.state.picProfileSmall}
                             imageUrl={this.state.imageUrl}
@@ -77,25 +81,34 @@ export default class APP extends Component {
                             }}
                         />
                     </div>
-                    {/* <div className="profile-pic-big-container"> */}
-                    <Profile
-                        bio={this.state.bio}
-                        className={this.state.picProfilebig}
-                        imageUrl={this.state.imageUrl}
-                        cameraPic={this.state.cameraPic}
-                        first={this.state.first}
-                        last={this.state.last}
-                        storeBioInApp={this.storeBioInApp}
-                        clickHandler={() => {
-                            this.setState((oldState) => ({
-                                uploaderIsVisible: !oldState.uploaderIsVisible,
-                            }));
-                        }}
-                    />
-                    {/* </div> */}
-                    <footer>©2021. FAR NOT FAST</footer>
+                    <Switch>
+                        <Route exact path="/">
+                            <Profile
+                                bio={this.state.bio}
+                                className={this.state.picProfilebig}
+                                imageUrl={this.state.imageUrl}
+                                cameraPic={this.state.cameraPic}
+                                first={this.state.first}
+                                last={this.state.last}
+                                storeBioInApp={this.storeBioInApp}
+                                clickHandler={() => {
+                                    this.setState((oldState) => ({
+                                        uploaderIsVisible:
+                                            !oldState.uploaderIsVisible,
+                                    }));
+                                }}
+                            />{" "}
+                        </Route>
+                        <Route path="/find-bikerz">
+                            <FindBikerz first={this.state.first} />
+                        </Route>
+                        {/* <Route exact path="/">
+                                <Registration />
+                            </Route> */}
+                    </Switch>
                 </div>
-
+                <footer>©2021. BIKEPACKING IRGENDWO</footer>
+                {/* ⬇️⬇️⬇️⬇️⬇️⬇️ HERE BELOW ARE LISTED THE MODAL THAT CAN APPEAR OR DISAPPEAR ACCORDING TO THE RELATIVE onCLICK FUNCTIONS */}
                 {this.state.uploaderIsVisible && (
                     <Uploader
                         usersID={this.state.usersID}
@@ -110,7 +123,66 @@ export default class APP extends Component {
                         // functionUploadImage={this.functionUploadImage}
                     />
                 )}
-            </>
+                {/* ⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️ HERE ABOVE ARE LISTED THE MODAL THAT CAN APPEAR OR DISAPPEAR ACCORDING TO THE RELATIVE onCLICK FUNCTIONS */}
+            </BrowserRouter>
         );
     }
 }
+
+// OLD APP FUNCTION COMPONENT PLEASE DO NOT CUT OR PASTE OR MODIFY THIS LINES BELOW JUST COPY
+
+// <>
+//     <div className="body-container">
+//         <div className="navbar">
+//             <img
+//                 className="logo"
+//                 src="/img/logo/logoBPw.png"
+//                 alt="logo"
+//             />
+
+//             <ProfilePic
+//                 className={this.state.picProfileSmall}
+//                 imageUrl={this.state.imageUrl}
+//                 first={this.state.first}
+//                 last={this.state.last}
+//                 clickHandler={() => {
+//                     this.setState((oldState) => ({
+//                         menuIsVisible: !oldState.menuIsVisible,
+//                     }));
+//                 }}
+//             />
+//         </div>
+//         {/* <div className="profile-pic-big-container"> */}
+//         <Profile
+//             bio={this.state.bio}
+//             className={this.state.picProfilebig}
+//             imageUrl={this.state.imageUrl}
+//             cameraPic={this.state.cameraPic}
+//             first={this.state.first}
+//             last={this.state.last}
+//             storeBioInApp={this.storeBioInApp}
+//             clickHandler={() => {
+//                 this.setState((oldState) => ({
+//                     uploaderIsVisible: !oldState.uploaderIsVisible,
+//                 }));
+//             }}
+//         />
+//         {/* </div> */}
+//         <footer>©2021. BIKEPACKING IRGENDWO</footer>
+//     </div>
+
+//     {this.state.uploaderIsVisible && (
+//         <Uploader
+//             usersID={this.state.usersID}
+//             imageUrl={this.state.imageUrl}
+//             functionUploadImage={this.functionUploadImage}
+//         />
+//     )}
+//     {this.state.menuIsVisible && (
+//         <MenuBar
+//             usersID={this.state.usersID}
+//             imageUrl={this.state.imageUrl}
+//             // functionUploadImage={this.functionUploadImage}
+//         />
+//     )}
+// </>

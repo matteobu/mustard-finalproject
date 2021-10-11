@@ -26,10 +26,13 @@ export default function Welcome() {
                             alt="logo"
                         />
                         <h2>
-                            is a community of people that love BIKEPACKING to
-                            ride thereabouts in the world. Join us and spread
-                            the `FAR NOT FAST` motto!
+                            is a community of people who like to travel by bike
+                            and sleep in tents under the stars. A community of
+                            people who think that the journey is more important
+                            than the destination. A journey made of people, not
+                            performances.
                         </h2>
+                        <h5>Join us and spread the `FAR NOT FAST` motto!</h5>
                     </div>
                     <Switch>
                         <Route path="/reset">
@@ -43,8 +46,7 @@ export default function Welcome() {
                         </Route>
                     </Switch>
                 </div>
-
-                <footer>©2021. FAR NOT FAST</footer>
+                <footer>©2021. BIKEPACKING IRGENDWO</footer>
             </div>
         </BrowserRouter>
     );

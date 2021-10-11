@@ -339,6 +339,23 @@ textarea {
     border-radius: 10px;
 }
 
+/* FIND BIKERZ COMPONENT */
+.find-bikerz-container {
+    background-color: coral;
+    border-top: 1px solid #112d4e;
+    margin-top: 10px;
+    grid-row-start: 2;
+    grid-template-columns: 20% 80%;
+    margin: 40px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+}
+.find-bikerz-input {
+    background-color: salmon;
+    height: 10px;
+}
 /* FOOTER */
 
 footer {

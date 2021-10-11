@@ -1,5 +1,5 @@
 import { Component } from "react";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export class MenuBar extends Component {
     constructor(props) {
@@ -18,28 +18,36 @@ export class MenuBar extends Component {
         // });
     }
 
-   
     render() {
         // console.log("STATE on DID MOUNT>> ", this.state);
         // console.log("PROPS on DID MOUNT>> ", this.props);
         return (
             <div className="menu-bar-container">
                 <div className="link-navbar">
-                    <h6>FIND BIKERZ |</h6>
+                    <Link to="/find-bikerz">
+                        <h6>FIND BIKERZ |</h6>
+                    </Link>
                 </div>
                 <div className="link-navbar">
-                    <h6>FRIENDS |</h6>
+                    <Link to="/friends">
+                        <h6>FRIENDS |</h6>
+                    </Link>
                 </div>
                 <div className="link-navbar">
-                    <h6>CHAT |</h6>
+                    <Link to="/chat">
+                        <h6>CHAT |</h6>
+                    </Link>
                 </div>
                 <div className="link-navbar">
-                    <h6>PROFILE |</h6>
+                    <Link to="/">
+                        <h6>PROFILE |</h6>
+                    </Link>
                 </div>
                 <div className="link-navbar">
-                    <h6>LOGOUT |</h6>
+                    <Link to="/logout">
+                        <h6>LOGOUT |</h6>
+                    </Link>
                 </div>
-              
             </div>
         );
     }

@@ -1,6 +1,8 @@
 import { Component } from "react";
 import ReactDOM from "react-dom";
 import App from "./app";
+import { Link } from "react-router-dom";
+
 // import { Link } from "react-router-dom";
 
 export class Reset extends Component {
@@ -15,6 +17,8 @@ export class Reset extends Component {
         this.handleStepTwo = this.handleStepTwo.bind(this);
     }
     componentDidMount() {
+        history.pushState({}, "", "/");
+
         // console.log("RESET MOUNTED");
         // this.setState({
         //     error: false,
@@ -59,6 +63,7 @@ export class Reset extends Component {
                     this.setState({
                         step: 2,
                     });
+                    location.pathname.slice(location.pathname.length);
                     // location.reload();
                     // console.log("Richtig gutes Zeug");
                 }
@@ -96,7 +101,6 @@ export class Reset extends Component {
         const step = this.state.step;
         return (
             <div className="reset-container">
-           
                 {step == 1 && (
                     <form className="reset-form">
                         <h3> please insert your email address</h3>
@@ -147,6 +151,9 @@ export class Reset extends Component {
                         </button>
                     </form>
                 )}
+                <Link className="link-login" to="/login">
+                    Wanna try login one more time?{" "}
+                </Link>
 
                 {/* <Link to="/">Not registered? </Link>
                 <Link to="/reset">Forgot Password? </Link> */}

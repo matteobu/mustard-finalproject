@@ -7,4 +7,5 @@ bundle.css
 client/src/counter.js
 client/src/greetee.js
 client/src/helloWorld.js
+client/src/SayingHello.js
 secrets.json

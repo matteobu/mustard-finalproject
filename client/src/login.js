@@ -11,7 +11,9 @@ export class Login extends Component {
         this.handleLogin = this.handleLogin.bind(this);
     }
     componentDidMount() {
-        // console.log("LOGIN MOUNTED");
+        console.log("LOGIN MOUNTED");
+        history.pushState({}, "", "/");
+
         this.setState({
             error: false,
         });
@@ -88,8 +90,12 @@ export class Login extends Component {
                             LOGIN
                         </button>
                     </form>
-                    <Link className="link-login" to="/">Not registered? </Link>
-                    <Link className="link-login" to="/reset">Forgot Password? </Link>
+                    <Link className="link-login" to="/">
+                        Not registered?{" "}
+                    </Link>
+                    <Link className="link-login" to="/reset">
+                        Forgot Password?{" "}
+                    </Link>
                     <div className="error-message">
                         {this.state.error && <h2>{this.state.error}</h2>}
                     </div>
