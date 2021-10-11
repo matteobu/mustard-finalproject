@@ -95,13 +95,7 @@ module.exports.lastThreeUsers = () => {
     );
 };
 
-// module.exports.allMatchUsers = (input) => {
-//     const q = `SELECT first FROM users
-//     WHERE first ILIKE 'a%'`;
 
-//     const params = [input];
-//     return db.query(q, params);
-// };
 module.exports.allMatchUsers = (input) => {
     return db.query(
         `SELECT id, first, last, pic_url FROM users WHERE first ILIKE ($1);`,

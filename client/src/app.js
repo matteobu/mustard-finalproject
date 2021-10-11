@@ -17,6 +17,7 @@ export default class APP extends Component {
         };
         this.functionUploadImage = this.functionUploadImage.bind(this);
         this.storeBioInApp = this.storeBioInApp.bind(this);
+        // this.logout = this.logout.bind(this);
     }
     componentDidMount() {
         // console.log("APP MOUNTED");
@@ -34,6 +35,12 @@ export default class APP extends Component {
                 }
             });
     }
+    // logOut() {
+    //     // console.log("APP MOUNTED");
+    //     fetch("/logout")
+    //         .then((response) => response.json())
+    //         .then((data) => {});
+    // }
 
     functionUploadImage(newUrl) {
         // console.log("FUNCTION UPLOAD IS RUNNING");
@@ -120,7 +127,7 @@ export default class APP extends Component {
                     <MenuBar
                         usersID={this.state.usersID}
                         imageUrl={this.state.imageUrl}
-                        // functionUploadImage={this.functionUploadImage}
+                        // logout={this.logout}
                     />
                 )}
                 {/* ⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️ HERE ABOVE ARE LISTED THE MODAL THAT CAN APPEAR OR DISAPPEAR ACCORDING TO THE RELATIVE onCLICK FUNCTIONS */}

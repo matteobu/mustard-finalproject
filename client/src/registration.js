@@ -13,7 +13,7 @@ export class Registration extends Component {
     }
 
     componentDidMount() {
-        console.log("REGISTRATION MOUNTED");
+        // console.log("REGISTRATION MOUNTED");
     }
     handleChange({ target }) {
         // console.log("input field name, something happend");

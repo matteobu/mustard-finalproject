@@ -44,9 +44,9 @@ export class MenuBar extends Component {
                     </Link>
                 </div>
                 <div className="link-navbar">
-                    <Link to="/logout">
+                    <a href="/logout">
                         <h6>LOGOUT |</h6>
-                    </Link>
+                    </a>
                 </div>
             </div>
         );

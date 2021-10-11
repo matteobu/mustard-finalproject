@@ -42,6 +42,12 @@ app.use("/update-bio", updateBioRoute);
 app.use("/lastThreeUsers", lastThreeUsersRoute);
 // app.use(`/allMatchUsers/:searchTerm`, allMatchUsersRoute);
 
+app.get("/logout", function (req, res) {
+    // console.log("req.session", req.session);
+    req.session = null;
+    // console.log("req.session", req.session);
+    res.redirect("/");
+});
 app.get("/user/id.json", function (req, res) {
     res.json({
         usersID: req.session.usersID,
@@ -49,7 +55,7 @@ app.get("/user/id.json", function (req, res) {
 });
 
 app.get("/userList/:input", function (req, res) {
-    console.log("SEARCH FOR USERS SERVER SIDE IS WORKING", req.params.input);
+    // console.log("SEARCH FOR USERS SERVER SIDE IS WORKING", req.params.input);
     db.allMatchUsers(req.params.input).then(({ rows }) => {
         res.json({
             rows,

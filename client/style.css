@@ -12,6 +12,12 @@ body {
     grid-template-rows: 10% 85% 5%;
     min-height: 100vh;
 }
+
+a {
+    color: white;
+    text-decoration: none;
+
+}
 /* NAV BAR */
 
 .navbar {
@@ -341,28 +347,43 @@ textarea {
 
 /* FIND BIKERZ COMPONENT */
 .find-bikerz-container {
-    background-color: coral;
     border-top: 1px solid #112d4e;
     margin-top: 10px;
-    grid-row-start: 2;
-
+    width: 100%;
     margin: 40px;
-    display: grid;
     justify-content: center;
+    grid-row-start: 2;
 }
 .find-bikerz-input {
-    background-color: salmon;
     height: 30px;
-    grid-row-start: 2;
 }
-.title {
-    grid-row-start: 1;
-}
+
 .result-input {
     grid-row-start: 3;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-
+    justify-content: space-around;
+    justify-items: center;
+    align-items: center;
+    padding: 15px;
+}
+.user-result-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    height: 200px;
+    width: 200px;
+    padding: 10px;
+    margin: 15px;
+}
+.result-icon {
+    height: 150px;
+    width: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    justify-self: center;
+    border: 2px solid #f0a500;
 }
 /* FOOTER */
 

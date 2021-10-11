@@ -22,7 +22,7 @@ export default function FindBikerz(props) {
             fetch(`/userList/${searchTerm}`)
                 .then((res) => res.json())
                 .then(({ rows }) => {
-                    console.log("results :>> ", rows);
+                    // console.log("results :>> ", rows);
                     // let biker = rows[0].first;
                     setBikerz(rows);
                 })
@@ -30,7 +30,7 @@ export default function FindBikerz(props) {
         }
 
         return () => {
-            console.log(`About to replace ${searchTerm} with a new value :>> `);
+            // console.log(`About to replace ${searchTerm} with a new value :>> `);
         };
     }, [searchTerm]);
 
@@ -41,18 +41,20 @@ export default function FindBikerz(props) {
                 <input
                     className="find-bikerz-input"
                     type="text"
+                    placeholder="search here"
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
                 <div className="result-input">
                     {bikerz &&
                         bikerz.map((biker, i) => (
-                            <div key={i}>
-                                <h1>{biker.first}</h1>
-                                <h2>{biker.last}</h2>
+                            <div className="user-result-container" key={i}>
                                 <img
-                                    className="camera-icon"
+                                    className="result-icon"
                                     src={biker.pic_url}
                                 ></img>
+                                <h3>
+                                    {biker.first} {biker.last}
+                                </h3>
                             </div>
                         ))}
                 </div>

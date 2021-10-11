@@ -11,7 +11,7 @@ export class Login extends Component {
         this.handleLogin = this.handleLogin.bind(this);
     }
     componentDidMount() {
-        console.log("LOGIN MOUNTED");
+        // console.log("LOGIN MOUNTED");
         history.pushState({}, "", "/");
 
         this.setState({
