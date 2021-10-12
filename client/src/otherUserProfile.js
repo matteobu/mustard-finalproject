@@ -12,11 +12,14 @@ export default function OtherUserProfile(props) {
         let abort = false;
 
         if (!abort) {
-            fetch(`/bikerz/${otherUserId}`)
+            fetch(`/bikerz/${otherUserId}.json`)
                 .then((res) => res.json())
                 .then(({ rows }) => {
-                    if (!rows[0].id || otherUserId == props.usersID) {
+                    console.log(rows);
+                    if (otherUserId == props.usersID) {
                         history.push("/");
+                    } else if (rows[0] == undefined) {
+                        history.push("/find-bikerz");
                     } else setBikerz(rows[0]);
                 })
                 .catch(console.log);
