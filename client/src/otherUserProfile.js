@@ -1,32 +1,25 @@
 import { useEffect, useState } from "react";
-import { useParams, useHistory } from "react-router";
+import { useParams, useHistory } from "react-router-dom";
 
 export default function OtherUserProfile(props) {
-    const [bikerz, setBikerz] = useState();
+    const [bikerz, setBikerz] = useState({});
     // const [history, setHistory] = useState({});
     const { otherUserId } = useParams();
-    // console.log("props in OTHER USER PROFILE :>> ", props);
     const history = useHistory();
     // console.log("history", history);
-    // console.log("bikerz :>> ", bikerz);
-    // console.log("bikerz :>> ", bikerz.first);
-    // console.log("params", params);
+    console.log("before bikerz :>> ", bikerz);
     useEffect(() => {
         let abort = false;
-        // console.log("OTHER PROFILE JUST MOUNTED");
-        // console.log("params ID from app.js", otherUserId);
+
         if (!abort) {
-            if (otherUserId == props.usersID) {
-                history.push("/");
-            } else {
-                fetch(`/bikerz/${otherUserId}`)
-                    .then((res) => res.json())
-                    .then(({ rows }) => {
-                        // console.log("ROWS :>> ", rows);
-                        setBikerz(rows);
-                    })
-                    .catch(console.log);
-            }
+            fetch(`/bikerz/${otherUserId}`)
+                .then((res) => res.json())
+                .then(({ rows }) => {
+                    if (!rows[0].id || otherUserId == props.usersID) {
+                        history.push("/");
+                    } else setBikerz(rows[0]);
+                })
+                .catch(console.log);
         }
         return () => {
             console.log("cleanup function");
@@ -36,34 +29,31 @@ export default function OtherUserProfile(props) {
 
     return (
         <>
-            {bikerz &&
-                bikerz.map((biker, i) => (
-                    <div className="profile-container" key={i}>
-                        <div className="profile-right-container">
-                            <h2>
-                                profile of : {biker.first} {biker.last}
-                            </h2>
-                            <h1>
-                                <div>
-                                    <div>
-                                        <div className="my-bio">
-                                            <h3> {biker.first}'s bio:</h3>{" "}
-                                            {biker.bio}
-                                        </div>
-                                    </div>
+            <div className="profile-container">
+                <div className="profile-right-container">
+                    <h2>
+                        profile of : {bikerz.first} {bikerz.last}
+                    </h2>
+                    <h1>
+                        <div>
+                            <div>
+                                <div className="my-bio">
+                                    <h3> {bikerz.first}&#39;s bio:</h3>{" "}
+                                    {bikerz.bio}
                                 </div>
-                            </h1>
+                            </div>
                         </div>
+                    </h1>
+                </div>
 
-                        <div className="profile-container-pic">
-                            <img
-                                className="profile-pic-big"
-                                src={biker.pic_url}
-                                alt={`${biker.first} ${biker.last}`}
-                            ></img>
-                        </div>
-                    </div>
-                ))}
+                <div className="profile-container-pic">
+                    <img
+                        className="profile-pic-big"
+                        src={bikerz.pic_url}
+                        alt={`${bikerz.first} ${bikerz.last}`}
+                    ></img>
+                </div>
+            </div>
         </>
     );
 }

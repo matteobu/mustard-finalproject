@@ -65,10 +65,8 @@ app.get("/userList/:input", function (req, res) {
 app.get("/bikerz/:id", function (req, res) {
     // console.log("SEARCH FOR USERS SERVER SIDE IS WORKING", req.params.id);
     db.userInfoProfile(req.params.id).then(({ rows }) => {
-        // console.log("rows :>> ", rows);
         res.json({
             rows,
-            success: true,
         });
     });
 });

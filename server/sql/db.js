@@ -26,7 +26,7 @@ module.exports.usersStarInformation = (id) => {
 };
 module.exports.userInfoProfile = (id) => {
     return db.query(
-        `SELECT first, last, bio, pic_url FROM users WHERE id = $1`,
+        `SELECT id, first, last, bio, pic_url FROM users WHERE id = $1`,
         [id]
     );
 };
