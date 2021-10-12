@@ -13,7 +13,7 @@ export class BioEditor extends Component {
     }
 
     componentDidMount() {
-        console.log("BIO MOUNTED");
+        // console.log("BIO MOUNTED");
     }
     storeDraftBio({ target }) {
         // console.log("target.value :>> ", target.value);
@@ -58,6 +58,7 @@ export class BioEditor extends Component {
 
     openTextArea() {
         // console.log("THIS STATE INSIDE BIO-EDITOR", this.state);
+        // console.log("this.state.show");
         // console.log("PROPS INSIDE BIO-EDITOR", this.props);
         this.setState((oldState) => ({
             showTextArea: !oldState.showTextArea,
@@ -66,7 +67,8 @@ export class BioEditor extends Component {
     }
     render() {
         // console.log("PROPS on RENDER BIO-EDITOR>> ", this.props);
-
+        // console.log("STATE on RENDER BIO-EDITOR>> ", this.state);
+        // console.log("RENDER ");
         return (
             <div>
                 {this.state.showBio && (
@@ -93,7 +95,7 @@ export class BioEditor extends Component {
                                 name="text-area"
                                 onChange={this.storeDraftBio}
                                 placeholder={this.props.bio}
-                            ></textarea>{" "}
+                            ></textarea>
                         </div>
                         <div>
                             <button

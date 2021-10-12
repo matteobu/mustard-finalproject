@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 import FindBikerz from "./find-bikerz";
 import ProfilePic from "./profilepic";
 import Profile from "./profile";
+import OtherUserProfile from "./otherUserProfile";
 import { Uploader } from "./uploader";
 import { MenuBar } from "./menu-bar";
 
@@ -16,11 +17,13 @@ export default class APP extends Component {
             cameraPic: "./img/profile-pic/change-pic.png",
         };
         this.functionUploadImage = this.functionUploadImage.bind(this);
+        this.functionCloseMenuBar = this.functionCloseMenuBar.bind(this);
         this.storeBioInApp = this.storeBioInApp.bind(this);
         // this.logout = this.logout.bind(this);
     }
     componentDidMount() {
-        // console.log("APP MOUNTED");
+        console.log("APP MOUNTED");
+        // console.log("this.state on APP", this.state);
         fetch("/user.json")
             .then((response) => response.json())
             .then((data) => {
@@ -50,6 +53,11 @@ export default class APP extends Component {
             imageUrl: newUrl,
         }));
     }
+    functionCloseMenuBar() {
+        this.setState((oldState) => ({
+            menuIsVisible: !oldState.menuIsVisible,
+        }));
+    }
 
     storeBioInApp(bioOfficial) {
         // console.log("bioOfficial :>> ", bioOfficial);
@@ -59,6 +67,7 @@ export default class APP extends Component {
     }
 
     render() {
+        // console.log(this.state.usersID);
         // console.log("APP RENDER");
         // console.log("this.state.imageUrl :>> ", this.state.imageUrl);
 
@@ -109,9 +118,9 @@ export default class APP extends Component {
                         <Route path="/find-bikerz">
                             <FindBikerz first={this.state.first} />
                         </Route>
-                        {/* <Route exact path="/">
-                                <Registration />
-                            </Route> */}
+                        <Route path="/bikerz/:otherUserId">
+                            <OtherUserProfile />
+                        </Route>
                     </Switch>
                 </div>
                 <footer>©2021. BIKEPACKING IRGENDWO</footer>
@@ -127,7 +136,7 @@ export default class APP extends Component {
                     <MenuBar
                         usersID={this.state.usersID}
                         imageUrl={this.state.imageUrl}
-                        // logout={this.logout}
+                        functionCloseMenuBar={this.functionCloseMenuBar}
                     />
                 )}
                 {/* ⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️ HERE ABOVE ARE LISTED THE MODAL THAT CAN APPEAR OR DISAPPEAR ACCORDING TO THE RELATIVE onCLICK FUNCTIONS */}

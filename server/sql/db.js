@@ -24,6 +24,12 @@ module.exports.addUser = (first, last, email, password) => {
 module.exports.usersStarInformation = (id) => {
     return db.query(`SELECT * FROM users WHERE id = $1`, [id]);
 };
+module.exports.userInfoProfile = (id) => {
+    return db.query(
+        `SELECT first, last, bio, pic_url FROM users WHERE id = $1`,
+        [id]
+    );
+};
 module.exports.listID = (email) => {
     return db.query(`SELECT password, id FROM users WHERE email = $1`, [email]);
 };
@@ -90,15 +96,14 @@ module.exports.lastThreeUsers = () => {
         SELECT first, last, id, pic_url, bio
         FROM users
         ORDER BY id DESC
-        LIMIT 3
+        LIMIT 6
         `
     );
 };
 
-
 module.exports.allMatchUsers = (input) => {
     return db.query(
-        `SELECT id, first, last, pic_url FROM users WHERE first ILIKE ($1);`,
+        `SELECT id, first, last, pic_url FROM users WHERE first ILIKE ($1)`,
         [input + "%"]
     );
 };

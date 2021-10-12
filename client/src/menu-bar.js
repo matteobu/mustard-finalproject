@@ -7,22 +7,22 @@ export class MenuBar extends Component {
         this.state = {
             file: null,
         };
-        // this.handleUploadPic = this.handleUploadPic.bind(this);
-        // this.fileSelectHandler = this.fileSelectHandler.bind(this);
-        // this.clickUploader = this.clickUploader.bind(this);
+        this.closeMenuFunction = this.closeMenuFunction.bind(this);
     }
     componentDidMount() {
         // console.log("MENU BAR  MOUNTED");
-        // this.setState({
-        //     usersID: this.props.usersID,
-        // });
     }
-
+    closeMenuFunction() {
+        this.props.functionCloseMenuBar();
+    }
     render() {
         // console.log("STATE on DID MOUNT>> ", this.state);
-        // console.log("PROPS on DID MOUNT>> ", this.props);
+        console.log("PROPS on DID MOUNT>> ", this.props);
         return (
-            <div className="menu-bar-container">
+            <div
+                className="menu-bar-container"
+                onClick={this.closeMenuFunction}
+            >
                 <div className="link-navbar">
                     <Link to="/find-bikerz">
                         <h6>FIND BIKERZ |</h6>

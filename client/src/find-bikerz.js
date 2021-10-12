@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function FindBikerz(props) {
     const [bikerz, setBikerz] = useState([]);
@@ -12,7 +12,7 @@ export default function FindBikerz(props) {
             fetch("/lastThreeUsers")
                 .then((res) => res.json())
                 .then(({ rows }) => {
-                    console.log("results :>> ", rows);
+                    // console.log("results :>> ", rows);
                     // let biker = rows[0].first;
                     setBikerz(rows);
                 })
@@ -48,13 +48,15 @@ export default function FindBikerz(props) {
                     {bikerz &&
                         bikerz.map((biker, i) => (
                             <div className="user-result-container" key={i}>
-                                <img
-                                    className="result-icon"
-                                    src={biker.pic_url}
-                                ></img>
-                                <h3>
-                                    {biker.first} {biker.last}
-                                </h3>
+                                <Link to={`bikerz/${biker.id}`}>
+                                    <img
+                                        className="result-icon"
+                                        src={biker.pic_url}
+                                    ></img>
+                                    <h3>
+                                        {biker.first} {biker.last}
+                                    </h3>
+                                </Link>
                             </div>
                         ))}
                 </div>
