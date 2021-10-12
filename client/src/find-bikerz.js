@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 export default function FindBikerz(props) {
+    console.log("PROPS IN FIND BIKERZ", props);
     const [bikerz, setBikerz] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     // const [countries, setCountries] = useState([]);

@@ -2,12 +2,15 @@ import { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 
 export default function OtherUserProfile(props) {
+    console.log("props in OTHER USERS :>> ", props);
     const [bikerz, setBikerz] = useState({});
     // const [history, setHistory] = useState({});
     const { otherUserId } = useParams();
     const history = useHistory();
     // console.log("history", history);
     console.log("before bikerz :>> ", bikerz);
+
+   
     useEffect(() => {
         let abort = false;
 
@@ -19,6 +22,7 @@ export default function OtherUserProfile(props) {
                     if (otherUserId == props.usersID) {
                         history.push("/");
                     } else if (rows[0] == undefined) {
+                        props.functioErrorAppears();
                         history.push("/find-bikerz");
                     } else setBikerz(rows[0]);
                 })
@@ -32,7 +36,7 @@ export default function OtherUserProfile(props) {
 
     return (
         <>
-            <div className="profile-container">
+            <div className="profile-container-other">
                 <div className="profile-right-container">
                     <h2>
                         profile of : {bikerz.first} {bikerz.last}
@@ -51,7 +55,7 @@ export default function OtherUserProfile(props) {
 
                 <div className="profile-container-pic">
                     <img
-                        className="profile-pic-big"
+                        className="result-icon"
                         src={bikerz.pic_url}
                         alt={`${bikerz.first} ${bikerz.last}`}
                     ></img>

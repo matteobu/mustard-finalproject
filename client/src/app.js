@@ -19,6 +19,7 @@ export default class APP extends Component {
         this.functionUploadImage = this.functionUploadImage.bind(this);
         this.functionCloseMenuBar = this.functionCloseMenuBar.bind(this);
         this.storeBioInApp = this.storeBioInApp.bind(this);
+        this.functioErrorAppears = this.functioErrorAppears.bind(this);
         // this.logout = this.logout.bind(this);
     }
     componentDidMount() {
@@ -58,6 +59,11 @@ export default class APP extends Component {
             menuIsVisible: !oldState.menuIsVisible,
         }));
     }
+    functioErrorAppears() {
+        this.setState((oldState) => ({
+            errorIsVisible: !oldState.errorIsVisible,
+        }));
+    }
 
     storeBioInApp(bioOfficial) {
         // console.log("bioOfficial :>> ", bioOfficial);
@@ -77,6 +83,11 @@ export default class APP extends Component {
         return (
             <BrowserRouter>
                 <div className="body-container">
+                    {this.state.errorIsVisible && (
+                        <div className="bikerz-not-found-message">
+                            <h1>SORRY BIKERZ NOT FOUND, TRY AGAIN</h1>
+                        </div>
+                    )}
                     <div className="navbar">
                         <Link to="/">
                             <img
@@ -119,7 +130,10 @@ export default class APP extends Component {
                             <FindBikerz first={this.state.first} />
                         </Route>
                         <Route path="/bikerz/:otherUserId">
-                            <OtherUserProfile usersID={this.state.usersID} />
+                            <OtherUserProfile
+                                usersID={this.state.usersID}
+                                functioErrorAppears={this.functioErrorAppears}
+                            />
                         </Route>
                     </Switch>
                 </div>
@@ -139,6 +153,7 @@ export default class APP extends Component {
                         functionCloseMenuBar={this.functionCloseMenuBar}
                     />
                 )}
+
                 {/* ⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️ HERE ABOVE ARE LISTED THE MODAL THAT CAN APPEAR OR DISAPPEAR ACCORDING TO THE RELATIVE onCLICK FUNCTIONS */}
             </BrowserRouter>
         );
