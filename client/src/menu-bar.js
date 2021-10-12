@@ -17,7 +17,7 @@ export class MenuBar extends Component {
     }
     render() {
         // console.log("STATE on DID MOUNT>> ", this.state);
-        console.log("PROPS on DID MOUNT>> ", this.props);
+        // console.log("PROPS on DID MOUNT>> ", this.props);
         return (
             <div
                 className="menu-bar-container"

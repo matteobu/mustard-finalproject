@@ -119,7 +119,7 @@ export default class APP extends Component {
                             <FindBikerz first={this.state.first} />
                         </Route>
                         <Route path="/bikerz/:otherUserId">
-                            <OtherUserProfile />
+                            <OtherUserProfile usersID={this.state.usersID} />
                         </Route>
                     </Switch>
                 </div>
