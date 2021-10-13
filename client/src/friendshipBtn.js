@@ -78,31 +78,29 @@ export default function FriendshipButton(props) {
     }, []);
 
     return (
-        <>
-            <div className="friendship-button-container">
-                {friendship.step == 0 && (
-                    <button onClick={handleButton} name="send">
-                        SEND FRIEND REQUEST
-                    </button>
-                )}
-                {friendship.step == 1 && (
-                    <button onClick={handleButton} name="cancel">
-                        {" "}
-                        CANCEL FRIEND REQUEST
-                    </button>
-                )}
-                {friendship.step == 2 && (
-                    <button onClick={handleButton} name="accept">
-                        ACCEPT FRIEND REQUEST
-                    </button>
-                )}
-                {friendship.step == 3 && (
-                    <button onClick={handleButton} name="cancel">
-                        {" "}
-                        UNFRIEND
-                    </button>
-                )}
-            </div>
-        </>
+        <div className="friendship-button-container">
+            {friendship.step == 0 && (
+                <button onClick={handleButton} name="send">
+                    add FRIEND
+                </button>
+            )}
+            {friendship.step == 1 && (
+                <button onClick={handleButton} name="cancel">
+                    {" "}
+                    CANCEL FRIEND REQUEST
+                </button>
+            )}
+            {friendship.step == 2 && (
+                <button onClick={handleButton} name="accept">
+                    ACCEPT FRIEND REQUEST
+                </button>
+            )}
+            {friendship.step == 3 && (
+                <button onClick={handleButton} name="cancel">
+                    {" "}
+                    UNFRIEND --
+                </button>
+            )}
+        </div>
     );
 }

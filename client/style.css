@@ -294,12 +294,20 @@ input {
 .profile-right-container {
     padding-left: 15px;
 }
+
+.profile-right-container > h2 {
+    color: #f0a500;
+    font-size: 40px;
+}
 .profile-container-pic {
     height: 250px;
     grid-row-start: 1;
     object-fit: cover;
     justify-content: center;
     object-fit: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .changepic {
     position: relative;
@@ -311,6 +319,7 @@ input {
     border-radius: 50%;
     background-color: #112d4e;
 }
+
 .camera-icon {
     position: relative;
     left: 5px;
@@ -381,7 +390,7 @@ textarea {
 .result-input {
     grid-row-start: 3;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     justify-content: space-around;
     justify-items: center;
     align-items: center;
@@ -407,13 +416,14 @@ textarea {
 }
 
 .friendship-button-container {
-    width: 600px;
+    width: auto;
 
     display: flex;
     flex-direction: row;
 }
 .friendship-button-container > button {
     width: 100px;
+    height: 40px;
     justify-self: center;
     border: 1px solid #f9f7f7;
     background-color: #3f72af;

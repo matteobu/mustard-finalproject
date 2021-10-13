@@ -105,14 +105,20 @@ module.exports.lastThreeUsers = () => {
         SELECT first, last, id, pic_url, bio
         FROM users
         ORDER BY id DESC
-        LIMIT 6
+        LIMIT 3
         `
     );
 };
 
 module.exports.allMatchUsers = (input) => {
     return db.query(
-        `SELECT id, first, last, pic_url FROM users WHERE first ILIKE ($1)`,
+        `
+                SELECT id, first, last, pic_url 
+                FROM users 
+                WHERE first 
+                ILIKE ($1)
+                LIMIT 8
+                `,
         [input + "%"]
     );
 };

@@ -12,7 +12,6 @@ export class Login extends Component {
     }
     componentDidMount() {
         // console.log("LOGIN MOUNTED");
-        history.pushState({}, "", "/");
 
         this.setState({
             error: false,
@@ -53,7 +52,7 @@ export class Login extends Component {
                         error: "whoops, something went wrong. Please try again.",
                     });
                 } else {
-                    location.reload();
+                    location.replace("/");
                     //  SPLICE URL
                     // console.log("Richtig gutes Zeug");
                 }
@@ -63,8 +62,6 @@ export class Login extends Component {
         return (
             <div className="login-container">
                 <section id="login">
-                    {this.state.error && <h2>{this.state.error}</h2>}
-
                     <form className="login-registration">
                         <input
                             className="login-input"

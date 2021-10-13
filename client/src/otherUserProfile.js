@@ -41,7 +41,7 @@ export default function OtherUserProfile(props) {
             <div className="profile-container-other">
                 <div className="profile-right-container">
                     <h2>
-                        profile of : {bikerz.first} {bikerz.last}
+                        {bikerz.first} {bikerz.last}
                     </h2>
                     <h1>
                         <div>
@@ -61,11 +61,11 @@ export default function OtherUserProfile(props) {
                         src={bikerz.pic_url}
                         alt={`${bikerz.first} ${bikerz.last}`}
                     ></img>
+                    <FriendshipButton
+                        userID={props.userID}
+                        otherUserID={otherUserID}
+                    />
                 </div>
-                <FriendshipButton
-                    userID={props.userID}
-                    otherUserID={otherUserID}
-                />
             </div>
         </>
     );

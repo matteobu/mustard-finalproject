@@ -148,8 +148,8 @@ export default class APP extends Component {
                             />
                         </Route>
                     </Switch>
+                    <footer>©2021. BIKEPACKING IRGENDWO</footer>
                 </div>
-                <footer>©2021. BIKEPACKING IRGENDWO</footer>
                 {/* ⬇️⬇️⬇️⬇️⬇️⬇️ HERE BELOW ARE LISTED THE MODAL THAT CAN APPEAR OR DISAPPEAR ACCORDING TO THE RELATIVE onCLICK FUNCTIONS */}
                 {this.state.uploaderIsVisible && (
                     <Uploader

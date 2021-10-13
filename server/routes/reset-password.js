@@ -11,55 +11,45 @@ router.use((req, res, next) => {
 });
 
 router.post("/", function (req, res) {
-    // console.log("SESSION VALUE ON POST RESET PASSWORD:>> ", req.body);
-
     const { email, code, password } = req.body;
+    resetPassword(email, code, password);
+    async function resetPassword(email, code, password) {
+        const result = await db.checkCode(email);
 
-    db.checkCode(email).then((result) => {
-        // console.log("rows[0].code :>> ", result.rows[0].code);
+        // console.log("result :>> ", result);
         if (code == result.rows[0].code) {
-            // console.log("MATCH CODE TRUE");
-            hash(password)
-                .then((hashedPsw) => {
-                    db.updateUserPsw(email, hashedPsw).then((result) => {
-                        let id = result.rows[0].id;
-                        req.session.userID = id;
-                        req.session.loginDone = true;
-                        res.json({ success: true, userID: id });
-                    });
-                })
-                .catch((err) => {
-                    res.json({ success: false });
-                    console.log("ERROR IN INPUT VALUE:>> ", err);
-                });
+            // console.log("before hashing :>> ", password);
+            const hashedPsw = await hash(password);
+            const resultDB = await db.updateUserPsw(email, hashedPsw);
+            // console.log("resultDB :>> ", resultDB);
+
+            let id = resultDB.rows[0].id;
+            req.session.userID = id;
+            req.session.loginDone = true;
+            res.json({ success: true, userID: id });
         }
-    });
+    }
 
-    // console.log("req.body :>> ", req.body);
+    // db.checkCode(email).then((result) => {
+    //     // console.log("rows[0].code :>> ", result.rows[0].code);
+    //     if (code == result.rows[0].code) {
+    //         // console.log("MATCH CODE TRUE");
 
-    // db.listID(email)
-    //     .then(function (result) {
-    //         // console.log("result :>> ", result);
-    //         if (result.rowCount === 0) {
-    //             res.json({ success: false });
-    //         } else {
-    //             // console.log("result FROM LIST ID:>> ", result);
-
-    //             compare(password, result.rows[0].password).then((match) => {
-    //                 console.log("match :>> ", match);
-    //                 if (match) {
-    //                     req.session.userID = result.rows[0].id;
+    //         hash(password)
+    //             .then((hashedPsw) => {
+    //                 db.updateUserPsw(email, hashedPsw).then((result) => {
+    //                     let id = result.rows[0].id;
+    //                     req.session.userID = id;
     //                     req.session.loginDone = true;
-    //                     res.json({ success: true });
-
-    //                 }
+    //                     res.json({ success: true, userID: id });
+    //                 });
+    //             })
+    //             .catch((err) => {
+    //                 res.json({ success: false });
+    //                 console.log("ERROR IN INPUT VALUE:>> ", err);
     //             });
-    //         }
-    //     })
-    //     .catch(function (err) {
-    //         console.log("ERROR IN POST LOGIN:>> ", err);
-    //         res.json({ success: false });
-    //     });
+    //     }
+    // });
 });
 
 module.exports = router;

@@ -38,11 +38,11 @@ export default function FindBikerz(props) {
     return (
         <>
             <div className="find-bikerz-container">
-                <h1 className="title"> FIND BIKERZ LIKE YOU {props.first} </h1>
+                {/* <h1 className="title"> FIND BIKERZ LIKE YOU {props.first} </h1> */}
                 <input
                     className="find-bikerz-input"
                     type="text"
-                    placeholder="search here"
+                    placeholder="search here for new friends"
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
                 <div className="result-input">
