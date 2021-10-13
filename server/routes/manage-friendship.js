@@ -27,6 +27,7 @@ router.post("/:step", function (req, res) {
             if (rows[0].accepted == false) {
                 res.json({
                     accepted: false,
+                    step: 1,
                 });
             }
         });
@@ -51,6 +52,7 @@ router.post("/:step", function (req, res) {
             if (rows[0].accepted == true) {
                 res.json({
                     accepted: true,
+                    step: 3,
                 });
             }
         });

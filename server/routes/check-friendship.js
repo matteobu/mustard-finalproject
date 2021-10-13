@@ -32,8 +32,7 @@ router.get("/:otherUserID", function (req, res) {
                 step: 2,
                 accepted: false,
             });
-        } else rows[0].accepted == true;
-        {
+        } else {
             res.json({
                 step: 3,
                 accepted: true,

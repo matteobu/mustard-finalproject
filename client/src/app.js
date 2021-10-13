@@ -61,16 +61,20 @@ export default class APP extends Component {
     }
 
     functioErrorAppears() {
-        this.setState((oldState) => ({
-            errorIsVisible: !oldState.errorIsVisible,
-        }));
+        location.replace("/find-bikerz");
 
-        // setTimeout(
-        //     this.setState((oldState) => ({
-        //         errorIsVisible: !oldState.errorIsVisible,
-        //     })),
-        //     2000
-        // );
+        this.setState(
+            (oldState) => ({
+                errorIsVisible: !oldState.errorIsVisible,
+            }),
+            () => {
+                setTimeout(() => {
+                    this.setState((oldState) => ({
+                        errorIsVisible: !oldState.errorIsVisible,
+                    }));
+                }, 2000);
+            }
+        );
     }
 
     storeBioInApp(bioOfficial) {

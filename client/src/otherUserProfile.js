@@ -25,7 +25,7 @@ export default function OtherUserProfile(props) {
                         history.push("/");
                     } else if (rows[0] == undefined) {
                         props.functioErrorAppears();
-                        history.push("/find-bikerz");
+                        // history.push("/find-bikerz");
                     } else setBikerz(rows[0]);
                 })
                 .catch(console.log);
