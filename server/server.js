@@ -28,7 +28,8 @@ const sendCodeRoute = require("./routes/reset-code");
 const resetPasswordRoute = require("./routes/reset-password");
 const updateBioRoute = require("./routes/update-bio");
 const lastThreeUsersRoute = require("./routes/lastThreeUsers");
-// const allMatchUsersRoute = require("./routes/allMatchUsers");
+const frndshpRoute = require("./routes/check-friendship");
+const manageFriendshipRoute = require("./routes/manage-friendship");
 
 // ROUTES
 app.use(compression());
@@ -40,7 +41,8 @@ app.use("/reset-code", sendCodeRoute);
 app.use("/reset-password", resetPasswordRoute);
 app.use("/update-bio", updateBioRoute);
 app.use("/lastThreeUsers", lastThreeUsersRoute);
-// app.use(`/allMatchUsers/:searchTerm`, allMatchUsersRoute);
+app.use("/check-friendship", frndshpRoute);
+app.use("/manage-friendship", manageFriendshipRoute);
 
 app.get("/logout", function (req, res) {
     // console.log("req.session", req.session);
@@ -50,7 +52,7 @@ app.get("/logout", function (req, res) {
 });
 app.get("/user/id.json", function (req, res) {
     res.json({
-        usersID: req.session.usersID,
+        userID: req.session.userID,
     });
 });
 
@@ -72,10 +74,10 @@ app.get("/bikerz/:id.json", function (req, res) {
 });
 
 app.get("/user.json", function (req, res) {
-    db.usersStarInformation(req.session.usersID).then((result) => {
+    db.usersStarInformation(req.session.userID).then((result) => {
         const { id, first, last, pic_url, bio, email } = result.rows[0];
         res.json({
-            usersID: id,
+            userID: id,
             first: first,
             last: last,
             imageUrl: pic_url,
@@ -86,11 +88,11 @@ app.get("/user.json", function (req, res) {
 });
 
 app.post("/upload-pic", uploader.single("file"), s3.upload, (req, res) => {
-    let usersID = req.session.usersID;
+    let userID = req.session.userID;
     const { filename } = req.file;
     let url = `https://s3.amazonaws.com/spicedling/${filename}`;
     if (req.file) {
-        db.uploadImages(url, usersID).then((response) => {
+        db.uploadImages(url, userID).then((response) => {
             res.json({ success: true, url: url });
         });
     } else {

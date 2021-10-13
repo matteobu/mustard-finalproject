@@ -59,10 +59,18 @@ export default class APP extends Component {
             menuIsVisible: !oldState.menuIsVisible,
         }));
     }
+
     functioErrorAppears() {
         this.setState((oldState) => ({
             errorIsVisible: !oldState.errorIsVisible,
         }));
+
+        // setTimeout(
+        //     this.setState((oldState) => ({
+        //         errorIsVisible: !oldState.errorIsVisible,
+        //     })),
+        //     2000
+        // );
     }
 
     storeBioInApp(bioOfficial) {
@@ -73,11 +81,11 @@ export default class APP extends Component {
     }
 
     render() {
-        // console.log(this.state.usersID);
+        // console.log(this.state.userID);
         // console.log("APP RENDER");
         // console.log("this.state.imageUrl :>> ", this.state.imageUrl);
 
-        if (!this.state.usersID) {
+        if (!this.state.userID) {
             return <div>Loading...</div>;
         }
         return (
@@ -129,9 +137,9 @@ export default class APP extends Component {
                         <Route path="/find-bikerz">
                             <FindBikerz first={this.state.first} />
                         </Route>
-                        <Route path="/bikerz/:otherUserId">
+                        <Route path="/bikerz/:otherUserID">
                             <OtherUserProfile
-                                usersID={this.state.usersID}
+                                userID={this.state.userID}
                                 functioErrorAppears={this.functioErrorAppears}
                             />
                         </Route>
@@ -141,14 +149,14 @@ export default class APP extends Component {
                 {/* ⬇️⬇️⬇️⬇️⬇️⬇️ HERE BELOW ARE LISTED THE MODAL THAT CAN APPEAR OR DISAPPEAR ACCORDING TO THE RELATIVE onCLICK FUNCTIONS */}
                 {this.state.uploaderIsVisible && (
                     <Uploader
-                        usersID={this.state.usersID}
+                        userID={this.state.userID}
                         imageUrl={this.state.imageUrl}
                         functionUploadImage={this.functionUploadImage}
                     />
                 )}
                 {this.state.menuIsVisible && (
                     <MenuBar
-                        usersID={this.state.usersID}
+                        userID={this.state.userID}
                         imageUrl={this.state.imageUrl}
                         functionCloseMenuBar={this.functionCloseMenuBar}
                     />
@@ -204,14 +212,14 @@ export default class APP extends Component {
 
 //     {this.state.uploaderIsVisible && (
 //         <Uploader
-//             usersID={this.state.usersID}
+//             userID={this.state.userID}
 //             imageUrl={this.state.imageUrl}
 //             functionUploadImage={this.functionUploadImage}
 //         />
 //     )}
 //     {this.state.menuIsVisible && (
 //         <MenuBar
-//             usersID={this.state.usersID}
+//             userID={this.state.userID}
 //             imageUrl={this.state.imageUrl}
 //             // functionUploadImage={this.functionUploadImage}
 //         />

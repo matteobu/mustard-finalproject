@@ -15,7 +15,7 @@ export class Uploader extends Component {
         // console.log("UPLOADER MOUNTED");
 
         this.setState({
-            usersID: this.props.usersID,
+            userID: this.props.userID,
         });
     }
 

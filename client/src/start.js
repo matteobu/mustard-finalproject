@@ -6,7 +6,7 @@ import App from "./app";
 fetch("/user/id.json")
     .then((response) => response.json())
     .then((data) => {
-        if (!data.usersID) {
+        if (!data.userID) {
             ReactDOM.render(<Welcome />, document.querySelector("main"));
             // ReactDOM.render(<SayingHello />, document.querySelector("main"));
         } else {

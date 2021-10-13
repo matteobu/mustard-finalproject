@@ -3,8 +3,6 @@ const router = express.Router();
 const { hash } = require("../sql/bc.js");
 const db = require("../sql/db.js");
 
-
-
 router.use((req, res, next) => {
     console.log("RESET PASSWORD ROUTES");
     // console.log("req.method: ", req.method);
@@ -25,9 +23,9 @@ router.post("/", function (req, res) {
                 .then((hashedPsw) => {
                     db.updateUserPsw(email, hashedPsw).then((result) => {
                         let id = result.rows[0].id;
-                        req.session.usersID = id;
+                        req.session.userID = id;
                         req.session.loginDone = true;
-                        res.json({ success: true, usersID: id });
+                        res.json({ success: true, userID: id });
                     });
                 })
                 .catch((err) => {
@@ -50,7 +48,7 @@ router.post("/", function (req, res) {
     //             compare(password, result.rows[0].password).then((match) => {
     //                 console.log("match :>> ", match);
     //                 if (match) {
-    //                     req.session.usersID = result.rows[0].id;
+    //                     req.session.userID = result.rows[0].id;
     //                     req.session.loginDone = true;
     //                     res.json({ success: true });
 

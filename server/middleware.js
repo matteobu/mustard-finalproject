@@ -1,7 +1,7 @@
 module.exports.requireLoggedInUser = function (req, res, next) {
     // console.log("req.session :>> ", req.session);
     if (
-        !req.session.usersID &&
+        !req.session.userID &&
         req.url !== "/login" &&
         req.url !== "/register"
     ) {
@@ -12,9 +12,9 @@ module.exports.requireLoggedInUser = function (req, res, next) {
 };
 
 module.exports.requireLoggedOutUser = function (req, res, next) {
-    const { usersID } = req.session;
+    const { userID } = req.session;
 
-    if (usersID) {
+    if (userID) {
         res.redirect("/profile");
     } else {
         next();

@@ -13,10 +13,10 @@ router.post("/", function (req, res) {
     // console.log("REQ.BODY VALUE ON UPDATE-BIO:>> ", req.body);
     const { draftBio } = req.body;
     // console.log("BIO DRAFT:>> ", draftBio);
-    // console.log("req.session.usersID :>> ", req.session.usersID);
-    let usersID = req.session.usersID;
+    // console.log("req.session.userID :>> ", req.session.userID);
+    let userID = req.session.userID;
 
-    db.updateBio(usersID, draftBio).then((result) => {
+    db.updateBio(userID, draftBio).then((result) => {
         // console.log("result after db query updateBio :>> ", result);
         if (result.rowCount === 0) {
             res.json({ success: false });
@@ -24,7 +24,6 @@ router.post("/", function (req, res) {
             res.json({ success: true });
         }
     });
- 
 });
 
 module.exports = router;

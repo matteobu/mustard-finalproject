@@ -24,7 +24,7 @@ router.post("/", function (req, res) {
                 compare(password, result.rows[0].password).then((match) => {
                     // console.log("match :>> ", match);
                     if (match) {
-                        req.session.usersID = result.rows[0].id;
+                        req.session.userID = result.rows[0].id;
                         req.session.loginDone = true;
                         res.json({ success: true });
                     }

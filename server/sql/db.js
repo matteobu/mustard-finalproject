@@ -12,7 +12,7 @@ if (process.env.DATABASE_URL) {
     );
 }
 
-// // USER TABLE
+// ADD USER to users TABLE
 
 module.exports.addUser = (first, last, email, password) => {
     const q = `INSERT INTO users (first, last, email, password)
@@ -21,6 +21,8 @@ module.exports.addUser = (first, last, email, password) => {
     const params = [first, last, email, password];
     return db.query(q, params);
 };
+
+// ALL THE INFO FROM A USER
 module.exports.usersStarInformation = (id) => {
     return db.query(`SELECT * FROM users WHERE id = $1`, [id]);
 };
@@ -30,14 +32,19 @@ module.exports.userInfoProfile = (id) => {
         [id]
     );
 };
+// CHECKING PASSWORD FROM EMAIL
 module.exports.listID = (email) => {
     return db.query(`SELECT password, id FROM users WHERE email = $1`, [email]);
 };
+
+// CHECK EMAIL IF IS ON THE DB
 module.exports.checkEmail = (email) => {
     return db.query(`SELECT id FROM users WHERE email = $1 RETURNING id`, [
         email,
     ]);
 };
+
+// CODE CHECK AND ADDING TO TABLE
 module.exports.addCode = (email, code) => {
     const params = [email, code];
     const q = `
@@ -60,6 +67,8 @@ module.exports.checkCode = (email) => {
      `;
     return db.query(q, params);
 };
+
+// UPDATING TABLE QUERY
 
 module.exports.updateUserPsw = (email, password) => {
     const q = `UPDATE users 
@@ -88,7 +97,7 @@ module.exports.uploadImages = (url, id) => {
     return db.query(q, params);
 };
 
-// LAST THREE USERS
+// LAST THREE USERS and ALL THE USER THAT MATCHES the INPUT FIELD
 
 module.exports.lastThreeUsers = () => {
     return db.query(
@@ -107,3 +116,44 @@ module.exports.allMatchUsers = (input) => {
         [input + "%"]
     );
 };
+
+// FRIENDSHIP CHECK on friendship TABLE
+module.exports.checkFriendship = (userID, otherUserID) => {
+    const q = `
+            SELECT * FROM friendships
+            WHERE (recipient_id = $1 AND sender_id = $2)
+            OR (recipient_id = $2 AND sender_id = $1)
+            `;
+    const params = [userID, otherUserID];
+    return db.query(q, params);
+};
+module.exports.makeFriendship = (userID, otherUserID) => {
+    const q = `
+            INSERT INTO friendships (sender_id, recipient_id) 
+            VALUES ($1, $2) 
+            RETURNING accepted
+            `;
+    const params = [userID, otherUserID];
+    return db.query(q, params);
+};
+module.exports.confirmFriendship = () => {
+    return db.query(`
+            UPDATE friendships 
+            SET accepted = true
+            RETURNING accepted
+            `);
+};
+
+module.exports.deleteFriendship = (otherUserID, userID) => {
+    const q = `
+            DELETE FROM friendships
+            WHERE (recipient_id = $1 AND sender_id = $2)
+            OR (recipient_id = $2 AND sender_id = $1)
+            `;
+    const params = [otherUserID, userID];
+    return db.query(q, params);
+};
+// id SERIAL PRIMARY KEY,
+//       sender_id INT REFERENCES users(id) NOT NULL,
+//       recipient_id INT REFERENCES users(id) NOT NULL,
+//       accepted BOOLEAN DEFAULT false);

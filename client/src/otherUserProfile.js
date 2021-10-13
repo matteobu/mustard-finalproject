@@ -1,25 +1,27 @@
 import { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
+import FriendshipButton from "./friendshipBtn";
 
 export default function OtherUserProfile(props) {
-    console.log("props in OTHER USERS :>> ", props);
+    // console.log("props in OTHER USERS :>> ", props);
     const [bikerz, setBikerz] = useState({});
     // const [history, setHistory] = useState({});
-    const { otherUserId } = useParams();
+    const params = useParams();
+    const { otherUserID } = useParams();
+    // console.log("params :>> ", params);
     const history = useHistory();
     // console.log("history", history);
-    console.log("before bikerz :>> ", bikerz);
+    // console.log("before bikerz :>> ", bikerz);
 
-   
     useEffect(() => {
         let abort = false;
 
         if (!abort) {
-            fetch(`/bikerz/${otherUserId}.json`)
+            fetch(`/bikerz/${otherUserID}.json`)
                 .then((res) => res.json())
                 .then(({ rows }) => {
-                    console.log(rows);
-                    if (otherUserId == props.usersID) {
+                    console.log("ROWS IN OTHER USER PROFILE", rows);
+                    if (otherUserID == props.userID) {
                         history.push("/");
                     } else if (rows[0] == undefined) {
                         props.functioErrorAppears();
@@ -60,6 +62,10 @@ export default function OtherUserProfile(props) {
                         alt={`${bikerz.first} ${bikerz.last}`}
                     ></img>
                 </div>
+                <FriendshipButton
+                    userID={props.userID}
+                    otherUserID={otherUserID}
+                />
             </div>
         </>
     );

@@ -405,6 +405,22 @@ textarea {
     justify-self: center;
     border: 2px solid #f0a500;
 }
+
+.friendship-button-container {
+    width: 600px;
+
+    display: flex;
+    flex-direction: row;
+}
+.friendship-button-container > button {
+    width: 100px;
+    justify-self: center;
+    border: 1px solid #f9f7f7;
+    background-color: #3f72af;
+    margin: 15px;
+    color: #f9f7f7;
+    border-radius: 10px;
+}
 /* FOOTER */
 
 footer {

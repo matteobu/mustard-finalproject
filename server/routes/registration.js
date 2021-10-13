@@ -26,9 +26,9 @@ router.post("/", function (req, res) {
         .then((hashedPsw) => {
             db.addUser(first, last, email, hashedPsw).then((result) => {
                 let id = result.rows[0].id;
-                req.session.usersID = id;
+                req.session.userID = id;
                 req.session.loginDone = true;
-                res.json({ success: true, usersID: id });
+                res.json({ success: true, userID: id });
             });
         })
         .catch((err) => {
