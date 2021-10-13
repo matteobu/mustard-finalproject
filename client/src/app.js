@@ -61,7 +61,7 @@ export default class APP extends Component {
     }
 
     functioErrorAppears() {
-        location.replace("/find-bikerz");
+        // location.replace("/find-bikerz");
 
         this.setState(
             (oldState) => ({
@@ -72,7 +72,7 @@ export default class APP extends Component {
                     this.setState((oldState) => ({
                         errorIsVisible: !oldState.errorIsVisible,
                     }));
-                }, 2000);
+                }, 5000);
             }
         );
     }
