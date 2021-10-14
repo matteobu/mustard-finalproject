@@ -20,35 +20,26 @@ export default class APP extends Component {
         this.functionCloseMenuBar = this.functionCloseMenuBar.bind(this);
         this.storeBioInApp = this.storeBioInApp.bind(this);
         this.functioErrorAppears = this.functioErrorAppears.bind(this);
-        // this.logout = this.logout.bind(this);
+        this.notificationDot = this.notificationDot.bind(this);
     }
-    componentDidMount() {
+    async componentDidMount() {
         console.log("APP MOUNTED");
-        // console.log("this.state on APP", this.state);
-        fetch("/user.json")
-            .then((response) => response.json())
-            .then((data) => {
-                // console.log("data from user.json", data.bio);
-                if (data.bio) {
-                    this.setState(data);
-                } else {
-                    this.setState(data);
-                    this.setState({
-                        bio: `Now, this is the story all about how my life got flipped-turned upside down and I'd like to take a minute, just sit right there I'll tell you how I became the prince of a town called Bel Air`,
-                    });
-                }
+        const result = await fetch("/user.json").catch((err) =>
+            console.log(err)
+        );
+        const data = await result.json();
+
+        if (data.bio) {
+            this.setState(data);
+        } else {
+            this.setState(data);
+            this.setState({
+                bio: `Now, this is the story all about how my life got flipped-turned upside down and I'd like to take a minute, just sit right there I'll tell you how I became the prince of a town called Bel Air`,
             });
+        }
     }
-    // logOut() {
-    //     // console.log("APP MOUNTED");
-    //     fetch("/logout")
-    //         .then((response) => response.json())
-    //         .then((data) => {});
-    // }
 
     functionUploadImage(newUrl) {
-        // console.log("FUNCTION UPLOAD IS RUNNING");
-
         this.setState((oldState) => ({
             uploaderIsVisible: !oldState.uploaderIsVisible,
             imageUrl: newUrl,
@@ -61,8 +52,6 @@ export default class APP extends Component {
     }
 
     functioErrorAppears() {
-        // location.replace("/find-bikerz");
-
         this.setState(
             (oldState) => ({
                 errorIsVisible: !oldState.errorIsVisible,
@@ -78,17 +67,17 @@ export default class APP extends Component {
     }
 
     storeBioInApp(bioOfficial) {
-        // console.log("bioOfficial :>> ", bioOfficial);
         this.setState(() => ({
             bio: bioOfficial,
         }));
     }
+    notificationDot() {
+        this.setState((oldState) => ({
+            notificationDot: !oldState.notificationDot,
+        }));
+    }
 
     render() {
-        // console.log(this.state.userID);
-        // console.log("APP RENDER");
-        // console.log("this.state.imageUrl :>> ", this.state.imageUrl);
-
         if (!this.state.userID) {
             return <div>Loading...</div>;
         }
@@ -99,6 +88,9 @@ export default class APP extends Component {
                         <div className="bikerz-not-found-message">
                             <h1>SORRY BIKERZ NOT FOUND, TRY AGAIN</h1>
                         </div>
+                    )}
+                    {this.state.notificationDot && (
+                        <div className="notificationDot"></div>
                     )}
                     <div className="navbar">
                         <Link to="/">
@@ -145,6 +137,7 @@ export default class APP extends Component {
                             <OtherUserProfile
                                 userID={this.state.userID}
                                 functioErrorAppears={this.functioErrorAppears}
+                                notificationDot={this.notificationDot}
                             />
                         </Route>
                     </Switch>

@@ -16,59 +16,42 @@ export class BioEditor extends Component {
         // console.log("BIO MOUNTED");
     }
     storeDraftBio({ target }) {
-        // console.log("target.value :>> ", target.value);
         this.setState(
             {
                 draftBio: target.value,
             },
-            () => {
-                // console.log("registration update", this.state);
-            }
+            () => {}
         );
     }
-    sendOfficialBio() {
-        // console.log("this.state.draftBio :>> ", this.state.draftBio);
-        fetch("/update-bio", {
+    async sendOfficialBio() {
+        const result = await fetch("/update-bio", {
             method: "POST",
             body: JSON.stringify(this.state),
             headers: {
                 "Content-Type": "application/json",
             },
-        })
-            .then((resp) => resp.json())
-            .then((resp) => {
-                // console.log(resp);
-                if (resp.success) {
-                    // console.log("resp.success :>> ", resp.success);
-                    // console.log("url from handleuploadpic :>> ", resp.url);
-                    // console.log("THIS PROPS :>> ", );
-                    this.setState((oldState) => ({
-                        showTextArea: !oldState.showTextArea,
-                        showBio: !oldState.showBio,
-                    }));
-                    this.props.storeBioInApp(this.state.draftBio);
-                } else {
-                    this.setState({
-                        error: "whoops, something went wrong. Please try again.",
-                    });
-                }
-            })
-            .catch((err) => console.log("error in catch-post-uploadpic", err));
+        }).catch((err) => console.log(err));
+        const resp = await result.json();
+        if (resp.success) {
+            this.setState((oldState) => ({
+                showTextArea: !oldState.showTextArea,
+                showBio: !oldState.showBio,
+            }));
+            this.props.storeBioInApp(this.state.draftBio);
+        } else {
+            this.setState({
+                error: "whoops, something went wrong. Please try again.",
+            });
+        }
     }
 
     openTextArea() {
-        // console.log("THIS STATE INSIDE BIO-EDITOR", this.state);
-        // console.log("this.state.show");
-        // console.log("PROPS INSIDE BIO-EDITOR", this.props);
         this.setState((oldState) => ({
             showTextArea: !oldState.showTextArea,
             showBio: !oldState.showBio,
         }));
     }
     render() {
-        // console.log("PROPS on RENDER BIO-EDITOR>> ", this.props);
-        // console.log("STATE on RENDER BIO-EDITOR>> ", this.state);
-        // console.log("RENDER ");
         return (
             <div>
                 {this.state.showBio && (
@@ -117,3 +100,32 @@ export class BioEditor extends Component {
         );
     }
 }
+
+// FUNCTION OLD CODE sendOfficialBio
+
+// fetch("/update-bio", {
+//     method: "POST",
+//     body: JSON.stringify(this.state),
+//     headers: {
+//         "Content-Type": "application/json",
+//     },
+// })
+//     .then((resp) => resp.json())
+//     .then((resp) => {
+//         // console.log(resp);
+//         if (resp.success) {
+//             // console.log("resp.success :>> ", resp.success);
+//             // console.log("url from handleuploadpic :>> ", resp.url);
+//             // console.log("THIS PROPS :>> ", );
+//             this.setState((oldState) => ({
+//                 showTextArea: !oldState.showTextArea,
+//                 showBio: !oldState.showBio,
+//             }));
+//             this.props.storeBioInApp(this.state.draftBio);
+//         } else {
+//             this.setState({
+//                 error: "whoops, something went wrong. Please try again.",
+//             });
+//         }
+//     })
+//     .catch((err) => console.log("error in catch-post-uploadpic", err));

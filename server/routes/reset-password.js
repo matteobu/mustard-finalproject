@@ -12,8 +12,6 @@ router.use((req, res, next) => {
 
 router.post("/", async function (req, res) {
     const { email, code, password } = req.body;
-    // resetPassword(email, code, password);
-    // async function resetPassword(email, code, password) {
     const result = await db.checkCode(email);
 
     if (code == result.rows[0].code) {

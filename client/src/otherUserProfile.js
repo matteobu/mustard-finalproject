@@ -24,7 +24,7 @@ export default function OtherUserProfile(props) {
                     if (otherUserID == props.userID) {
                         history.push("/");
                     } else if (rows[0] == undefined) {
-                        props.functioErrorAppears();
+                        props.storeBioInApp();
                         history.push("/find-bikerz");
                     } else setBikerz(rows[0]);
                 })
@@ -64,6 +64,7 @@ export default function OtherUserProfile(props) {
                     <FriendshipButton
                         userID={props.userID}
                         otherUserID={otherUserID}
+                        notificationDot={props.notificationDot}
                     />
                 </div>
             </div>

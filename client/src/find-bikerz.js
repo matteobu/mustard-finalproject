@@ -13,7 +13,9 @@ export default function FindBikerz(props) {
 
         (async () => {
             if (!searchTerm) {
-                const result = await fetch("/lastThreeUsers");
+                const result = await fetch("/lastThreeUsers").catch((err) =>
+                    console.log(err)
+                );
                 const { rows } = await result.json();
                 console.log("json result from fetch last three users", rows);
                 setBikerz(rows);
@@ -59,8 +61,6 @@ export default function FindBikerz(props) {
         </>
     );
 }
-
-
 
 // HERE BELOW IS THE PROMISES CODE NOT REFACTORED
 // fetch("/lastThreeUsers")

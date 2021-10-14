@@ -16,11 +16,6 @@ export class Registration extends Component {
         // console.log("REGISTRATION MOUNTED");
     }
     handleChange({ target }) {
-        // console.log("input field name, something happend");
-        // console.log("event object: >>", e);
-        // console.log("event object: >>", target.name);
-        // console.log("event object: >>", target.value);
-        // add the values to the component's state
         this.setState(
             {
                 [target.name]: target.value,
@@ -31,34 +26,25 @@ export class Registration extends Component {
         );
     }
 
-    handleRegister(e) {
+    async handleRegister(e) {
         e.preventDefault();
-        // console.log("this.state", this.state);
-        fetch("/registration", {
+        const resp = await fetch("/registration", {
             method: "POST",
             body: JSON.stringify(this.state),
             headers: {
                 "Content-Type": "application/json",
             },
-        })
-            .then((resp) => resp.json())
-            .then((resp) => {
-                if (resp.success) {
-                    this.setState({ userId: resp.userId });
-                    // a: user successfully registered --- sent to logged experience
-                    // // in this case we want trigger the help of location.reload()
-                    // console.log("resp in then-post-registration", resp);
-                    location.reload();
-                } else {
-                    // b: registration component  to render with an error
-                    this.setState({
-                        error: "whoops, something went wrong. Please try again.",
-                    });
-                }
-            })
-            .catch((err) =>
-                console.log("error in catch-post-registration", err)
-            );
+        }).catch((err) => console.log(err));
+        const data = await resp.json();
+        if (data.success) {
+            this.setState({ userId: data.userId });
+
+            location.reload();
+        } else {
+            this.setState({
+                error: "whoops, something went wrong. Please try again.",
+            });
+        }
     }
 
     render() {
