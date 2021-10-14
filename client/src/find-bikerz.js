@@ -8,27 +8,22 @@ export default function FindBikerz(props) {
     // const [countries, setCountries] = useState([]);
 
     useEffect(() => {
-        // console.log("props.first ON FIRST USE EFFECT :>> ", props.first);
-        if (!searchTerm) {
-            fetch("/lastThreeUsers")
-                .then((res) => res.json())
-                .then(({ rows }) => {
-                    // console.log("results :>> ", rows);
-                    // let biker = rows[0].first;
-                    setBikerz(rows);
-                })
-                .catch(console.log);
-        } else {
-            // fetch(`/allMatchUsers/:${searchTerm}`);
-            fetch(`/userList/${searchTerm}`)
-                .then((res) => res.json())
-                .then(({ rows }) => {
-                    // console.log("results :>> ", rows);
-                    // let biker = rows[0].first;
-                    setBikerz(rows);
-                })
-                .catch(console.log);
-        }
+        // IF ASYNC ON USE EFFECT USE ASYN IIFE // HINT FROM MERLE DO NOT DELETE
+        // (async ()=>{  })() // HINT FROM MERLE DO NOT DELETE
+
+        (async () => {
+            if (!searchTerm) {
+                const result = await fetch("/lastThreeUsers");
+                const { rows } = await result.json();
+                console.log("json result from fetch last three users", rows);
+                setBikerz(rows);
+            } else {
+                const result = await fetch(`/userList/${searchTerm}`);
+                const { rows } = await result.json();
+                console.log("json result from fetch last three users", rows);
+                setBikerz(rows);
+            }
+        })();
 
         return () => {
             // console.log(`About to replace ${searchTerm} with a new value :>> `);
@@ -38,7 +33,6 @@ export default function FindBikerz(props) {
     return (
         <>
             <div className="find-bikerz-container">
-                {/* <h1 className="title"> FIND BIKERZ LIKE YOU {props.first} </h1> */}
                 <input
                     className="find-bikerz-input"
                     type="text"
@@ -66,11 +60,29 @@ export default function FindBikerz(props) {
     );
 }
 
-{
-    /* first, last, id, pic_url, bio */
-}
 
-// HERE BELOW THERE IS THE CODE FROM THE ENCOUNTER PLEASE DO NOT CUT OR PASTE ANYTHING JUST COPY
+
+// HERE BELOW IS THE PROMISES CODE NOT REFACTORED
+// fetch("/lastThreeUsers")
+//         .then((res) => res.json())
+//         .then(({ rows }) => {
+//             // console.log("results :>> ", rows);
+//             // let biker = rows[0].first;
+//             setBikerz(rows);
+//         })
+//         .catch(console.log);
+// } else {
+//     // fetch(`/allMatchUsers/:${searchTerm}`);
+//     fetch(`/userList/${searchTerm}`)
+//         .then((res) => res.json())
+//         .then(({ rows }) => {
+//             // console.log("results :>> ", rows);
+//             // let biker = rows[0].first;
+//             setBikerz(rows);
+//         })
+//         .catch(console.log);
+
+// HERE BELOW THERE IS THE CODE FROM THE ENCOUNTER PLEASE DO NOT CUT OR PASTE ANYTHING JUST COPY (ORIGINAL DO NOT DELETE)
 // export default function FindBikerz() {
 //     const [users, setUsers] = useState(["Matteo"]);
 //     const [searchTerm, setSearchTerm] = useState("");
