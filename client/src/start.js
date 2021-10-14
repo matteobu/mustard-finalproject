@@ -1,5 +1,5 @@
 import ReactDOM from "react-dom";
-import SayingHello from "./SayingHello";
+// import SayingHello from "./SayingHello";
 import Welcome from "./welcome.js";
 import App from "./app";
 
