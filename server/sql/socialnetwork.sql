@@ -9,6 +9,7 @@
       bio VARCHAR, 
       pic_url TEXT NOT NULL
       );
+      
 CREATE TABLE password_reset_codes(
       id SERIAL PRIMARY KEY,
       code VARCHAR(255) NOT NULL,

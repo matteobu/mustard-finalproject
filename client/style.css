@@ -442,6 +442,55 @@ textarea {
     color: #f9f7f7;
     border-radius: 10px;
 }
+
+/* FRIENDS COMPONENT */
+.result-icon-friends-wannabes {
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    justify-self: center;
+    border: 2px solid #f0a500;
+}
+.friends-or-wannabes {
+    grid-row-start: 2;
+    border-top: 1px solid #112d4e;
+    margin-top: 10px;
+    width: 100%;
+    margin: 40px;
+    justify-content: flex-start;
+    display: grid;
+    grid-template-rows: 34% 33% 33%;
+}
+.wannabes {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: 100%;
+    grid-row-start: 1;
+}
+.wannabe-result-container {
+    margin: 50px;
+    font-size: 10px;
+}
+.friends {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: 100%;
+    grid-row-start: 2;
+}
+.myFriendRequest {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: 100%;
+    grid-row-start: 3;
+}
+.friends-result-container {
+    margin: 50px;
+    font-size: 10px;
+}
 /* FOOTER */
 
 footer {

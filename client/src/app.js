@@ -2,6 +2,7 @@
 import { Component } from "react";
 import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 import FindBikerz from "./find-bikerz";
+import FriendsList from "./friends";
 import ProfilePic from "./profilepic";
 import Profile from "./profile";
 import OtherUserProfile from "./otherUserProfile";
@@ -16,6 +17,7 @@ export default class APP extends Component {
             picProfilebig: "profile-pic-big",
             cameraPic: "./img/profile-pic/change-pic.png",
         };
+
         this.functionUploadImage = this.functionUploadImage.bind(this);
         this.functionCloseMenuBar = this.functionCloseMenuBar.bind(this);
         this.storeBioInApp = this.storeBioInApp.bind(this);
@@ -132,6 +134,9 @@ export default class APP extends Component {
                         </Route>
                         <Route path="/find-bikerz">
                             <FindBikerz first={this.state.first} />
+                        </Route>
+                        <Route path="/friends">
+                            <FriendsList userID={this.state.userID} />
                         </Route>
                         <Route path="/bikerz/:otherUserID">
                             <OtherUserProfile

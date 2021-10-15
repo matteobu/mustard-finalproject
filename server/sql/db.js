@@ -142,6 +142,7 @@ module.exports.makeFriendship = (userID, otherUserID) => {
     const params = [userID, otherUserID];
     return db.query(q, params);
 };
+
 module.exports.confirmFriendship = () => {
     return db.query(`
             UPDATE friendships 
@@ -159,7 +160,23 @@ module.exports.deleteFriendship = (otherUserID, userID) => {
     const params = [otherUserID, userID];
     return db.query(q, params);
 };
-// id SERIAL PRIMARY KEY,
-//       sender_id INT REFERENCES users(id) NOT NULL,
-//       recipient_id INT REFERENCES users(id) NOT NULL,
-//       accepted BOOLEAN DEFAULT false);
+
+
+
+// FRIENDSHIP MANAGEMENT ON REDUX
+// FIRST ON is for wannabees
+
+module.exports.reduxFriendhipCheck = (userID) => {
+    const q = `
+    SELECT users.id, first, last, pic_url, accepted, recipient_id, sender_id
+    FROM friendships
+    JOIN users
+    ON (accepted = false AND recipient_id = $1 AND sender_id = users.id) 
+    OR (accepted = false AND sender_id = $1 AND recipient_id = users.id) 
+    OR (accepted = true AND recipient_id = $1 AND sender_id = users.id)
+    OR (accepted = true AND sender_id = $1 AND recipient_id = users.id) 
+`;
+
+    const params = [userID];
+    return db.query(q, params);
+};

@@ -102,6 +102,15 @@ app.post("/upload-pic", uploader.single("file"), s3.upload, (req, res) => {
     }
 });
 
+app.get("/friends.json", async function (req, res) {
+    let userID = req.session.userID;
+    db.reduxFriendhipCheck(userID).then(({ rows }) => {
+        res.json({
+            rows,
+        });
+    });
+});
+
 app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "..", "client", "index.html"));
 });

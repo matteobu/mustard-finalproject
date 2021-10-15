@@ -20,7 +20,7 @@ export default function OtherUserProfile(props) {
             fetch(`/bikerz/${otherUserID}.json`)
                 .then((res) => res.json())
                 .then(({ rows }) => {
-                    console.log("ROWS IN OTHER USER PROFILE", rows);
+                    // console.log("ROWS IN OTHER USER PROFILE", rows);
                     if (otherUserID == props.userID) {
                         history.push("/");
                     } else if (rows[0] == undefined) {
