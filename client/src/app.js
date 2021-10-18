@@ -103,6 +103,7 @@ export default class APP extends Component {
                             />
                         </Link>
                         <ProfilePic
+                            userID={this.state.userID}
                             className={this.state.picProfileSmall}
                             imageUrl={this.state.imageUrl}
                             first={this.state.first}

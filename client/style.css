@@ -39,6 +39,7 @@ a {
 .profile-pic-small {
     grid-column-start: 2;
     height: 50px;
+    width: 50px;
     border: 1px solid #112d4e;
     border-radius: 50%;
     justify-self: flex-end;
@@ -46,6 +47,7 @@ a {
     margin-right: 40px;
     padding: 2px;
     z-index: 2;
+    object-fit: cover;
 }
 /* CENTRAL CONTAINER */
 .central-container {
@@ -244,7 +246,6 @@ input {
     justify-self: center;
     border: 1px solid #112d4e;
     background-color: #3f72af;
-
     color: #112d4e;
 }
 
@@ -333,7 +334,8 @@ input {
 .profile-pic-big {
     border: 5px solid #112d4e;
     border-radius: 50%;
-
+    object-fit: cover;
+    width: 150px;
     height: 150px;
     justify-items: center;
     object-fit: cover;
@@ -445,29 +447,94 @@ textarea {
 
 /* FRIENDS COMPONENT */
 .result-icon-friends-wannabes {
-    height: 50px;
-    width: 50px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    height: 60px;
+    width: 60px;
     object-fit: cover;
     border-radius: 50%;
-    justify-self: center;
     border: 2px solid #f0a500;
+}
+
+.button-friend-wannabe-reque {
+    background-color: deeppink;
 }
 .friends-or-wannabes {
     grid-row-start: 2;
     border-top: 1px solid #112d4e;
     margin-top: 10px;
-    width: 100%;
+    width: 90%;
     margin: 40px;
-    justify-content: flex-start;
+    justify-content: center;
+    justify-items: center;
+    justify-self: center;
     display: grid;
-    grid-template-rows: 34% 33% 33%;
+    grid-template-columns: 33% 34% 33%;
+}
+.result-container > button {
+    width: 30px;
+    height: 30px;
+    justify-self: center;
+    background-color: #f0a500;
+    margin: 5px;
+    padding: 0;
+    color: #f9f7f7;
+    border-radius: 5px;
+    font-size: 13px;
+}
+.result-container > h3 {
+    font-size: 10px;
+    margin: 0;
+}
+.button-wannabe > button {
+    width: 30px;
+    height: 30px;
+    justify-self: center;
+    background-color: #f0a500;
+    margin: 5px;
+    padding: 0;
+    color: #f9f7f7;
+    border-radius: 5px;
+    font-size: 13px;
+}
+
+.cancel {
+    border: 2px solid orangered;
+}
+.accept {
+    border: 2px solid darkseagreen;
+}
+.button-wannabe {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.result-container {
+    width: 100px;
+    height: 126px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    border-radius: 10px;
+    background-color: #3467a5;
+    margin: 5px;
+}
+.wannabes > h6,
+.friends > h6,
+.myFriendRequest > h6 {
+    color: #f0a500;
+    font-size: 18px;
+    width: 100%;
+    margin: 10px 0 0 0;
 }
 .wannabes {
     display: flex;
     flex-wrap: wrap;
-    flex-direction: column;
+    flex-direction: row;
     width: 100%;
-    grid-row-start: 1;
+    grid-column-start: 1;
 }
 .wannabe-result-container {
     margin: 50px;
@@ -478,14 +545,14 @@ textarea {
     flex-wrap: wrap;
     flex-direction: column;
     width: 100%;
-    grid-row-start: 2;
+    grid-column-start: 2;
 }
 .myFriendRequest {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
     width: 100%;
-    grid-row-start: 3;
+    grid-column-start: 3;
 }
 .friends-result-container {
     margin: 50px;

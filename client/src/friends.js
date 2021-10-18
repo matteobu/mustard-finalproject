@@ -33,7 +33,7 @@ export default function FriendsList(props) {
         (async () => {
             const results = await fetch("/friends.json");
             const { rows } = await results.json();
-            console.log("data to dispatch :>> ", rows);
+            // console.log("data to dispatch :>> ", rows);
             dispatch(receiveUsers(rows));
         })();
     }, []);
@@ -98,70 +98,101 @@ export default function FriendsList(props) {
 
     return (
         <>
+            {" "}
             <div className="friends-or-wannabes">
                 <div className="wannabes">
-                    <h6>PENDING FRIEND REQUEST(s)</h6>
+                    <h6>FRIEND REQUEST(s)</h6>
                     {wannabes &&
                         wannabes.map((wannabe, i) => (
-                            <div className="wannabe-result-container" key={i}>
-                                <Link to={`bikerz/${wannabe.id}`}>
-                                    <img
-                                        className="result-icon-friends-wannabes"
-                                        src={wannabe.pic_url}
-                                    ></img>
-                                    <h3>
-                                        {wannabe.first} {wannabe.last}
-                                    </h3>
+                            <>
+                                <Link to={`bikerz/${wannabe.id}`} key={i}>
+                                    <div className="result-container">
+                                        <img
+                                            className="result-icon-friends-wannabes"
+                                            src={wannabe.pic_url}
+                                        ></img>
+                                        <h3>
+                                            {wannabe.first} {wannabe.last}
+                                        </h3>
+                                        <div className="button-wannabe">
+                                            <button
+                                                className="accept"
+                                                name="accept"
+                                                onClick={(e) =>
+                                                    handleButton(e, wannabe.id)
+                                                }
+                                            >
+                                                👤+
+                                            </button>
+                                            <button
+                                                className="cancel"
+                                                name="cancel"
+                                                onClick={(e) =>
+                                                    handleButton(e, wannabe.id)
+                                                }
+                                            >
+                                                👤-
+                                            </button>
+                                        </div>
+                                    </div>
                                 </Link>
-                                <button
-                                    name="accept"
-                                    onClick={(e) => handleButton(e, wannabe.id)}
-                                >
-                                    ACCEPT REQUEST
-                                </button>
-                                <button
-                                    name="cancel"
-                                    onClick={(e) => handleButton(e, wannabe.id)}
-                                >
-                                    DECLINE REQUEST
-                                </button>
-                            </div>
+                            </>
                         ))}
                 </div>
                 <div className="friends">
                     <h6>FRIEND(s)</h6>
                     {friends &&
                         friends.map((friend, i) => (
-                            <div className="friends-result-container" key={i}>
-                                <Link to={`bikerz/${friend.id}`}>
-                                    <img
-                                        className="result-icon-friends-wannabes"
-                                        src={friend.pic_url}
-                                    ></img>
-                                    <h3>
-                                        {friend.first} {friend.last}
-                                    </h3>
+                            <>
+                                <Link to={`bikerz/${friend.id}`} key={i}>
+                                    <div className="result-container">
+                                        <img
+                                            className="result-icon-friends-wannabes"
+                                            src={friend.pic_url}
+                                        ></img>
+                                        <h3>
+                                            {friend.first} {friend.last}
+                                        </h3>
+                                        <button
+                                            className="cancel"
+                                            name="cancel"
+                                            onClick={(e) =>
+                                                handleButton(e, friend.id)
+                                            }
+                                        >
+                                            👤-
+                                        </button>
+                                    </div>
                                 </Link>
-                                <button name="cancel">UNFRIEND</button>
-                            </div>
+                            </>
                         ))}
                 </div>
                 <div className="myFriendRequest">
                     <h6>MY REQUEST(s)</h6>
                     {myRequests &&
                         myRequests.map((request, i) => (
-                            <div className="friends-result-container" key={i}>
-                                <Link to={`bikerz/${request.id}`}>
-                                    <img
-                                        className="result-icon-friends-wannabes"
-                                        src={request.pic_url}
-                                    ></img>
-                                    <h3>
-                                        {request.first} {request.last}
-                                    </h3>
+                            <>
+                                <Link to={`bikerz/${request.id}`} key={i}>
+                                    <div className="result-container">
+                                        <img
+                                            className="result-icon-friends-wannabes"
+                                            src={request.pic_url}
+                                        ></img>
+                                        <h3>
+                                            {request.first} {request.last}
+                                        </h3>
+                                        <button
+                                            className="cancel"
+                                            name="cancel"
+                                            onClick={(e) =>
+                                                handleButton(e, request.id)
+                                            }
+                                        >
+                                            👤-
+                                        </button>
+                                    </div>
                                 </Link>
-                                <button name="cancel">CANCEL REQUEST</button>
-                            </div>
+                            </>
                         ))}
                 </div>
             </div>

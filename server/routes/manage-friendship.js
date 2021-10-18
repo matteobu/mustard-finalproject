@@ -28,11 +28,11 @@ router.post("/:step", function (req, res) {
     if (step == 1) {
         // console.log("STEP 1");
 
-        db.deleteFriendship(userID, otherUserID).then(({ rows }) => {
+        db.deleteFriendship(otherUserID, userID).then(({ rows }) => {
             // console.log(rows.accepted);
             if (rows.length == 0) {
                 res.json({
-                    accepted: null,
+                    // accepted: null,
                     step: 0,
                 });
             }
@@ -40,9 +40,11 @@ router.post("/:step", function (req, res) {
     }
     if (step == 2) {
         // console.log("STEP 2");
+        console.log("otherUserID :>> ", otherUserID);
+        let { userID } = req.session;
 
-        db.confirmFriendship().then(({ rows }) => {
-            // console.log(rows.accepted);
+        db.confirmFriendship(otherUserID, userID).then(({ rows }) => {
+            console.log(rows.accepted);
             if (rows[0].accepted == true) {
                 res.json({
                     accepted: true,

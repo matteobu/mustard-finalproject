@@ -143,12 +143,15 @@ module.exports.makeFriendship = (userID, otherUserID) => {
     return db.query(q, params);
 };
 
-module.exports.confirmFriendship = () => {
-    return db.query(`
-            UPDATE friendships 
-            SET accepted = true
-            RETURNING accepted
-            `);
+module.exports.confirmFriendship = (otherUserID, userID) => {
+    const params = [otherUserID, userID];
+    const q = `
+        UPDATE friendships
+        SET accepted = true
+        WHERE (sender_id = $1 AND recipient_id= $2)
+        RETURNING accepted
+    `;
+    return db.query(q, params);
 };
 
 module.exports.deleteFriendship = (otherUserID, userID) => {
@@ -160,8 +163,6 @@ module.exports.deleteFriendship = (otherUserID, userID) => {
     const params = [otherUserID, userID];
     return db.query(q, params);
 };
-
-
 
 // FRIENDSHIP MANAGEMENT ON REDUX
 // FIRST ON is for wannabees

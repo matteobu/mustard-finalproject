@@ -6,36 +6,36 @@ export default function usersReducer(state = null, action) {
         // console.log("ACTION PLAYLOAD USERS", action.payload.users);
         state = action.payload.users;
         // console.log("STATE AFTER", state);
-    } else if (action.type === "user/receiveFriends") {
-        console.log("STATE on RECEIVE FRIENDS:>> ", state);
-        console.log("ACTION  ON RECEIVE FRIENDS", action);
-        console.log("ACTION PLAYLOAD ON RECEIVE FRIENDS", action.payload);
-        state = state.map((user) => {
-            if (user.id === action.payload.otherUserID) {
+    } else if (action.type === "users/receiveFriends") {
+        // console.log("STATE on RECEIVE FRIENDS:>> ", state);
+        // console.log("ACTION  ON RECEIVE FRIENDS", action);
+        // console.log("ACTION PLAYLOAD ON RECEIVE FRIENDS", action.payload);
+        state = state.map((users) => {
+            if (users.id === action.payload.otherUserID) {
                 return {
-                    ...user,
+                    ...users,
                     accepted: true,
                 };
             } else {
-                return user;
+                return users;
             }
         });
-    } else if (action.type === "user/cancelReletionship") {
-        // console.log("STATE on USER/MADE HOT:>> ", state);
-        // console.log("ACTION PLAYLOAD ID", action.playload);
-        // console.log("USER NOT HOT", action.playload.id);
-        // state = state.map((user) => {
-        //     if (user.id === action.playload.otherUserID) {
-        //         return {
-        //             ...user,
-        //             accepted: null,
-        //         };
-        //         // user.hot = true;
-        //         // return user;
-        //     } else {
-        //         return user;
-        //     }
-        // });
+    } else if (action.type === "users/cancelReletionship") {
+        // console.log("cancelReletionship :>> ");
+        const newState = [...state];
+        const stateUpdate = newState.filter(
+            (users) => users.id != action.payload
+        );
+
+        return stateUpdate;
+    }
+    if (action.type === "users/checkFriendRequest") {
+        // console.log("ROWS on SLICE");
+        // console.log(
+        //     "action payload inside CHECK FRIEND REQUEST :>> ",
+        //     action.payload
+        // );
+        return state;
     }
 
     return state;
@@ -43,23 +43,29 @@ export default function usersReducer(state = null, action) {
 
 // ACTION CREATOR -------------------------------------
 export function receiveUsers(users) {
-    console.log("users :>> ", users);
+    // console.log("users :>> ", users);
     return {
         type: "users/receivedUsers",
         payload: { users },
     };
 }
 export function receiveFriends(otherUserID) {
-    console.log("otherUserID ACTION CREATOR:>> ", otherUserID);
+    // console.log("otherUserID ACTION CREATOR:>> ", otherUserID);
     return {
-        type: "user/receiveFriends",
-        payload: otherUserID,
+        type: "users/receiveFriends",
+        payload: { otherUserID },
     };
 }
 export function cancelReletionship(otherUserID) {
-    console.log("otherUserID :>> ", otherUserID);
+    // console.log("otherUserID :>> ", otherUserID);
     return {
         type: "users/cancelReletionship",
         payload: otherUserID,
+    };
+}
+export function checkFriendRequest(string) {
+    return {
+        type: "users/checkFriendRequest",
+        payload: string,
     };
 }

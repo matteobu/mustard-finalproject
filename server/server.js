@@ -5,6 +5,11 @@ const path = require("path");
 const s3 = require("./s3");
 const db = require("./sql/db.js");
 const { uploader } = require("./upload");
+const server = require("http").Server(app);
+const io = require("socket.io")(server, {
+    allowRequest: (req, callback) =>
+        callback(null, req.headers.referer.startsWith("http://localhost:3000")),
+});
 
 // const csurf = require("csurf");
 // DATABASE
@@ -115,6 +120,21 @@ app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "..", "client", "index.html"));
 });
 
-app.listen(process.env.PORT || 3001, function () {
+server.listen(process.env.PORT || 3001, function () {
     console.log("Ehi, I'm listening 🤟: ");
+});
+
+io.on("connection", (socket) => {
+    console.log(`User with ID ${socket.id} just connect`);
+    socket.emit("greeting", {
+        message: "Hello welcome",
+    });
+
+    socket.on("disconnect", () => {
+        console.log(`User with ID ${socket.id} just disconnected`);
+    });
+
+    socket.on("thanks", (data) => {
+        console.log("data :>> ", data);
+    });
 });
