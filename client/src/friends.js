@@ -100,99 +100,97 @@ export default function FriendsList(props) {
         <>
             {" "}
             <div className="friends-or-wannabes">
+                <h6>FRIEND REQUEST(s)</h6>
+                <h6>FRIEND(s)</h6>
+                <h6>MY REQUEST(s)</h6>
+
                 <div className="wannabes">
-                    <h6>FRIEND REQUEST(s)</h6>
                     {wannabes &&
                         wannabes.map((wannabe, i) => (
-                            <>
-                                <Link to={`bikerz/${wannabe.id}`} key={i}>
-                                    <div className="result-container">
-                                        <img
-                                            className="result-icon-friends-wannabes"
-                                            src={wannabe.pic_url}
-                                        ></img>
-                                        <h3>
-                                            {wannabe.first} {wannabe.last}
-                                        </h3>
-                                        <div className="button-wannabe">
-                                            <button
-                                                className="accept"
-                                                name="accept"
-                                                onClick={(e) =>
-                                                    handleButton(e, wannabe.id)
-                                                }
-                                            >
-                                                👤+
-                                            </button>
-                                            <button
-                                                className="cancel"
-                                                name="cancel"
-                                                onClick={(e) =>
-                                                    handleButton(e, wannabe.id)
-                                                }
-                                            >
-                                                👤-
-                                            </button>
-                                        </div>
-                                    </div>
-                                </Link>
-                            </>
+                            // <Link>
+                            <div key={i} className="result-container">
+                                <a href={`bikerz/${wannabe.id}`}>
+                                    {" "}
+                                    <img
+                                        className="result-icon-friends-wannabes"
+                                        src={wannabe.pic_url}
+                                    ></img>
+                                </a>
+                                <h3>
+                                    {wannabe.first} {wannabe.last}
+                                </h3>
+                                <div className="button-wannabe">
+                                    <button
+                                        className="accept"
+                                        name="accept"
+                                        onClick={(e) =>
+                                            handleButton(e, wannabe.id)
+                                        }
+                                    >
+                                        👤+
+                                    </button>
+                                    <button
+                                        className="cancel"
+                                        name="cancel"
+                                        onClick={(e) =>
+                                            handleButton(e, wannabe.id)
+                                        }
+                                    >
+                                        👤-
+                                    </button>
+                                </div>
+                            </div>
+                            // </Link>
                         ))}
                 </div>
                 <div className="friends">
-                    <h6>FRIEND(s)</h6>
                     {friends &&
                         friends.map((friend, i) => (
-                            <>
-                                <Link to={`bikerz/${friend.id}`} key={i}>
-                                    <div className="result-container">
-                                        <img
-                                            className="result-icon-friends-wannabes"
-                                            src={friend.pic_url}
-                                        ></img>
-                                        <h3>
-                                            {friend.first} {friend.last}
-                                        </h3>
-                                        <button
-                                            className="cancel"
-                                            name="cancel"
-                                            onClick={(e) =>
-                                                handleButton(e, friend.id)
-                                            }
-                                        >
-                                            👤-
-                                        </button>
-                                    </div>
-                                </Link>
-                            </>
+                            <Link to={`bikerz/${friend.id}`} key={i}>
+                                <div className="result-container">
+                                    <img
+                                        className="result-icon-friends-wannabes"
+                                        src={friend.pic_url}
+                                    ></img>
+                                    <h3>
+                                        {friend.first} {friend.last}
+                                    </h3>
+                                    <button
+                                        className="cancel"
+                                        name="cancel"
+                                        onClick={(e) =>
+                                            handleButton(e, friend.id)
+                                        }
+                                    >
+                                        👤-
+                                    </button>
+                                </div>
+                            </Link>
                         ))}
                 </div>
                 <div className="myFriendRequest">
-                    <h6>MY REQUEST(s)</h6>
                     {myRequests &&
                         myRequests.map((request, i) => (
-                            <>
-                                <Link to={`bikerz/${request.id}`} key={i}>
-                                    <div className="result-container">
-                                        <img
-                                            className="result-icon-friends-wannabes"
-                                            src={request.pic_url}
-                                        ></img>
-                                        <h3>
-                                            {request.first} {request.last}
-                                        </h3>
-                                        <button
-                                            className="cancel"
-                                            name="cancel"
-                                            onClick={(e) =>
-                                                handleButton(e, request.id)
-                                            }
-                                        >
-                                            👤-
-                                        </button>
-                                    </div>
-                                </Link>
-                            </>
+                            <Link to={`bikerz/${request.id}`} key={i}>
+                                <div className="result-container">
+                                    <img
+                                        className="result-icon-friends-wannabes"
+                                        src={request.pic_url}
+                                    ></img>
+                                    <h3>
+                                        {request.first} {request.last}
+                                    </h3>
+                                    <button
+                                        className="cancel"
+                                        name="cancel"
+                                        onClick={(e) =>
+                                            handleButton(e, request.id)
+                                        }
+                                    >
+                                        👤-
+                                    </button>
+                                </div>
+                            </Link>
                         ))}
                 </div>
             </div>

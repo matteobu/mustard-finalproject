@@ -8,6 +8,7 @@ import Profile from "./profile";
 import OtherUserProfile from "./otherUserProfile";
 import { Uploader } from "./uploader";
 import { MenuBar } from "./menu-bar";
+import { Chat } from "./chat";
 
 export default class APP extends Component {
     constructor(props) {
@@ -16,6 +17,7 @@ export default class APP extends Component {
             picProfileSmall: "profile-pic-small",
             picProfilebig: "profile-pic-big",
             cameraPic: "./img/profile-pic/change-pic.png",
+            chatReduced: true,
         };
 
         this.functionUploadImage = this.functionUploadImage.bind(this);
@@ -162,6 +164,13 @@ export default class APP extends Component {
                         userID={this.state.userID}
                         imageUrl={this.state.imageUrl}
                         functionCloseMenuBar={this.functionCloseMenuBar}
+                    />
+                )}
+                {this.state.chatReduced && (
+                    <Chat
+                        userID={this.state.userID}
+                        imageUrl={this.state.imageUrl}
+                        // functionCloseMenuBar={this.functionCloseMenuBar}
                     />
                 )}
 
