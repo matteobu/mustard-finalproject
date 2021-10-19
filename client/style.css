@@ -577,13 +577,30 @@ textarea {
     height: 20px;
     width: 300px;
 }
-.chat-container {
-    background-color: deeppink;
+.chat-container > textarea {
     position: absolute;
     bottom: 4%;
     right: 0;
-    height: 500px;
-    width: 300px;
+    background-color: #dbe2ef;
+    height: 50px;
+    width: 500px;
+    padding: 0;
+    border: 2px solid #f0a500;
+    color: #749dcf;
+}
+.chat-messages-container {
+    grid-row-start: 2;
+
+    background-color: #749dcf;
+    position: absolute;
+    bottom: 10%;
+    right: 0;
+    height: 300px;
+    width: 500px;
+    overflow-y: scroll;
+    padding: 0;
+    color: #dbe2ef;
+    border: 2px solid #f0a500;
 }
 
 footer {

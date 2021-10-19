@@ -61,7 +61,7 @@ module.exports.checkCode = (email) => {
     SELECT  code
     FROM password_reset_codes
     WHERE email=$1 
-    AND CURRENT_TIMESTAMP - created_at < INTERVAL '10 minutes'
+    AND CURRENT_TIMESTAMP - created_at < INTERVAL '10 mutes'
     ORDER BY created_at DESC
     LIMIT 1
      `;
@@ -181,3 +181,15 @@ module.exports.reduxFriendhipCheck = (userID) => {
     const params = [userID];
     return db.query(q, params);
 };
+
+// CHAT
+
+module.exports.lastThenMessages = () => {
+    return db.query(
+        `
+        SELECT *
+        FROM chat
+        `
+    );
+};
+// i.e. user's first name, last name, image, and chat msg

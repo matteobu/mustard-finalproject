@@ -43,7 +43,7 @@ export default function usersReducer(state = null, action) {
 
 // ACTION CREATOR -------------------------------------
 export function receiveUsers(users) {
-    // console.log("users :>> ", users);
+    // console.log("users on slice:>> ", users);
     return {
         type: "users/receivedUsers",
         payload: { users },

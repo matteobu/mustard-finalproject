@@ -10,7 +10,6 @@ export default function FindBikerz(props) {
     useEffect(() => {
         // IF ASYNC ON USE EFFECT USE ASYN IIFE // HINT FROM MERLE DO NOT DELETE
         // (async ()=>{  })() // HINT FROM MERLE DO NOT DELETE
-
         (async () => {
             if (!searchTerm) {
                 const result = await fetch("/lastThreeUsers").catch((err) =>

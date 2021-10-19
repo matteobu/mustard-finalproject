@@ -5,6 +5,8 @@ const path = require("path");
 const s3 = require("./s3");
 const db = require("./sql/db.js");
 const { uploader } = require("./upload");
+
+// Socket.io SETUP
 const server = require("http").Server(app);
 const io = require("socket.io")(server, {
     allowRequest: (req, callback) =>
@@ -17,13 +19,23 @@ const io = require("socket.io")(server, {
 // COOKIE SESSION
 const cookieSession = require("cookie-session");
 // COOKIE SESSION APP USE
-app.use(
-    cookieSession({
-        secret: "I'm always hungry",
-        maxAge: 1000 * 60 * 60 * 24 * 14, // 2 weeks
-        sameSite: true,
-    })
-);
+// app.use(
+//     cookieSession({
+//         secret: "I'm always hungry",
+//         maxAge: 1000 * 60 * 60 * 24 * 14, // 2 weeks
+//         sameSite: true,
+//     })
+// );
+
+const cookieSessionMiddleware = cookieSession({
+    secret: `I'm always hungry.`,
+    maxAge: 1000 * 60 * 60 * 24 * 90,
+});
+
+app.use(cookieSessionMiddleware);
+io.use(function (socket, next) {
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
 // app.use(csurf());
 
 // ROUTES REQUIRE
@@ -123,18 +135,57 @@ app.get("*", function (req, res) {
 server.listen(process.env.PORT || 3001, function () {
     console.log("Ehi, I'm listening 🤟: ");
 });
-
 io.on("connection", (socket) => {
-    console.log(`User with ID ${socket.id} just connect`);
-    socket.emit("greeting", {
-        message: "Hello welcome",
+    const userID = socket.request.session.userID;
+    console.log(
+        `socket id ${socket.id} with userID ${userID} is now connected`
+    );
+
+    if (!userID) {
+        return socket.disconnect(true);
+    }
+
+    db.lastThenMessages().then(({ rows }) => {
+        // console.log("LAST THEN MESSAGES :>> ", rows);
+        io.emit("mostRecentMsgs", rows);
     });
 
-    socket.on("disconnect", () => {
-        console.log(`User with ID ${socket.id} just disconnected`);
-    });
-
-    socket.on("thanks", (data) => {
-        console.log("data :>> ", data);
+    socket.on("newMessage", (newMsg) => {
+        io.emit("addChatMsg", newMsg);
     });
 });
+
+// OLD NOTE
+
+// io.on("connection", (socket) => {
+//     // console.log(`User with ID ${socket.id} just connect`);
+//     const userID = socket.request.session.userID;
+//     // console.log(userID);
+//     console.log(
+//         `User with userID ${userID} and socket ID ${socket.id} is just connect`
+//     );
+
+//     if (!userID) {
+//         return socket.disconnect(true);
+//     }
+
+//     // db.getLstaTenMsg().then((result) => {
+//     //     console.log("result.rows :>> ", result.rows);
+//     //     io.socket.emit("chatMessages", result.rows);
+//     // });
+
+//     socket.on("newChatMessage", (newMsg) => {
+//         console.log("message from chat.js component :>> ", newMsg);
+//     });
+//     // socket.emit("greeting", {
+//     //     message: "Hello welcome",
+//     // });
+
+//     // socket.on("disconnect", () => {
+//     //     console.log(`User with ID ${socket.id} just disconnected`);
+//     // });
+
+//     // socket.on("thanks", (data) => {
+//     //     console.log("data :>> ", data);
+//     // });
+// });

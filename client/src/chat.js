@@ -1,23 +1,108 @@
-import { Component } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useRef } from "react";
+import { socket } from "./socket";
+import { useSelector } from "react-redux";
 
-export class Chat extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            file: null,
-        };
-        // this.closeMenuFunction = this.closeMenuFunction.bind(this);
-    }
-    componentDidMount() {
-        // console.log("MENU BAR  MOUNTED");
-    }
-    closeMenuFunction() {
-        // this.props.functionCloseMenuBar();
-    }
-    render() {
-        // console.log("STATE on DID MOUNT>> ", this.state);
-        // console.log("PROPS on DID MOUNT>> ", this.props);
-        return <div className="chat-reduced ">CHAT</div>;
-    }
+export default function Chat() {
+    const elemRef = useRef();
+    const chatMessages = useSelector((state) => state.messages);
+
+    console.log("here are my last 10 chat messages: ", chatMessages);
+    // console.log("here are  ", chatMessages?.messages[0].message);
+
+    useEffect(() => {
+        // console.log("chat hooks component has MOUNTED");
+        // console.log("elem Ref is ==> ", elemRef);
+
+        // console.log("scroll top: ", elemRef.current.scrollTop);
+        // console.log("clientHeight: ", elemRef.current.clientHeight);
+        // console.log("scrollHeight: ", elemRef.current.scrollHeight);
+
+        elemRef.current.scrollTop =
+            elemRef.current.scrollHeight - elemRef.current.clientHeight;
+    }, []);
+
+    const keyCheck = (e) => {
+        if (e.key === "Enter") {
+            e.preventDefault();
+
+            socket.emit("newMessage", e.target.value);
+            e.target.value = "";
+        }
+    };
+
+    return (
+        <div className="chat-container">
+            <p className="chat">Welcome to Chat</p>
+            <div className="chat-messages-container" ref={elemRef}>
+                <p>My Chat Message</p>
+
+                {chatMessages &&
+                    chatMessages.map((message, i) => (
+                        <div className="chat-message" key={i}>
+                            <h3>{message.message}</h3>
+                        </div>
+                    ))}
+            </div>
+            <textarea
+                placeholder="Add your message here"
+                onKeyDown={keyCheck}
+            ></textarea>
+        </div>
+    );
 }
+
+// import { useEffect, useRef } from "react";
+// import { socket } from "./socket";
+// import { useSelector } from "react-redux";
+
+// export default function Chat() {
+//     const elemRef = useRef;
+//     const chatMessages = useSelector((state) => state && state.chatMessages);
+//     const keyCheck = (e) => {
+//         if (e.key === "Enter") {
+//             e.preventDefault();
+//             console.log("MESSAGE", e.target.value);
+//             socket.emit("newChatMessage", e.target.value);
+//             e.target.value = "";
+//         }
+//     };
+
+//     useEffect(() => {
+//         console.log("CHAT HAS MOUNTED");
+//         console.log("elemRef :>> ", elemRef);
+//         console.log('"scroll top: " :>> ', elemRef.current.scrollTop);
+//         console.log('"client height : " :>> ', elemRef.current.clientHeight);
+//         console.log('"scroll height: " :>> ', elemRef.current.scrolltHeight);
+
+//         elemRef.current.scrollTop =
+//             elemRef.current.scrolltHeight - elemRef.current.clientHeight;
+
+//         return () => {};
+//     }, [chatMes]);
+//     return (
+//         <>
+//             <div className="chat-container">
+//                 <div className="chat-messages-container" ref={useRef}>
+//                     <p> chat message</p>
+//                     <p> chat message</p>
+//                     <p> chat message</p>
+//                     <p> chat message</p>
+//                     <p> chat message</p>
+//                     <p> chat message</p>
+//                     <p> chat message</p>
+//                     <p> chat message</p>
+//                     <p> chat message</p>
+//                     <p> chat message</p>
+//                     <p> chat message</p>
+//                     <p> chat message</p>
+//                     <p> chat message</p>
+//                     <p> chat message</p>
+//                 </div>
+//                 <textarea
+//                     placeholder="add your message"
+//                     onKeyDown={keyCheck}
+//                 ></textarea>
+//             </div>
+//         </>
+//     );
+// }

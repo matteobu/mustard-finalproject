@@ -8,7 +8,7 @@ import Profile from "./profile";
 import OtherUserProfile from "./otherUserProfile";
 import { Uploader } from "./uploader";
 import { MenuBar } from "./menu-bar";
-import { Chat } from "./chat";
+import Chat from "./chat";
 
 export default class APP extends Component {
     constructor(props) {
@@ -138,6 +138,9 @@ export default class APP extends Component {
                         <Route path="/find-bikerz">
                             <FindBikerz first={this.state.first} />
                         </Route>
+                        <Route path="/chat">
+                            <Chat first={this.state.first} />
+                        </Route>
                         <Route path="/friends">
                             <FriendsList userID={this.state.userID} />
                         </Route>
@@ -166,13 +169,13 @@ export default class APP extends Component {
                         functionCloseMenuBar={this.functionCloseMenuBar}
                     />
                 )}
-                {this.state.chatReduced && (
+                {/* {this.state.chatReduced && (
                     <Chat
                         userID={this.state.userID}
                         imageUrl={this.state.imageUrl}
                         // functionCloseMenuBar={this.functionCloseMenuBar}
-                    />
-                )}
+                    />Chat
+                )} */}
 
                 {/* ⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️ HERE ABOVE ARE LISTED THE MODAL THAT CAN APPEAR OR DISAPPEAR ACCORDING TO THE RELATIVE onCLICK FUNCTIONS */}
             </BrowserRouter>

@@ -22,3 +22,13 @@ CREATE TABLE friendships(
       sender_id INT REFERENCES users(id) NOT NULL,
       recipient_id INT REFERENCES users(id) NOT NULL,
       accepted BOOLEAN DEFAULT false);
+
+CREATE TABLE chat(
+      id SERIAL PRIMARY KEY,
+      sender_id INT REFERENCES users(id) NOT NULL,
+      message VARCHAR NOT NULL, 
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- INSERT INTO chat (sender_id, message)
+-- VALUES('3','Third Message');
