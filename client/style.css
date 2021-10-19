@@ -577,6 +577,18 @@ textarea {
     height: 20px;
     width: 300px;
 }
+
+.up-bar-chat {
+    background-color: deeppink;
+    position: absolute;
+    bottom: 48%;
+    right: 0;
+    padding: 0;
+
+    height: 20px;
+    width: 500px;
+    border: 2px solid #f0a500;
+}
 .chat-container > textarea {
     position: absolute;
     bottom: 4%;
