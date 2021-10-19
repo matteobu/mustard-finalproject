@@ -187,9 +187,36 @@ module.exports.reduxFriendhipCheck = (userID) => {
 module.exports.lastThenMessages = () => {
     return db.query(
         `
-        SELECT *
+        SELECT chat.id, sender_id, message, first, last, pic_url, chat.created_at
         FROM chat
+        JOIN users
+        ON sender_id = users.id
+        ORDER BY id DESC
+        LIMIT 10
         `
     );
 };
+module.exports.lastMessage = () => {
+    const q = `
+    SELECT chat.id, sender_id, message, first, last, pic_url, chat.created_at
+    FROM chat
+    JOIN users
+    ON sender_id = users.id
+    ORDER BY id DESC
+    LIMIT 1
+        `;
+    return db.query(q);
+};
+
+module.exports.insertMessage = (userID, message) => {
+    const q = `
+        INSERT INTO chat (sender_id, message)
+        VALUES($1, $2)
+        RETURNING id
+        `;
+    const params = [userID, message];
+    return db.query(q, params);
+};
 // i.e. user's first name, last name, image, and chat msg
+// INSERT INTO chat (sender_id, message)
+// VALUES('3','Third Message');

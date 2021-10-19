@@ -151,7 +151,14 @@ io.on("connection", (socket) => {
     });
 
     socket.on("newMessage", (newMsg) => {
-        io.emit("addChatMsg", newMsg);
+        db.insertMessage(userID, newMsg).then(({ rows }) => {
+            console.log("id :>> ", rows[0].id);
+            let idForLastMessage = rows[0].id;
+            db.lastMessage(idForLastMessage).then(({ rows }) => {
+                console.log("rows :>> ", rows);
+                io.emit("addChatMsg", rows[0]);
+            });
+        });
     });
 });
 

@@ -8,7 +8,6 @@ import {
 export let socket;
 
 export const init = (store) => {
-
     if (!socket) {
         socket = io.connect();
         socket.on("mostRecentMsgs", (msgs) =>
@@ -17,7 +16,6 @@ export const init = (store) => {
 
         socket.on("addChatMsg", (msg) => {
             store.dispatch(chatMessagesReceived(msg));
-            // this is where you should dispatch an action to put this message in redux
         });
     }
 };

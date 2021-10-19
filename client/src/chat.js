@@ -34,12 +34,14 @@ export default function Chat() {
         <div className="chat-container">
             <p className="chat">Welcome to Chat</p>
             <div className="chat-messages-container" ref={elemRef}>
-                <p>My Chat Message</p>
-
                 {chatMessages &&
                     chatMessages.map((message, i) => (
                         <div className="chat-message" key={i}>
-                            <h3>{message.message}</h3>
+                            <img
+                                className="result-icon-on-chat"
+                                src={message.pic_url}
+                            ></img>{" "}
+                            <h4>{message.message}</h4>
                         </div>
                     ))}
             </div>
