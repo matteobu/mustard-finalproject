@@ -3,6 +3,10 @@ import {
     chatMessagesReceived,
     messagesFromDB,
 } from "./redux/messages/slice.js";
+import {
+    privateMessagesFromDB,
+    privateChatMessagesReceived,
+} from "./redux/pvt-messages/slice.js";
 import { onlineUsers } from "./redux/usersOnline/slice.js";
 import { onlineFriends } from "./redux/friends/slice.js";
 
@@ -21,13 +25,23 @@ export const init = (store) => {
         await store.dispatch(chatMessagesReceived(msg));
     });
 
+    // ONLINE USERS AND FRIENDS
     socket.on("onlineUsers", async (value) => {
-        console.log("onlineUsers ON SOCKET:>> ", value);
+        // console.log("onlineUsers ON SOCKET:>> ", value);
         await store.dispatch(onlineUsers({ value }));
     });
     socket.on("onlineFriends", async (value) => {
-        console.log("onlineFriends ON SOCKET:>> ", value);
+        // console.log("onlineFriends ON SOCKET:>> ", value);
         await store.dispatch(onlineFriends({ value }));
+    });
+
+    /// PRIVATE CHAT
+    socket.on(
+        "most recent pvt messages",
+        async (msgs) => await store.dispatch(privateMessagesFromDB(msgs))
+    );
+    socket.on("addPvtChatMsg", async (msg) => {
+        await store.dispatch(privateChatMessagesReceived(msg));
     });
 };
 

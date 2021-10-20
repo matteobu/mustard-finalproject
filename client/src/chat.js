@@ -42,26 +42,6 @@ export default function Chat(props) {
 
     return (
         <div className="chat-and-online-container">
-            <div className="online-container">
-                {onlineUsers &&
-                    onlineUsers.map((onlineUser, i) => (
-                        <div className="onliners" key={i}>
-                            <img
-                                className="result-icon-on-chat"
-                                src={onlineUser.pic_url}
-                            ></img>
-                        </div>
-                    ))}
-                {onlineFriends &&
-                    onlineFriends.map((friend, i) => (
-                        <div className="friends" key={i}>
-                            <img
-                                className="result-icon-on-chat"
-                                src={friend.pic_url}
-                            ></img>
-                        </div>
-                    ))}
-            </div>
             <div className="chat-container">
                 <div className="up-bar-chat"> UP BAR</div>
                 <div className="chat-messages-container" ref={elemRef}>
@@ -81,6 +61,28 @@ export default function Chat(props) {
                     placeholder="Add your message here"
                     onKeyDown={keyCheck}
                 ></textarea>
+            </div>
+
+            <div className="online-container">
+                {onlineUsers &&
+                    onlineUsers.map((onlineUser, i) => (
+                        <div className="onliners" key={i}>
+                            <img
+                                className="result-icon-on-chat"
+                                src={onlineUser.pic_url}
+                            ></img>
+                        </div>
+                    ))}
+
+                {onlineFriends &&
+                    onlineFriends.map((friend, i) => (
+                        <div className="friends" key={i}>
+                            <img
+                                className="friends-icon-on-chat"
+                                src={friend.pic_url}
+                            ></img>
+                        </div>
+                    ))}
             </div>
         </div>
     );

@@ -18,7 +18,7 @@ export default function ({
                 (user) => user.accepted == false && userID == user.recipient_id
             )
     );
-    console.log("wannabes :>> ", wannabes?.length);
+    // console.log("wannabes :>> ", wannabes?.length);
 
     return (
         <>

@@ -1,5 +1,7 @@
 import ProfilePic from "./profilepic";
 import { BioEditor } from "./bio-editor";
+import { socket } from "./socket";
+import { useSelector } from "react-redux";
 
 export default function Profile(props) {
     /// TOP LEVEL OF THE FUNCTION COMPONENT////

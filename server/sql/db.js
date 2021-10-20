@@ -28,7 +28,12 @@ module.exports.usersStarInformation = (id) => {
 };
 module.exports.userInfoProfile = (id) => {
     return db.query(
-        `SELECT id, first, last, bio, pic_url FROM users WHERE id = $1`,
+        `SELECT users.id, first, last, bio, pic_url, accepted
+        FROM users 
+        LEFT JOIN friendships 
+        ON users.id = sender_id
+        OR users.id = recipient_id
+        WHERE users.id = $1`,
         [id]
     );
 };
@@ -242,6 +247,58 @@ module.exports.insertMessage = (userID, message) => {
     const params = [userID, message];
     return db.query(q, params);
 };
+// PRIVATE CHAT
+
+module.exports.lastThenPrivateMessages = (userID, otherUserID) => {
+    const q = `
+        SELECT *
+        FROM pvt_chat
+        JOIN users
+        ON (sender_id = users.id)
+        WHERE (recipient_id = $1 AND sender_id = $2)
+        OR (sender_id = $1 AND recipient_id = $2)
+        ORDER BY pvt_chat.id DESC
+        LIMIT 10
+        `;
+    const params = [userID, otherUserID];
+    return db.query(q, params);
+};
+
+module.exports.lastPrivateMessage = () => {
+    const q = `
+    SELECT *
+    FROM pvt_chat
+    JOIN users
+    ON sender_id = users.id
+    ORDER BY pvt_chat.id DESC
+    LIMIT 1
+        `;
+    return db.query(q);
+};
+module.exports.insertPrivateMessage = (userID, otherUserID, message) => {
+    const q = `
+        INSERT INTO pvt_chat (sender_id, recipient_id , message)
+        VALUES($1, $2, $3)
+        RETURNING id
+        `;
+    const params = [userID, otherUserID, message];
+    return db.query(q, params);
+};
 // i.e. user's first name, last name, image, and chat msg
 // INSERT INTO chat (sender_id, message)
 // VALUES('3','Third Message');
+
+// FRIENDSHIP CHECK ON SOCKET.IO
+
+module.exports.friendsViaSocket = (userID) => {
+    const q = `
+    SELECT users.id, first, last, pic_url, accepted, recipient_id, sender_id
+    FROM friendships
+    JOIN users
+    ON  (accepted = true AND recipient_id = $1 AND sender_id = users.id)
+    OR (accepted = true AND sender_id = $1 AND recipient_id = users.id) 
+`;
+
+    const params = [userID];
+    return db.query(q, params);
+};

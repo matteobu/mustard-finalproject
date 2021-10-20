@@ -35,8 +35,6 @@ export default function FriendshipButton(props) {
     useEffect(() => {
         let abort = false;
         if (!abort) {
-
-            
             fetch(`/check-friendship/${props.otherUserID}`)
                 .then((res) => res.json())
                 .then((value) => {
@@ -76,6 +74,7 @@ export default function FriendshipButton(props) {
                     UNFRIEND --
                 </button>
             )}
+
         </div>
     );
 }

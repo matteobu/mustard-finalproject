@@ -137,6 +137,8 @@ server.listen(process.env.PORT || 3001, function () {
 });
 const onlineUsers = {};
 io.on("connection", async (socket) => {
+    // ⬇⬇⬇⬇ USERID and SOCKET ID ⬇⬇⬇⬇
+
     // const userID = socket.request.session.userID;
     const { userID } = socket.request.session;
     onlineUsers[socket.id] = userID;
@@ -147,7 +149,11 @@ io.on("connection", async (socket) => {
     console.log(
         `socket id ${socket.id} with userID ${userID} is now connected`
     );
-    // ONLINE USERS
+    // ⬇⬇⬇⬇ FRIENDS ⬇⬇⬇⬇
+    // const { rows } = await db.friendsViaSocket(userID);
+    // // console.log("friendsViaSocket on SERVER sez. io.on :>> ", rows);
+
+    // ⬇⬇⬇⬇ ONLINE USERS & ONLINE FRIENDS ⬇⬇⬇⬇
 
     onlineUsers[socket.id] = userID;
     const onlineUserIDsArray = [...new Set(Object.values(onlineUsers))];
@@ -164,24 +170,48 @@ io.on("connection", async (socket) => {
         io.emit("onlineUsers", rows);
     });
 
-    // 💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥
-    //EXAMPLE ON WHY SET IS IMPORTANT
+    //⬇⬇⬇⬇ EXAMPLE ON WHY SET IS IMPORTANT ⬇⬇⬇⬇
     // ONLINE USERS  :>>  {
     //     ZW4ckl1RHWh4Po4ZAAAF: 3,
     //     Z4eRUbeo1lKcA1tmAAAH: 59,
     //     l5rY4tLIs9JmWwYBAAAJ: 59
     //   }
     //   ONLINE USERS IDS ARRAY :>>  [ 3, 59 ]
-    // 💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥
 
-    // CHECK IF SOME ONLINERS IS A FRIEND
+    // ⬇⬇⬇⬇ CHECK IF SOME ONLINERS IS A FRIEND ⬇⬇⬇⬇
 
     db.onlineFriendsInfo(onlineUserIDsArray).then(({ rows }) => {
-        console.log("INFO FOR FRIENDS ONLINE:>> ", { rows });
+        // console.log("INFO FOR FRIENDS ONLINE:>> ", { rows });
         io.emit("onlineFriends", rows);
     });
 
-    ////////
+    // ⬇⬇⬇⬇ PRIVATE MESSAGES ⬇⬇⬇⬇
+
+    // let variableWithID;
+    socket.on("private chat opened", ({ otherUserID, userID }) => {
+        console.log("otherUserID :>> ", otherUserID);
+        db.lastThenPrivateMessages(userID, otherUserID).then(({ rows }) => {
+            console.log("LAST THEN MESSAGES :>> ", rows);
+            io.emit("most recent pvt messages", rows);
+        });
+    });
+
+    // console.log("variableWithID :>> ", variableWithID);
+
+    socket.on("newPvtMessage", ({ otherUserID, message }) => {
+        db.insertPrivateMessage(userID, otherUserID, message).then(
+            ({ rows }) => {
+                // console.log("id :>> ", rows[0].id);
+                let idForLastMessage = rows[0].id;
+                db.lastPrivateMessage(idForLastMessage).then(({ rows }) => {
+                    // console.log("rows :>> ", rows);
+                    io.emit("addPvtChatMsg", rows[0]);
+                });
+            }
+        );
+    });
+
+    // ⬇⬇⬇⬇ MESSAGES ⬇⬇⬇⬇
     db.lastThenMessages().then(({ rows }) => {
         // console.log("LAST THEN MESSAGES :>> ", rows);
         io.emit("mostRecentMsgs", rows);
@@ -189,10 +219,10 @@ io.on("connection", async (socket) => {
 
     socket.on("newMessage", (newMsg) => {
         db.insertMessage(userID, newMsg).then(({ rows }) => {
-            console.log("id :>> ", rows[0].id);
+            // console.log("id :>> ", rows[0].id);
             let idForLastMessage = rows[0].id;
             db.lastMessage(idForLastMessage).then(({ rows }) => {
-                console.log("rows :>> ", rows);
+                // console.log("rows :>> ", rows);
                 io.emit("addChatMsg", rows[0]);
             });
         });

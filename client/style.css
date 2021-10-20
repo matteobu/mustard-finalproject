@@ -568,14 +568,24 @@ textarea {
     font-size: 10px;
 }
 /* CHAT */
-.chat-and-online-container {
+
+.pvt-chat {
     grid-row-start: 2;
+    position: absolute;
     justify-self: flex-end;
     align-self: flex-end;
     display: grid;
     grid-template-columns: 80% 20%;
     background-color: deeppink;
-  
+    z-index: 99;
+}
+.chat-and-online-container {
+    grid-row-start: 2;
+    justify-self: flex-end;
+    align-self: flex-end;
+    display: grid;
+    grid-template-rows: 50% 50%;
+    background-color: deeppink;
 }
 .chat-container {
     /* grid-column-start: 1; */
@@ -583,7 +593,7 @@ textarea {
     height: 500px;
     width: 500px;
     display: grid;
-    grid-template-rows: 5% 80% 15%;
+    grid-template-rows: 10% 75% 15%;
     border: 2px solid #f0a500;
 }
 
@@ -647,15 +657,35 @@ textarea {
 }
 
 .online-container {
-    grid-column-start: 2;
+    left: 40px;
+    top: 300px;
+    height: 300px;
+    width: 300px;
+    position: absolute;
     background-color: deepskyblue;
-    width: 200px;
+    display: grid;
+    grid-template-columns: auto;
 }
-.onliners{
+.onliners {
     background-color: greenyellow;
+    border: 2px solid #f0a500;
 }
-.friends{
+.friends {
     background-color: firebrick;
+    border: 2px solid #0010f0;
+}
+
+.friends-icon-on-chat {
+    grid-row-start: 1;
+    grid-column-start: 1;
+    grid-column-end: -1;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    height: 25px;
+    width: 25px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #0010f0;
 }
 /* FOOTER */
 footer {

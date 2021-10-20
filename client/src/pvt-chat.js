@@ -3,30 +3,11 @@ import { socket } from "./socket";
 import { useSelector } from "react-redux";
 
 export default function Chat(props) {
+    console.log("PROPS ON PRIVATE CHAT :>> ", props);
     const elemRef = useRef();
-    const chatMessages = useSelector((state) => state.messages);
-    const onlineUsers = useSelector((state) => state.onliners);
-    const onlineFriends = useSelector(
-        (state) =>
-            state.friendsOnline &&
-            state.friendsOnline.filter((friend) => friend.id != props.userID)
-    );
-
-    // console.log("pros in CHAT:>> ", props.userID);
-    // console.log("here are my friends users: ", onlineFri⁄ends);
-    console.log("here are my friends ID: ", onlineFriends);
-    console.log("here are my online users: ", onlineUsers);
-    console.log("here are my last 10 chat messages: ", chatMessages);
-    // console.log("here are  ", chatMessages?.messages[0].message);
+    const privateMessages = useSelector((state) => state.pvtmessages);
 
     useEffect(() => {
-        // console.log("chat hooks component has MOUNTED");
-        // console.log("elem Ref is ==> ", elemRef);
-
-        // console.log("scroll top: ", elemRef.current.scrollTop);
-        // console.log("clientHeight: ", elemRef.current.clientHeight);
-        // console.log("scrollHeight: ", elemRef.current.scrollHeight);
-
         elemRef.current.scrollTop =
             elemRef.current.scrollHeight - elemRef.current.clientHeight;
     }, []);
@@ -34,39 +15,22 @@ export default function Chat(props) {
     const keyCheck = (e) => {
         if (e.key === "Enter") {
             e.preventDefault();
-
-            socket.emit("newMessage", e.target.value);
+            const usersOnPrivateChat = {
+                otherUserID: props.otherUserID,
+                message: e.target.value,
+            };
+            socket.emit("newPvtMessage", usersOnPrivateChat);
             e.target.value = "";
         }
     };
 
     return (
         <div className="pvt-chat">
-            <div className="online-container">
-                {onlineUsers &&
-                    onlineUsers.map((onlineUser, i) => (
-                        <div className="onliners" key={i}>
-                            <img
-                                className="result-icon-on-chat"
-                                src={onlineUser.pic_url}
-                            ></img>
-                        </div>
-                    ))}
-                {onlineFriends &&
-                    onlineFriends.map((friend, i) => (
-                        <div className="friends" key={i}>
-                            <img
-                                className="result-icon-on-chat"
-                                src={friend.pic_url}
-                            ></img>
-                        </div>
-                    ))}
-            </div>
             <div className="chat-container">
                 <div className="up-bar-chat"> UP BAR</div>
                 <div className="chat-messages-container" ref={elemRef}>
-                    {chatMessages &&
-                        chatMessages.map((message, i) => (
+                    {privateMessages &&
+                        privateMessages.map((message, i) => (
                             <div className="chat-message" key={i}>
                                 <img
                                     className="result-icon-on-chat"

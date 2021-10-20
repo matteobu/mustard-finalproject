@@ -9,7 +9,6 @@ import OtherUserProfile from "./otherUserProfile";
 import { Uploader } from "./uploader";
 import { MenuBar } from "./menu-bar";
 import Chat from "./chat";
-import PvtChat from "./pvt-chat";
 
 export default class APP extends Component {
     constructor(props) {
@@ -18,7 +17,6 @@ export default class APP extends Component {
             picProfileSmall: "profile-pic-small",
             picProfilebig: "profile-pic-big",
             cameraPic: "./img/profile-pic/change-pic.png",
-            chatReduced: true,
         };
 
         this.functionUploadImage = this.functionUploadImage.bind(this);
@@ -26,6 +24,7 @@ export default class APP extends Component {
         this.storeBioInApp = this.storeBioInApp.bind(this);
         this.functioErrorAppears = this.functioErrorAppears.bind(this);
         this.notificationDot = this.notificationDot.bind(this);
+        this.privateChatFunction = this.privateChatFunction.bind(this);
     }
     async componentDidMount() {
         console.log("APP MOUNTED");
@@ -81,6 +80,15 @@ export default class APP extends Component {
             notificationDot: !oldState.notificationDot,
         }));
     }
+    privateChatFunction(otherUserID) {
+        console.log("otherUserID :>> ", otherUserID);
+        this.setState({
+            otherUserID: otherUserID,
+        });
+        // this.setState((oldState) => ({
+        //     privateChat: !oldState.privateChat,
+        // }));
+    }
 
     render() {
         if (!this.state.userID) {
@@ -97,6 +105,7 @@ export default class APP extends Component {
                     {this.state.notificationDot && (
                         <div className="notificationDot"></div>
                     )}
+
                     <div className="navbar">
                         <Link to="/">
                             <img
@@ -142,9 +151,7 @@ export default class APP extends Component {
                         <Route path="/chat">
                             <Chat userID={this.state.userID} />
                         </Route>
-                        <Route path="/pvt-chat">
-                            <PvtChat userID={this.state.userID} />
-                        </Route>
+
                         <Route path="/friends">
                             <FriendsList userID={this.state.userID} />
                         </Route>
@@ -153,6 +160,7 @@ export default class APP extends Component {
                                 userID={this.state.userID}
                                 functioErrorAppears={this.functioErrorAppears}
                                 notificationDot={this.notificationDot}
+                                privateChatFunction={this.privateChatFunction}
                             />
                         </Route>
                     </Switch>
@@ -173,13 +181,6 @@ export default class APP extends Component {
                         functionCloseMenuBar={this.functionCloseMenuBar}
                     />
                 )}
-                {/* {this.state.chatReduced && (
-                    <Chat
-                        userID={this.state.userID}
-                        imageUrl={this.state.imageUrl}
-                        // functionCloseMenuBar={this.functionCloseMenuBar}
-                    />Chat
-                )} */}
 
                 {/* ⬆️⬆️⬆️⬆️⬆️⬆️⬆️⬆️ HERE ABOVE ARE LISTED THE MODAL THAT CAN APPEAR OR DISAPPEAR ACCORDING TO THE RELATIVE onCLICK FUNCTIONS */}
             </BrowserRouter>

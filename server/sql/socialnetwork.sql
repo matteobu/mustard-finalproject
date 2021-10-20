@@ -30,5 +30,19 @@ CREATE TABLE chat(
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE pvt_chat(
+      id SERIAL PRIMARY KEY,
+      sender_id INT REFERENCES users(id) NOT NULL,
+      recipient_id INT REFERENCES users(id) NOT NULL,
+      message VARCHAR NOT NULL, 
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+
 -- INSERT INTO chat (sender_id, message)
 -- VALUES('3','Third Message');
+
+
+-- INSERT INTO pvt_chat (sender_id, recipient_id, message)
+-- VALUES('3', '27', 'ONE MESSAGES');
