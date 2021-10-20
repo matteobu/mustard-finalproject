@@ -41,7 +41,7 @@ export default function Chat(props) {
     };
 
     return (
-        <div className="chat-and-online-container">
+        <div className="pvt-chat">
             <div className="online-container">
                 {onlineUsers &&
                     onlineUsers.map((onlineUser, i) => (

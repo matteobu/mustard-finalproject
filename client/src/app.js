@@ -9,6 +9,7 @@ import OtherUserProfile from "./otherUserProfile";
 import { Uploader } from "./uploader";
 import { MenuBar } from "./menu-bar";
 import Chat from "./chat";
+import PvtChat from "./pvt-chat";
 
 export default class APP extends Component {
     constructor(props) {
@@ -139,7 +140,10 @@ export default class APP extends Component {
                             <FindBikerz first={this.state.first} />
                         </Route>
                         <Route path="/chat">
-                            <Chat first={this.state.first} />
+                            <Chat userID={this.state.userID} />
+                        </Route>
+                        <Route path="/pvt-chat">
+                            <PvtChat userID={this.state.userID} />
                         </Route>
                         <Route path="/friends">
                             <FriendsList userID={this.state.userID} />

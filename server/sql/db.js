@@ -32,6 +32,23 @@ module.exports.userInfoProfile = (id) => {
         [id]
     );
 };
+
+module.exports.onlineUserIDsArrayProfileInfo = (IDs) => {
+    return db.query(
+        `SELECT id, first, last, pic_url FROM users WHERE id = ANY($1)`,
+        [IDs]
+    );
+};
+module.exports.onlineFriendsInfo = (IDs) => {
+    return db.query(
+        `SELECT users.id, first, last, pic_url FROM friendships
+        JOIN users
+        ON (accepted = true AND recipient_id = ANY($1) AND sender_id = users.id)
+        OR (accepted = true AND sender_id = ANY($1) AND recipient_id = users.id) `,
+        [IDs]
+    );
+};
+
 // CHECKING PASSWORD FROM EMAIL
 module.exports.listID = (email) => {
     return db.query(`SELECT password, id FROM users WHERE email = $1`, [email]);
@@ -131,6 +148,14 @@ module.exports.checkFriendship = (userID, otherUserID) => {
             OR (recipient_id = $2 AND sender_id = $1)
             `;
     const params = [userID, otherUserID];
+    return db.query(q, params);
+};
+module.exports.checkFriendshipRequests = (userID) => {
+    const q = `
+            SELECT * FROM friendships
+            WHERE (recipient_id = $1 )
+            `;
+    const params = [userID];
     return db.query(q, params);
 };
 module.exports.makeFriendship = (userID, otherUserID) => {

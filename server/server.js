@@ -135,16 +135,53 @@ app.get("*", function (req, res) {
 server.listen(process.env.PORT || 3001, function () {
     console.log("Ehi, I'm listening 🤟: ");
 });
-io.on("connection", (socket) => {
-    const userID = socket.request.session.userID;
-    console.log(
-        `socket id ${socket.id} with userID ${userID} is now connected`
-    );
-
-    if (!userID) {
+const onlineUsers = {};
+io.on("connection", async (socket) => {
+    // const userID = socket.request.session.userID;
+    const { userID } = socket.request.session;
+    onlineUsers[socket.id] = userID;
+    if (!socket.request.session.userID) {
         return socket.disconnect(true);
     }
 
+    console.log(
+        `socket id ${socket.id} with userID ${userID} is now connected`
+    );
+    // ONLINE USERS
+
+    onlineUsers[socket.id] = userID;
+    const onlineUserIDsArray = [...new Set(Object.values(onlineUsers))];
+
+    socket.on("disconnect", () => {
+        delete onlineUsers[socket.id];
+    });
+
+    // console.log("ONLINE USERS  :>> ", onlineUsers);
+    // console.log("ONLINE USERS IDS ARRAY :>> ", onlineUserIDsArray);
+
+    db.onlineUserIDsArrayProfileInfo(onlineUserIDsArray).then(({ rows }) => {
+        // console.log("value ON SERVEr:>> ", rows);
+        io.emit("onlineUsers", rows);
+    });
+
+    // 💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥
+    //EXAMPLE ON WHY SET IS IMPORTANT
+    // ONLINE USERS  :>>  {
+    //     ZW4ckl1RHWh4Po4ZAAAF: 3,
+    //     Z4eRUbeo1lKcA1tmAAAH: 59,
+    //     l5rY4tLIs9JmWwYBAAAJ: 59
+    //   }
+    //   ONLINE USERS IDS ARRAY :>>  [ 3, 59 ]
+    // 💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥
+
+    // CHECK IF SOME ONLINERS IS A FRIEND
+
+    db.onlineFriendsInfo(onlineUserIDsArray).then(({ rows }) => {
+        console.log("INFO FOR FRIENDS ONLINE:>> ", { rows });
+        io.emit("onlineFriends", rows);
+    });
+
+    ////////
     db.lastThenMessages().then(({ rows }) => {
         // console.log("LAST THEN MESSAGES :>> ", rows);
         io.emit("mostRecentMsgs", rows);

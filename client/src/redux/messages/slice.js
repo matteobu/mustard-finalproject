@@ -11,14 +11,14 @@ export default function messageReducer(state = null, action) {
 
 // ACTION CREATOR -------------------------------------
 export function messagesFromDB(msgs) {
-    console.log("messages from DB :>> ", msgs);
+    // console.log("messages from DB :>> ", msgs);
     return {
         type: "messages/messagesFromDB",
         payload: { msgs },
     };
 }
 export function chatMessagesReceived(msgs) {
-    console.log("messages from CHAT :>> ", msgs);
+    // console.log("messages from CHAT :>> ", msgs);
     return {
         type: "messages/chatMessagesReceived",
         payload: msgs,

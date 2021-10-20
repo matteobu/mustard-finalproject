@@ -567,59 +567,76 @@ textarea {
     margin: 50px;
     font-size: 10px;
 }
-/* FOOTER */
-
-.chat-reduced {
-    background-color: salmon;
-    position: absolute;
-    bottom: 4%;
-    right: 0;
-    height: 20px;
-    width: 300px;
+/* CHAT */
+.chat-and-online-container {
+    grid-row-start: 2;
+    justify-self: flex-end;
+    align-self: flex-end;
+    display: grid;
+    grid-template-columns: 80% 20%;
+    background-color: deeppink;
+  
+}
+.chat-container {
+    /* grid-column-start: 1; */
+    background-color: deeppink;
+    height: 500px;
+    width: 500px;
+    display: grid;
+    grid-template-rows: 5% 80% 15%;
+    border: 2px solid #f0a500;
 }
 
 .up-bar-chat {
-    background-color: deeppink;
-    position: absolute;
-    bottom: 48%;
-    right: 0;
-    padding: 0;
-
-    height: 20px;
-    width: 500px;
-    border: 2px solid #f0a500;
+    grid-row-start: 1;
+    background-color: #112d4e;
+    height: 100%;
+    width: 100%;
 }
 .chat-container > textarea {
-    position: absolute;
-    bottom: 4%;
-    right: 0;
-    background-color: #dbe2ef;
-    height: 50px;
-    width: 500px;
+    grid-row-start: 3;
+    background-color: #112d4e;
+    height: 100%;
+    width: auto;
     padding: 0;
-    border: 2px solid #f0a500;
-    color: #749dcf;
+    color: #f0a500;
 }
 .chat-messages-container {
     grid-row-start: 2;
     display: flex;
     flex-direction: column-reverse;
-    background-color: #749dcf;
-    position: absolute;
-    bottom: 10%;
-    right: 0;
-    height: 300px;
-    width: 500px;
+    background-color: #112d4e;
+    height: 100%;
+    width: 100%;
+
     overflow-y: scroll;
     padding: 0;
     color: #749dcf;
-    border: 2px solid #f0a500;
 }
 .chat-message {
     background-color: #dbe2ef;
     margin: 5px;
+    display: grid;
+    grid-template-columns: 15% 85%;
+    grid-template-rows: 20% 80%;
+}
+.chat-message > h4 {
+    grid-row-start: 2;
+
+    grid-column-start: 1;
+    grid-column-end: -1;
+}
+.chat-message > h6 {
+    color: #f0a500;
+    margin: 0;
+    grid-row-start: 1;
+    grid-column-start: 2;
+    grid-column-end: -1;
 }
 .result-icon-on-chat {
+    grid-row-start: 1;
+    grid-column-start: 1;
+    grid-column-end: -1;
     margin-top: 5px;
     margin-bottom: 5px;
     height: 25px;
@@ -628,6 +645,19 @@ textarea {
     border-radius: 50%;
     border: 2px solid #f0a500;
 }
+
+.online-container {
+    grid-column-start: 2;
+    background-color: deepskyblue;
+    width: 200px;
+}
+.onliners{
+    background-color: greenyellow;
+}
+.friends{
+    background-color: firebrick;
+}
+/* FOOTER */
 footer {
     grid-row-start: 3;
     align-self: end;
