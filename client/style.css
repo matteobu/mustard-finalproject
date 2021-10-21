@@ -286,11 +286,12 @@ input {
     background-color: #112d4e;
     border: 5px solid #f0a500;
     padding: 40px;
-    margin-top: 20px;
     grid-row-start: 2;
     display: grid;
+    align-self: center;
+    justify-self: center;
     grid-template-columns: 20% 80%;
-    margin: 10%;
+    /* margin: 10%; */
 }
 .profile-right-container {
     padding-left: 15px;
@@ -520,7 +521,7 @@ textarea {
 }
 .result-container {
     width: 110px;
-    height: 135px;
+    height: 140px;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -573,7 +574,7 @@ textarea {
     grid-row-start: 2;
     position: absolute;
     justify-self: flex-end;
-    align-self: flex-end;
+    bottom: 5%;
     display: grid;
     grid-template-columns: 80% 20%;
     background-color: deeppink;
@@ -587,6 +588,22 @@ textarea {
     grid-template-rows: 50% 50%;
     background-color: deeppink;
 }
+
+.online-container {
+    grid-row-start: 2;
+    right: 502px;
+    align-self: flex-end;
+    height: 504px;
+    width: 50px;
+    position: absolute;
+    /* background-color: deepskyblue; */
+    display: grid;
+    grid-template-columns: auto;
+    align-content: flex-end;
+    justify-content: center;
+    /* border: 0.5px solid #f0a500; */
+}
+
 .chat-container {
     /* grid-column-start: 1; */
     background-color: deeppink;
@@ -602,6 +619,10 @@ textarea {
     background-color: #112d4e;
     height: 100%;
     width: 100%;
+}
+.up-bar-chat > h4 {
+    color: #f0a500;
+    padding-left: 20px;
 }
 .chat-container > textarea {
     grid-row-start: 3;
@@ -643,6 +664,17 @@ textarea {
     grid-column-start: 2;
     grid-column-end: -1;
 }
+
+.chat-button {
+    width: 100px;
+    height: 40px;
+    justify-self: center;
+    border: 1px solid #f9f7f7;
+    background-color: #3f72af;
+    margin: 15px;
+    color: #f9f7f7;
+    border-radius: 10px;
+}
 .result-icon-on-chat {
     grid-row-start: 1;
     grid-column-start: 1;
@@ -656,25 +688,6 @@ textarea {
     border: 2px solid #f0a500;
 }
 
-.online-container {
-    left: 40px;
-    top: 300px;
-    height: 300px;
-    width: 300px;
-    position: absolute;
-    background-color: deepskyblue;
-    display: grid;
-    grid-template-columns: auto;
-}
-.onliners {
-    background-color: greenyellow;
-    border: 2px solid #f0a500;
-}
-.friends {
-    background-color: firebrick;
-    border: 2px solid #0010f0;
-}
-
 .friends-icon-on-chat {
     grid-row-start: 1;
     grid-column-start: 1;
@@ -685,7 +698,7 @@ textarea {
     width: 25px;
     object-fit: cover;
     border-radius: 50%;
-    border: 2px solid #0010f0;
+    border: 2px solid greenyellow;
 }
 /* FOOTER */
 footer {
@@ -696,4 +709,5 @@ footer {
     padding-right: 40px;
     background-color: #112d4e;
     color: #dbe2ef;
+    height: 100%;
 }

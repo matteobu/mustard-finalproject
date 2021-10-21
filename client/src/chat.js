@@ -5,18 +5,38 @@ import { useSelector } from "react-redux";
 export default function Chat(props) {
     const elemRef = useRef();
     const chatMessages = useSelector((state) => state.messages);
-    const onlineUsers = useSelector((state) => state.onliners);
-    const onlineFriends = useSelector(
+    const onlineUsers = useSelector(
         (state) =>
-            state.friendsOnline &&
-            state.friendsOnline.filter((friend) => friend.id != props.userID)
+            state.onliners &&
+            state.onliners.filter(
+                (user) =>
+                    user.id != props.userID &&
+                    user.sender_id != props.userID &&
+                    user.recipient_id != props.userID
+            )
     );
 
+    const onlineFriends = useSelector(
+        (state) =>
+            state.onliners &&
+            state.onliners.filter(
+                (user) =>
+                    user.id != props.userID &&
+                    user.accepted == true &&
+                    (user.sender_id == props.userID ||
+                        user.recipient_id == props.userID)
+            )
+    );
+
+    console.log("props.userID  :>> ", props.userID);
+    console.log("here are onlineUsers: ", onlineUsers);
+    console.log("here are onlineFriends: ", onlineFriends);
     // console.log("pros in CHAT:>> ", props.userID);
     // console.log("here are my friends users: ", onlineFri⁄ends);
-    console.log("here are my friends ID: ", onlineFriends);
-    console.log("here are my online users: ", onlineUsers);
-    console.log("here are my last 10 chat messages: ", chatMessages);
+    // console.log("here are my friends ID: ", onlineFriends);
+    // console.log("here are my online users ID: ", onlineUsers.onliners.id);
+    // console.log("here are chatMessages: ", chatMessages);
+    // console.log("here are onlineFriends: ", onlineFriends);
     // console.log("here are  ", chatMessages?.messages[0].message);
 
     useEffect(() => {
@@ -43,15 +63,22 @@ export default function Chat(props) {
     return (
         <div className="chat-and-online-container">
             <div className="chat-container">
-                <div className="up-bar-chat"> UP BAR</div>
+                <div className="up-bar-chat">
+                    {" "}
+                    <h4> CHAT WITH OTHER USERS </h4>
+                </div>
                 <div className="chat-messages-container" ref={elemRef}>
                     {chatMessages &&
                         chatMessages.map((message, i) => (
                             <div className="chat-message" key={i}>
-                                <img
-                                    className="result-icon-on-chat"
-                                    src={message.pic_url}
-                                ></img>
+                                <a href={`bikerz/${message.sender_id}`}>
+                                    {" "}
+                                    <img
+                                        className="result-icon-on-chat"
+                                        src={message.pic_url}
+                                    ></img>
+                                </a>
+
                                 <h6>{message.first}</h6>
                                 <h4>{message.message}</h4>
                             </div>
@@ -76,11 +103,14 @@ export default function Chat(props) {
 
                 {onlineFriends &&
                     onlineFriends.map((friend, i) => (
-                        <div className="friends" key={i}>
-                            <img
-                                className="friends-icon-on-chat"
-                                src={friend.pic_url}
-                            ></img>
+                        <div className="friends-pic-online" key={i}>
+                            <a href={`bikerz/${friend.id}`}>
+                                {" "}
+                                <img
+                                    className="friends-icon-on-chat"
+                                    src={friend.pic_url}
+                                ></img>
+                            </a>
                         </div>
                     ))}
             </div>

@@ -109,6 +109,8 @@ export default function FriendsList(props) {
                         wannabes.map((wannabe, i) => (
                             // <Link>
                             <div key={i} className="result-container">
+                                <div className="notificationDot"></div>
+
                                 <a href={`bikerz/${wannabe.id}`}>
                                     {" "}
                                     <img

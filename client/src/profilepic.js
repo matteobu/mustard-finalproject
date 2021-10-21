@@ -22,7 +22,7 @@ export default function ({
 
     return (
         <>
-            {wannabes && <div className="notificationDot"> </div>}
+            {/* {wannabes && <div className="notificationDot"> </div>} */}
 
             <img
                 className={className}

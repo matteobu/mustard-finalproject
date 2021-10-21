@@ -23,7 +23,7 @@ export default class APP extends Component {
         this.functionCloseMenuBar = this.functionCloseMenuBar.bind(this);
         this.storeBioInApp = this.storeBioInApp.bind(this);
         this.functioErrorAppears = this.functioErrorAppears.bind(this);
-        this.notificationDot = this.notificationDot.bind(this);
+        // this.nDot = this.notificationDot.bind(this);
         this.privateChatFunction = this.privateChatFunction.bind(this);
     }
     async componentDidMount() {
@@ -75,11 +75,11 @@ export default class APP extends Component {
             bio: bioOfficial,
         }));
     }
-    notificationDot() {
-        this.setState((oldState) => ({
-            notificationDot: !oldState.notificationDot,
-        }));
-    }
+    // notificationDot() {
+    //     this.setState((oldState) => ({
+    //         notificationDot: !oldState.notificationDot,
+    //     }));
+    // }
     privateChatFunction(otherUserID) {
         console.log("otherUserID :>> ", otherUserID);
         this.setState({
@@ -102,9 +102,7 @@ export default class APP extends Component {
                             <h1>SORRY BIKERZ NOT FOUND, TRY AGAIN</h1>
                         </div>
                     )}
-                    {this.state.notificationDot && (
-                        <div className="notificationDot"></div>
-                    )}
+                 
 
                     <div className="navbar">
                         <Link to="/">

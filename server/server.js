@@ -166,7 +166,7 @@ io.on("connection", async (socket) => {
     // console.log("ONLINE USERS IDS ARRAY :>> ", onlineUserIDsArray);
 
     db.onlineUserIDsArrayProfileInfo(onlineUserIDsArray).then(({ rows }) => {
-        // console.log("value ON SERVEr:>> ", rows);
+        console.log("value ON SERVEr:>> ", rows);
         io.emit("onlineUsers", rows);
     });
 

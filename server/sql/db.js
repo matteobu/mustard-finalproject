@@ -40,7 +40,12 @@ module.exports.userInfoProfile = (id) => {
 
 module.exports.onlineUserIDsArrayProfileInfo = (IDs) => {
     return db.query(
-        `SELECT id, first, last, pic_url FROM users WHERE id = ANY($1)`,
+        `SELECT users.id, first, last, pic_url, sender_id, recipient_id, accepted
+        FROM users 
+        LEFT JOIN friendships 
+        ON users.id = sender_id
+        OR users.id = recipient_id
+        WHERE users.id = ANY($1)`,
         [IDs]
     );
 };

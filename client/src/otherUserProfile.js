@@ -11,7 +11,7 @@ export default function OtherUserProfile(props) {
     // const [history, setHistory] = useState({});
     const params = useParams();
     const { otherUserID } = useParams();
-    // console.log("params :>> ", params);
+    console.log("privateChat :>> ", privateChat);
     const history = useHistory();
     // console.log("history", history);
     // console.log("before bikerz :>> ", bikerz);
@@ -39,10 +39,13 @@ export default function OtherUserProfile(props) {
         };
     }, []);
     const handleButton = () => {
-        setPrivateChat(true || false);
+        // IF ELSE STATEMENT
+        if (privateChat) {
+            setPrivateChat(false);
+        } else setPrivateChat(true);
 
-        console.log("otherUserID :>> ", otherUserID);
-        console.log("props.userID :>> ", props.userID);
+        // console.log("otherUserID :>> ", otherUserID);
+        // console.log("props.userID :>> ", props.userID);
         const usersOnPrivateChat = {
             otherUserID: otherUserID,
             userID: props.userID,
@@ -57,7 +60,6 @@ export default function OtherUserProfile(props) {
             {privateChat && (
                 <PvtChat userID={props.userID} otherUserID={otherUserID} />
             )}
-
             <div className="profile-container-other">
                 <div className="profile-right-container">
                     <h2>
@@ -87,7 +89,11 @@ export default function OtherUserProfile(props) {
                         notificationDot={props.notificationDot}
                     />
                     {bikerz.accepted && (
-                        <button onClick={handleButton} name="chat">
+                        <button
+                            className="chat-button"
+                            onClick={handleButton}
+                            name="chat"
+                        >
                             CHAT
                         </button>
                     )}

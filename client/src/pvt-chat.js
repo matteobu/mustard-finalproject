@@ -27,9 +27,9 @@ export default function Chat(props) {
     return (
         <div className="pvt-chat">
             <div className="chat-container">
-                <div className="up-bar-chat"> UP BAR</div>
+                <div className="up-bar-chat"><h4>PRIVATE CHAT</h4></div>
                 <div className="chat-messages-container" ref={elemRef}>
-                    {privateMessages &&
+                    {privateMessages && 
                         privateMessages.map((message, i) => (
                             <div className="chat-message" key={i}>
                                 <img
