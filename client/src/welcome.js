@@ -25,14 +25,14 @@ export default function Welcome() {
                             src="/img/logo/no-logo-long-BPw.png"
                             alt="logo"
                         />
-                        <h2>
+                        {/* <h2>
                             is a community of people who like to travel by bike
                             and sleep in tents under the stars. A community of
                             people who think that the journey is more important
                             than the destination. A journey made of people, not
                             performances.
                         </h2>
-                        <h5>Join us and spread the `FAR NOT FAST` motto!</h5>
+                        <h5>Join us and spread the `FAR NOT FAST` motto!</h5> */}
                     </div>
                     <Switch>
                         <Route path="/reset">

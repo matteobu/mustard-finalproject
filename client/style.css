@@ -215,8 +215,8 @@ input {
 /* UPLOADER CONTAINER */
 .uploader-container {
     position: absolute;
-    top: 305px;
-    left: 40px;
+    top: 375px;
+    left: 60px;
     background-color: #3f72af;
     width: 140px;
     height: 50px;
