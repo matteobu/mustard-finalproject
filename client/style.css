@@ -78,6 +78,23 @@ a {
     justify-self: center;
     width: 800px;
 }
+
+.map-container {
+    grid-row-start: 2;
+    height: 700px;
+    width: 1000px;
+    justify-self: self-end;
+    background-color: deeppink;
+}
+
+.left-side-map-container {
+    grid-row-start: 2;
+    height: 700px;
+    width: 100%;
+    justify-self: self-end;
+    background-color: deeppink;
+}
+
 /* ROUTE CONTAINER REGISTRATION */
 
 .left-registration {

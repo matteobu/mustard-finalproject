@@ -5,9 +5,9 @@
       last VARCHAR(255) NOT NULL,
       email VARCHAR(255) NOT NULL UNIQUE,
       password VARCHAR(255) NOT NULL,
-      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       bio VARCHAR, 
-      pic_url TEXT NOT NULL
+      pic_url TEXT
       );
       
 CREATE TABLE password_reset_codes(

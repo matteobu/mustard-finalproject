@@ -9,6 +9,7 @@ import OtherUserProfile from "./otherUserProfile";
 import { Uploader } from "./uploader";
 import { MenuBar } from "./menu-bar";
 import Chat from "./chat";
+import Map from "./routes";
 
 export default class APP extends Component {
     constructor(props) {
@@ -102,7 +103,6 @@ export default class APP extends Component {
                             <h1>SORRY BIKERZ NOT FOUND, TRY AGAIN</h1>
                         </div>
                     )}
-                 
 
                     <div className="navbar">
                         <Link to="/">
@@ -148,6 +148,9 @@ export default class APP extends Component {
                         </Route>
                         <Route path="/chat">
                             <Chat userID={this.state.userID} />
+                        </Route>
+                        <Route path="/routes">
+                            <Map userID={this.state.userID} />
                         </Route>
 
                         <Route path="/friends">

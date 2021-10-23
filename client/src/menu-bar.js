@@ -29,8 +29,8 @@ export class MenuBar extends Component {
                     </Link>
                 </div>
                 <div className="link-navbar">
-                    <Link to="/friends">
-                        <h6>FRIENDS |</h6>
+                    <Link to="/routes">
+                        <h6>ROUTES |</h6>
                     </Link>
                 </div>
                 <div className="link-navbar">

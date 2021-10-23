@@ -1,5 +1,5 @@
 const spicedPg = require("spiced-pg");
-const database = "mustard-socialnetwork";
+const database = "finalproject";
 
 let db;
 
