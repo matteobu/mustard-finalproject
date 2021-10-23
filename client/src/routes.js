@@ -4,9 +4,9 @@ import mapboxgl from "mapbox-gl";
 // import Marker from "react-map-gl";
 import geoJson from "./json/berlin-caffe.json";
 import trackGeoJson from "./json/tracks.json";
+const secrets = require("./../../secrets.json");
 
-mapboxgl.accessToken =
-    "pk.eyJ1IjoibWF0dGVvLW11c3RhcmQiLCJhIjoiY2t2M3Y0MnprMHFjYjJ2czNra3J0eTBxNSJ9.vVHSarJklOTnDN6Qi6IVmw";
+mapboxgl.accessToken = secrets.MAPBOX_TOKEN;
 
 const Map = () => {
     const mapContainerRef = useRef(null);
