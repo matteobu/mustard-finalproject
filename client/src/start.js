@@ -33,14 +33,14 @@ const elem = (
     </Provider>
 );
 
-fetch("/user/id.json")
-    .then((response) => response.json())
-    .then((data) => {
-        if (!data.userID) {
-            ReactDOM.render(<Welcome />, document.querySelector("main"));
-            // ReactDOM.render(<SayingHello />, document.querySelector("main"));
-        } else {
-            init(store);
-            ReactDOM.render(elem, document.querySelector("main"));
-        }
-    });
+// fetch("/user/id.json")
+//     .then((response) => response.json())
+//     .then((data) => {
+//         if (!data.userID) {
+//             ReactDOM.render(<Welcome />, document.querySelector("main"));
+//             // ReactDOM.render(<SayingHello />, document.querySelector("main"));
+//         } else {
+init(store);
+ReactDOM.render(elem, document.querySelector("main"));
+// }
+// });

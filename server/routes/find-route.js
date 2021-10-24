@@ -10,8 +10,9 @@ router.use((req, res, next) => {
 });
 
 router.get("/", function (req, res) {
-    db.lastThreeUsers().then(({ rows }) => {
-        // console.log({ rows });
+    // let location = "city";
+    db.findRoutes().then(({ rows }) => {
+        console.log({ rows });
         res.json({
             rows,
         });

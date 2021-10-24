@@ -1,7 +1,7 @@
 // FUNCTION COMPONENT
 import { Component } from "react";
 import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
-import FindBikerz from "./find-bikerz";
+import FindRoute from "./find-route";
 import FriendsList from "./friends";
 import ProfilePic from "./profilepic";
 import Profile from "./profile";
@@ -92,9 +92,9 @@ export default class APP extends Component {
     }
 
     render() {
-        if (!this.state.userID) {
-            return <div>Loading...</div>;
-        }
+        // if (!this.state.userID) {
+        //     return <div>Loading...</div>;
+        // }
         return (
             <BrowserRouter>
                 <div className="body-container">
@@ -143,8 +143,8 @@ export default class APP extends Component {
                                 }}
                             />{" "}
                         </Route>
-                        <Route path="/find-bikerz">
-                            <FindBikerz first={this.state.first} />
+                        <Route path="/find-route">
+                            <FindRoute first={this.state.first} />
                         </Route>
                         <Route path="/chat">
                             <Chat userID={this.state.userID} />

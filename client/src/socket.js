@@ -1,14 +1,8 @@
 import { io } from "socket.io-client";
 import {
-    chatMessagesReceived,
-    messagesFromDB,
-} from "./redux/messages/slice.js";
-import {
-    privateMessagesFromDB,
-    privateChatMessagesReceived,
-} from "./redux/pvt-messages/slice.js";
-import { onlineUsers } from "./redux/usersOnline/slice.js";
-import { onlineFriends } from "./redux/friends/slice.js";
+    routesReceived,
+    specificRoutesReceived,
+} from "./redux/routes/slice.js";
 
 export let socket;
 
@@ -16,33 +10,39 @@ export const init = (store) => {
     if (!socket) {
         socket = io.connect();
     }
-    socket.on(
-        "mostRecentMsgs",
-        async (msgs) => await store.dispatch(messagesFromDB(msgs))
-    );
+    // socket.on(
+    //     "mostRecentMsgs",
+    //     async (msgs) => await store.dispatch(messagesFromDB(msgs))
+    // );
 
-    socket.on("addChatMsg", async (msg) => {
-        await store.dispatch(chatMessagesReceived(msg));
+    socket.on("all routes from DB", async (data) => {
+        await store.dispatch(routesReceived(data));
     });
+    socket.on("specific routes from DB", async (data) => {
+        await store.dispatch(specificRoutesReceived(data));
+    });
+    // socket.on("addChatMsg", async (msg) => {
+    //     await store.dispatch(chatMessagesReceived(msg));
+    // });
 
-    // ONLINE USERS AND FRIENDS
-    socket.on("onlineUsers", async (value) => {
-        // console.log("onlineUsers ON SOCKET:>> ", value);
-        await store.dispatch(onlineUsers({ value }));
-    });
-    socket.on("onlineFriends", async (value) => {
-        // console.log("onlineFriends ON SOCKET:>> ", value);
-        await store.dispatch(onlineFriends({ value }));
-    });
+    // // ONLINE USERS AND FRIENDS
+    // socket.on("onlineUsers", async (value) => {
+    //     // console.log("onlineUsers ON SOCKET:>> ", value);
+    //     await store.dispatch(onlineUsers({ value }));
+    // });
+    // socket.on("onlineFriends", async (value) => {
+    //     // console.log("onlineFriends ON SOCKET:>> ", value);
+    //     await store.dispatch(onlineFriends({ value }));
+    // });
 
-    /// PRIVATE CHAT
-    socket.on(
-        "most recent pvt messages",
-        async (msgs) => await store.dispatch(privateMessagesFromDB(msgs))
-    );
-    socket.on("addPvtChatMsg", async (msg) => {
-        await store.dispatch(privateChatMessagesReceived(msg));
-    });
+    // /// PRIVATE CHAT
+    // socket.on(
+    //     "most recent pvt messages",
+    //     async (msgs) => await store.dispatch(privateMessagesFromDB(msgs))
+    // );
+    // socket.on("addPvtChatMsg", async (msg) => {
+    //     await store.dispatch(privateChatMessagesReceived(msg));
+    // });
 };
 
 // import { io } from "socket.io-client";

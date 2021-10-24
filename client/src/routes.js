@@ -14,7 +14,7 @@ const Map = () => {
     const [lng, setLng] = useState(13.404954);
     const [lat, setLat] = useState(52.520008);
     const [zoom, setZoom] = useState(9);
-    const [locationType, setLocationType] = useState(0);
+    const [locationType, setLocationType] = useState(1);
     const [location, setLocation] = useState(
         trackGeoJson.features[locationType]
     );

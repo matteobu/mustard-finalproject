@@ -24,8 +24,8 @@ export class MenuBar extends Component {
                 onClick={this.closeMenuFunction}
             >
                 <div className="link-navbar">
-                    <Link to="/find-bikerz">
-                        <h6>FIND BIKERZ |</h6>
+                    <Link to="/find-route">
+                        <h6>FIND ROUTE |</h6>
                     </Link>
                 </div>
                 <div className="link-navbar">

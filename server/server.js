@@ -43,10 +43,11 @@ const registrationRoute = require("./routes/registration");
 const loginRoute = require("./routes/login");
 const sendCodeRoute = require("./routes/reset-code");
 const resetPasswordRoute = require("./routes/reset-password");
-const updateBioRoute = require("./routes/update-bio");
-const lastThreeUsersRoute = require("./routes/lastThreeUsers");
-const frndshpRoute = require("./routes/check-friendship");
-const manageFriendshipRoute = require("./routes/manage-friendship");
+const findRouteRoute = require("./routes/find-route");
+// const updateBioRoute = require("./routes/update-bio");
+// const lastThreeUsersRoute = require("./routes/lastThreeUsers");
+// const frndshpRoute = require("./routes/check-friendship");
+// const manageFriendshipRoute = require("./routes/manage-friendship");
 
 // ROUTES
 app.use(compression());
@@ -56,10 +57,12 @@ app.use("/registration", registrationRoute);
 app.use("/login", loginRoute);
 app.use("/reset-code", sendCodeRoute);
 app.use("/reset-password", resetPasswordRoute);
-app.use("/update-bio", updateBioRoute);
-app.use("/lastThreeUsers", lastThreeUsersRoute);
-app.use("/check-friendship", frndshpRoute);
-app.use("/manage-friendship", manageFriendshipRoute);
+app.use("/find-route.json", findRouteRoute);
+
+// app.use("/update-bio", updateBioRoute);
+// app.use("/lastThreeUsers", lastThreeUsersRoute);
+// app.use("/check-friendship", frndshpRoute);
+// app.use("/manage-friendship", manageFriendshipRoute);
 
 app.get("/logout", function (req, res) {
     // console.log("req.session", req.session);
@@ -75,33 +78,33 @@ app.get("/user/id.json", function (req, res) {
 
 app.get("/userList/:input", function (req, res) {
     // console.log("SEARCH FOR USERS SERVER SIDE IS WORKING", req.params.input);
-    db.allMatchUsers(req.params.input).then(({ rows }) => {
-        res.json({
-            rows,
-        });
-    });
+    // db.allMatchUsers(req.params.input).then(({ rows }) => {
+    //     res.json({
+    //         rows,
+    //     });
+    // });
 });
 app.get("/bikerz/:id.json", function (req, res) {
     // console.log("SEARCH FOR USERS SERVER SIDE IS WORKING", req.params.id);
-    db.userInfoProfile(req.params.id).then(({ rows }) => {
-        res.json({
-            rows,
-        });
-    });
+    // db.userInfoProfile(req.params.id).then(({ rows }) => {
+    //     res.json({
+    //         rows,
+    //     });
+    // });
 });
 
 app.get("/user.json", function (req, res) {
-    db.usersStarInformation(req.session.userID).then((result) => {
-        const { id, first, last, pic_url, bio, email } = result.rows[0];
-        res.json({
-            userID: id,
-            first: first,
-            last: last,
-            imageUrl: pic_url,
-            bio: bio,
-            email: email,
-        });
-    });
+    // db.usersStarInformation(req.session.userID).then((result) => {
+    //     const { id, first, last, pic_url, bio, email } = result.rows[0];
+    //     res.json({
+    //         userID: id,
+    //         first: first,
+    //         last: last,
+    //         imageUrl: pic_url,
+    //         bio: bio,
+    //         email: email,
+    //     });
+    // });
 });
 
 app.post("/upload-pic", uploader.single("file"), s3.upload, (req, res) => {
@@ -155,20 +158,35 @@ io.on("connection", async (socket) => {
 
     // ⬇⬇⬇⬇ ONLINE USERS & ONLINE FRIENDS ⬇⬇⬇⬇
 
-    onlineUsers[socket.id] = userID;
-    const onlineUserIDsArray = [...new Set(Object.values(onlineUsers))];
+    // onlineUsers[socket.id] = userID;
+    // const onlineUserIDsArray = [...new Set(Object.values(onlineUsers))];
 
     socket.on("disconnect", () => {
         delete onlineUsers[socket.id];
     });
 
+    socket.on("allRoutes", () => {
+        console.log("SOCKE ALL ROUTES ACTIVATED");
+        db.findRoutes().then(({ rows }) => {
+            console.log({ rows });
+            io.emit("all routes from DB", rows);
+        });
+    });
+    socket.on("specific route", (location) => {
+        console.log("SOCKE ALL ROUTES ACTIVATED", location);
+        db.findLocationRoutes(location).then(({ rows }) => {
+            console.log("specific route from DB", { rows });
+            io.emit("specific routes from DB", rows);
+        });
+    });
+
     // console.log("ONLINE USERS  :>> ", onlineUsers);
     // console.log("ONLINE USERS IDS ARRAY :>> ", onlineUserIDsArray);
 
-    db.onlineUserIDsArrayProfileInfo(onlineUserIDsArray).then(({ rows }) => {
-        console.log("value ON SERVEr:>> ", rows);
-        io.emit("onlineUsers", rows);
-    });
+    // db.onlineUserIDsArrayProfileInfo(onlineUserIDsArray).then(({ rows }) => {
+    //     console.log("value ON SERVEr:>> ", rows);
+    //     io.emit("onlineUsers", rows);
+    // });
 
     //⬇⬇⬇⬇ EXAMPLE ON WHY SET IS IMPORTANT ⬇⬇⬇⬇
     // ONLINE USERS  :>>  {
@@ -180,53 +198,53 @@ io.on("connection", async (socket) => {
 
     // ⬇⬇⬇⬇ CHECK IF SOME ONLINERS IS A FRIEND ⬇⬇⬇⬇
 
-    db.onlineFriendsInfo(onlineUserIDsArray).then(({ rows }) => {
-        // console.log("INFO FOR FRIENDS ONLINE:>> ", { rows });
-        io.emit("onlineFriends", rows);
-    });
+    // db.onlineFriendsInfo(onlineUserIDsArray).then(({ rows }) => {
+    //     // console.log("INFO FOR FRIENDS ONLINE:>> ", { rows });
+    //     io.emit("onlineFriends", rows);
+    // });
 
     // ⬇⬇⬇⬇ PRIVATE MESSAGES ⬇⬇⬇⬇
 
     // let variableWithID;
-    socket.on("private chat opened", ({ otherUserID, userID }) => {
-        console.log("otherUserID :>> ", otherUserID);
-        db.lastThenPrivateMessages(userID, otherUserID).then(({ rows }) => {
-            console.log("LAST THEN MESSAGES :>> ", rows);
-            io.emit("most recent pvt messages", rows);
-        });
-    });
+    // socket.on("private chat opened", ({ otherUserID, userID }) => {
+    //     console.log("otherUserID :>> ", otherUserID);
+    //     db.lastThenPrivateMessages(userID, otherUserID).then(({ rows }) => {
+    //         console.log("LAST THEN MESSAGES :>> ", rows);
+    //         io.emit("most recent pvt messages", rows);
+    //     });
+    // });
 
     // console.log("variableWithID :>> ", variableWithID);
 
-    socket.on("newPvtMessage", ({ otherUserID, message }) => {
-        db.insertPrivateMessage(userID, otherUserID, message).then(
-            ({ rows }) => {
-                // console.log("id :>> ", rows[0].id);
-                let idForLastMessage = rows[0].id;
-                db.lastPrivateMessage(idForLastMessage).then(({ rows }) => {
-                    // console.log("rows :>> ", rows);
-                    io.emit("addPvtChatMsg", rows[0]);
-                });
-            }
-        );
-    });
+    // socket.on("newPvtMessage", ({ otherUserID, message }) => {
+    //     db.insertPrivateMessage(userID, otherUserID, message).then(
+    //         ({ rows }) => {
+    //             // console.log("id :>> ", rows[0].id);
+    //             let idForLastMessage = rows[0].id;
+    //             db.lastPrivateMessage(idForLastMessage).then(({ rows }) => {
+    //                 // console.log("rows :>> ", rows);
+    //                 io.emit("addPvtChatMsg", rows[0]);
+    //             });
+    //         }
+    //     );
+    // });
 
     // ⬇⬇⬇⬇ MESSAGES ⬇⬇⬇⬇
-    db.lastThenMessages().then(({ rows }) => {
-        // console.log("LAST THEN MESSAGES :>> ", rows);
-        io.emit("mostRecentMsgs", rows);
-    });
+    // db.lastThenMessages().then(({ rows }) => {
+    //     // console.log("LAST THEN MESSAGES :>> ", rows);
+    //     io.emit("mostRecentMsgs", rows);
+    // });
 
-    socket.on("newMessage", (newMsg) => {
-        db.insertMessage(userID, newMsg).then(({ rows }) => {
-            // console.log("id :>> ", rows[0].id);
-            let idForLastMessage = rows[0].id;
-            db.lastMessage(idForLastMessage).then(({ rows }) => {
-                // console.log("rows :>> ", rows);
-                io.emit("addChatMsg", rows[0]);
-            });
-        });
-    });
+    // socket.on("newMessage", (newMsg) => {
+    //     db.insertMessage(userID, newMsg).then(({ rows }) => {
+    //         // console.log("id :>> ", rows[0].id);
+    //         let idForLastMessage = rows[0].id;
+    //         db.lastMessage(idForLastMessage).then(({ rows }) => {
+    //             // console.log("rows :>> ", rows);
+    //             io.emit("v", rows[0]);
+    //         });
+    //     });
+    // });
 });
 
 // OLD NOTE
