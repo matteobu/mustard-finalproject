@@ -4,16 +4,57 @@ import { useParams, useHistory } from "react-router-dom";
 import { socket } from "./socket";
 import { useSelector } from "react-redux";
 import Map from "./routes";
+import trackGeoJson from "./json/tracks.json";
 
 // import PvtChat from "./pvt-chat";
 
 export default function RouteProfile(props) {
-    console.log(`props`, props);
+    const [lng, setLng] = useState();
+    const [lat, setLat] = useState();
+    // console.log(`props`, props);
     const routesProfileData = useSelector((state) => state.routes);
     const { routeID } = useParams();
     // console.log(`routesProfileData`, routesProfileData);
 
     useEffect(() => {
+        let first = [];
+        let second = [];
+        let maxLng;
+        let maxLat;
+        let minLng;
+        let minLat;
+        let coordArray =
+            trackGeoJson.features[routeID - 1].geometry.coordinates[0];
+
+        coordArray.length &&
+            coordArray?.map((x) => {
+                first.push(x[0]);
+                second.push(x[1]);
+            });
+
+        if (coordArray.length) {
+            maxLng = Math.max(...first);
+            maxLat = Math.max(...second);
+            minLng = Math.min(...first);
+            minLat = Math.min(...second);
+            console.log(minLat);
+            console.log(maxLat);
+
+            console.log(minLng);
+            console.log(maxLng);
+        }
+
+        let lngToPush = [(minLng + maxLng) / 2];
+        let latToPush = [(minLat + maxLat) / 2];
+
+        console.log(`latToPush`, latToPush[0]);
+        console.log(`lngToPush `, lngToPush[0]);
+        console.log(`lat`, lat);
+        console.log(`lng`, lng);
+
+        setLng(lngToPush);
+        setLat(latToPush);
+
         let abort = false;
         // console.log(`routeID`, routeID);
         if (!abort) {
@@ -63,10 +104,21 @@ export default function RouteProfile(props) {
                                 </h6>
                                 {/* <h6 className={info.grade}> {info.path}</h6> */}
                             </div>
-                            <button>DOWNLOAD GPX FILE</button>
+                            <button>
+                                <a
+                                    href={`gpx/${info.location}_${info.id}.gpx`}
+                                    download
+                                >
+                                    GPX FILE
+                                </a>
+                            </button>
                         </div>
                         <div className="map-container-right">
-                            <Map />
+                            <Map
+                                routeID={routeID}
+                                longitude={lng}
+                                latitude={lat}
+                            />
                         </div>
                     </div>
                 ))}

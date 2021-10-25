@@ -40,15 +40,21 @@ export default function FindRoute() {
         <>
             <div className="find-routes-container">
                 <div className="search-option-container">
-                    <button name="city" onClick={(e) => handleFilter(e)}>
-                        CITY
-                    </button>
-                    <button name="lake" onClick={(e) => handleFilter(e)}>
-                        LAKE
-                    </button>
-                    <button name="forest" onClick={(e) => handleFilter(e)}>
-                        FOREST
-                    </button>
+                    <div className="INTRO-filter-container">
+                        <h3> DO YOU FANCY A RIDE IN BERLIN?</h3>
+                        <h3> CHOOSE YOUR FAV LOCATION OR GRADE!</h3>
+                    </div>
+                    <div className="location-buttons">
+                        <button name="city" onClick={(e) => handleFilter(e)}>
+                            CITY
+                        </button>
+                        <button name="lake" onClick={(e) => handleFilter(e)}>
+                            LAKE
+                        </button>
+                        <button name="forest" onClick={(e) => handleFilter(e)}>
+                            FOREST
+                        </button>
+                    </div>
                     {/* <div className="slidecontainer">
                         <input
                             type="range"
@@ -58,15 +64,17 @@ export default function FindRoute() {
                             id="myRange"
                         ></input>
                     </div> */}
-                    <button name="easy" onClick={(e) => handleFilter(e)}>
-                        EASY
-                    </button>
-                    <button
-                        name="intermediate"
-                        onClick={(e) => handleFilter(e)}
-                    >
-                        INTERMEDIATE
-                    </button>
+                    <div className="grade-buttons">
+                        <button name="easy" onClick={(e) => handleFilter(e)}>
+                            EASY
+                        </button>
+                        <button
+                            name="intermediate"
+                            onClick={(e) => handleFilter(e)}
+                        >
+                            INTERMEDIATE
+                        </button>
+                    </div>
                 </div>
                 <div className="result-input">
                     {routesData &&
@@ -81,11 +89,13 @@ export default function FindRoute() {
                                     </Link>
                                 </div>
                                 <div className="route-information">
-                                    <h3>{route.name}</h3>
-                                    <h3>{route.location}</h3>
-                                    <h3>{route.path}</h3>
-                                    <h3>{route.grade}</h3>
-                                    <h3>{route.distance}</h3>
+                                    <h2>{route.name}</h2>
+                                    <h3>Location: {route.location}</h3>
+                                    <h3>Path:</h3> {route.path}
+                                    <h6 className={route.grade}>
+                                        {route.grade}, {route.path}
+                                    </h6>
+                                    <h3>Distance: {route.distance}</h3>
                                 </div>
                             </div>
                         ))}

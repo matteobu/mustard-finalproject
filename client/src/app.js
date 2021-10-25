@@ -3,8 +3,8 @@ import { Component } from "react";
 import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 import FindRoute from "./find-route";
 // import FriendsList from "./friends";
-import ProfilePic from "./profilepic";
-import Profile from "./profile";
+// import ProfilePic from "./profilepic";
+import Main from "./main";
 import RouteProfile from "./route-profile";
 import { Uploader } from "./uploader";
 import { MenuBar } from "./menu-bar";
@@ -98,8 +98,6 @@ export default class APP extends Component {
         return (
             <BrowserRouter>
                 <div className="body-container">
-                 
-
                     <div className="navbar">
                         <img
                             className="logo"
@@ -107,7 +105,7 @@ export default class APP extends Component {
                             alt="logo"
                         />
                         <div className="navbar-menu">
-                            <a href="/find-route">
+                            <a href="/">
                                 <h6>HOME |</h6>
                             </a>
                             <a href="/find-route">
@@ -116,19 +114,19 @@ export default class APP extends Component {
                         </div>
                     </div>
                     <Switch>
-                        
+                        <Route exact path="/">
+                            <Main first={this.state.first} />
+                        </Route>
                         <Route path="/find-route">
                             <FindRoute first={this.state.first} />
                         </Route>
 
-                        <Route path="/routes">
+                        {/* <Route path="/routes">
                             <Map userID={this.state.userID} />
-                        </Route>
+                        </Route> */}
 
                         <Route path="/route/:routeID">
-                            <RouteProfile
-                                userID={this.state.userID}
-                            />
+                            <RouteProfile userID={this.state.userID} />
                         </Route>
                     </Switch>
                     <footer>©2021. Route finder</footer>
