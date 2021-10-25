@@ -9,6 +9,7 @@
         {
             "type": "Feature",
             "properties": {
+                "id": 1,
                 "name": "un giro gravel",
                 "location": "City"
             },

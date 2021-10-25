@@ -8,11 +8,16 @@ const secrets = require("./../../secrets.json");
 
 mapboxgl.accessToken = secrets.MAPBOX_TOKEN;
 
+
+
+
 const Map = () => {
     const mapContainerRef = useRef(null);
 
     const [lng, setLng] = useState(13.404954);
     const [lat, setLat] = useState(52.520008);
+    // const [lng, setLng] = useState("");
+    // const [lat, setLat] = useState("");
     const [zoom, setZoom] = useState(9);
     const [locationType, setLocationType] = useState(1);
     const [location, setLocation] = useState(
@@ -30,7 +35,50 @@ const Map = () => {
     };
 
     useEffect(() => {
-        console.log(`trackGeoJson`, trackGeoJson);
+        let first = [];
+        let second = [];
+        let coordArray = trackGeoJson.features[1].geometry.coordinates[0];
+        // console.log(`coordArray`, coordArray);
+        coordArray.length &&
+            coordArray?.map((x) => {
+                first.push(x[0]);
+                second.push(x[1]);
+            });
+
+        let maxLng;
+        let maxLat;
+        let minLng;
+        let minLat;
+
+        if (coordArray.length) {
+            maxLng = Math.max(...first);
+            maxLat = Math.max(...second);
+            minLng = Math.min(...first);
+            minLat = Math.min(...second);
+            console.log(minLat);
+            console.log(maxLat);
+
+            console.log(minLng);
+            console.log(maxLng);
+        }
+
+        let lngToPush = [(minLng + maxLng) / 2];
+        let latToPush = [(minLat + maxLat) / 2];
+
+        console.log(`latToPush`, latToPush[0]);
+        console.log(`lngToPush`, lngToPush[0]);
+        console.log(`lat`, lat);
+        console.log(`lng`, lng);
+        setLng(lngToPush);
+        setLat(latToPush);
+
+        // const boundaries = [
+        //     [minLng - 0.4, minLat - 0.4],
+        //     [maxLng + 0.4, maxLat + 0.4],
+        // ];
+
+        // console.log(`boundaries`, boundaries);
+
         const map = new mapboxgl.Map({
             container: mapContainerRef.current,
             // style: "mapbox://styles/mapbox/streets-v11",
@@ -45,7 +93,7 @@ const Map = () => {
         map.setMaxBounds(bounds);
 
         // const start = [13.37804510437455, 52.51640136939372];
-        map.on("click", function (e) {
+        map.on("load", function (e) {
             console.log(`e`, e);
 
             map.addLayer({
@@ -68,13 +116,13 @@ const Map = () => {
         });
         // Create default markers
 
-        geoJson.features.map((feature) =>
-            new mapboxgl.Marker()
-                .setLngLat(feature.geometry.coordinates)
-                .addTo(map)
-                .setPopup(new mapboxgl.Popup().setHTML("<h1>Hello World!</h1>"))
-                .getPitchAlignment()
-        );
+        // geoJson.features.map((feature) =>
+        //     new mapboxgl.Marker()
+        //         .setLngLat(feature.geometry.coordinates)
+        //         .addTo(map)
+        //         .setPopup(new mapboxgl.Popup().setHTML("<h1>Hello World!</h1>"))
+        //         .getPitchAlignment()
+        // );
 
         // Add navigation control (the +/- zoom buttons)
         // map.addControl(new mapboxgl.NavigationControl(), "top-right");
@@ -225,22 +273,21 @@ const Map = () => {
         // });
 
         return () => console.log(); // map.remove();
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
-        <>
+        <div className="map-container" ref={mapContainerRef}>
             {/* <div className="sidebarStyle">
                 <div>
                     Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
                 </div>
             </div> */}
-            <div className="left-side-map-container">
+            {/* <div className="left-side-map-container">
                 <button name="lake" onClick={handleButton}>
                     CLICK
                 </button>
-            </div>
-            <div className="map-container" ref={mapContainerRef}></div>
-        </>
+            </div> */}
+        </div>
     );
 };
 

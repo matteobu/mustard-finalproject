@@ -43,7 +43,7 @@ const registrationRoute = require("./routes/registration");
 const loginRoute = require("./routes/login");
 const sendCodeRoute = require("./routes/reset-code");
 const resetPasswordRoute = require("./routes/reset-password");
-const findRouteRoute = require("./routes/find-route");
+// const findRouteRoute = require("./routes/find-route");
 // const updateBioRoute = require("./routes/update-bio");
 // const lastThreeUsersRoute = require("./routes/lastThreeUsers");
 // const frndshpRoute = require("./routes/check-friendship");
@@ -57,7 +57,7 @@ app.use("/registration", registrationRoute);
 app.use("/login", loginRoute);
 app.use("/reset-code", sendCodeRoute);
 app.use("/reset-password", resetPasswordRoute);
-app.use("/find-route.json", findRouteRoute);
+// app.use("/find-route.json", findRouteRoute);
 
 // app.use("/update-bio", updateBioRoute);
 // app.use("/lastThreeUsers", lastThreeUsersRoute);
@@ -166,17 +166,25 @@ io.on("connection", async (socket) => {
     });
 
     socket.on("allRoutes", () => {
-        console.log("SOCKE ALL ROUTES ACTIVATED");
+        console.log("SOCKET ALL ROUTES ACTIVATED");
         db.findRoutes().then(({ rows }) => {
             console.log({ rows });
             io.emit("all routes from DB", rows);
         });
     });
     socket.on("specific route", (location) => {
-        console.log("SOCKE ALL ROUTES ACTIVATED", location);
+        console.log("SOCKET ALL ROUTES ACTIVATED", location);
         db.findLocationRoutes(location).then(({ rows }) => {
             console.log("specific route from DB", { rows });
             io.emit("specific routes from DB", rows);
+        });
+    });
+
+    socket.on("route-profile", (routeID) => {
+        console.log("SOCKET ROUTE PROFILE ACTIVATED", routeID);
+        db.infoRouteProfile(routeID).then(({ rows }) => {
+            console.log("specific route from DB", { rows });
+            io.emit("route profile info", rows);
         });
     });
 

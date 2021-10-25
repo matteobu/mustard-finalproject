@@ -36,10 +36,20 @@ module.exports.findLocationRoutes = (location) => {
     const q = `SELECT * 
     FROM routes 
     WHERE location = $1
-
+    OR grade = $1
     `;
 
     const params = [location];
+    return db.query(q, params);
+};
+module.exports.infoRouteProfile = (routeID) => {
+    const q = `SELECT * 
+    FROM routes 
+    WHERE id = $1
+   
+    `;
+
+    const params = [routeID];
     return db.query(q, params);
 };
 // WHERE location = $1

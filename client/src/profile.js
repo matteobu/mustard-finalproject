@@ -1,5 +1,5 @@
 import ProfilePic from "./profilepic";
-import { BioEditor } from "./bio-editor";
+// import { BioEditor } from "./bio-editor";
 import { socket } from "./socket";
 import { useSelector } from "react-redux";
 

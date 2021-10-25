@@ -4,7 +4,9 @@ export default function routeReducer(state = null, action) {
     if (action.type == "routes/routesReceived") {
         state = action.payload.data;
     } else if (action.type == "routes/specificRoutesReceived") {
-        return [action.payload];
+        return (state = action.payload.specificData);
+    } else if (action.type == "routes/routeProfileInfo") {
+        return (state = action.payload.specificData);
     }
 
     return state;
@@ -24,6 +26,13 @@ export function specificRoutesReceived(specificData) {
     console.log("SPECIFIC ROUTES RECEIVED ON SLICE >> ", specificData);
     return {
         type: "routes/specificRoutesReceived",
+        payload: { specificData },
+    };
+}
+export function routeProfileInfo(specificData) {
+    console.log("SPECIFIC ROUTES RECEIVED ON SLICE >> ", specificData);
+    return {
+        type: "routes/routeProfileInfo",
         payload: { specificData },
     };
 }

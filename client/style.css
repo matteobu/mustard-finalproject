@@ -1,18 +1,40 @@
+:root {
+    --color1: #fef5ed;
+    --color2: #d3e4cd;
+    --color3: #adc2a9;
+    --color4: #99a799;
+    --color5: #87aaaa;
+    --easy: #c8e3d4;
+    --intermediate: #ffccd2;
+    --text: #ffe699;
+    --border: #ffe699;
+    --confirm: 99a799;
+    --decline: darkred;
+    --errorColor: red;
+    --newComponent: deeppink;
+    --white: white;
+}
+
 body {
-    background-color: #3f72af;
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
         Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
     min-height: 100vh;
 }
 
-:root {
-    --color1: "#3f72af";
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
 }
+
 .body-container {
     background-color: var(--color1);
     display: grid;
-    grid-template-rows: 10% 85% 5%;
+    grid-template-rows: 30px 90% 5%;
     min-height: 100vh;
 }
 
@@ -20,16 +42,19 @@ a {
     color: white;
     text-decoration: none;
 }
-/* NAV BAR */
-
+/* *** *** *** *** *** ***  */
+/* ***  NAV BAR **** ****  */
+/**** *** ***  *** *** ****/
 .navbar {
+    margin: 0;
+
     grid-row-start: 1;
     position: absolute;
-    height: 70px;
     width: 100%;
-    background-color: var(--color1);
+    height: 30px;
+    background-color: var(--color3);
     display: grid;
-    grid-template-columns: 80% 20%;
+    grid-template-columns: 50% 50%;
 }
 
 .logo {
@@ -39,19 +64,193 @@ a {
     position: absolute;
     width: 200px;
 }
-.profile-pic-small {
+.navbar-menu {
+    margin: 0;
     grid-column-start: 2;
-    height: 50px;
-    width: 50px;
-    border: 1px solid #112d4e;
-    border-radius: 50%;
     justify-self: flex-end;
-    margin-top: 10px;
-    margin-right: 40px;
-    padding: 2px;
-    z-index: 2;
-    object-fit: cover;
+    padding-right: 10px;
+    align-self: center;
+    display: flex;
+    flex-direction: row;
 }
+.navbar-menu > a {
+    color: var(--text);
+    margin: 0;
+    margin-left: 5px;
+}
+
+.menu-bar-container {
+    position: absolute;
+    top: 10px;
+    right: 95px;
+    /* background-color: #f9f7f7; */
+    width: 360px;
+    height: 34px;
+    border: 1px solid #112d4e;
+    padding: 10px;
+    z-index: 1;
+    border-radius: 26px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+.link-navbar {
+    font-size: 20px;
+    color: #112d4e;
+    margin-right: 5px;
+    align-self: center;
+}
+/* *** *** *** *** *** ***  */
+/* ***  FIND ROUTES  ****  */
+/**** *** ***  *** *** ****/
+
+.find-routes-container {
+    grid-row-start: 2;
+    display: grid;
+    grid-template-columns: 30% 70%;
+    border-top: 1px solid #112d4e;
+    width: 100%;
+    justify-content: center;
+}
+
+.search-option-container {
+    grid-column-start: 1;
+    background-color: var(--color3);
+}
+.result-input {
+    overflow-y: scroll;
+    grid-column-start: 2;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    justify-items: center;
+    align-items: center;
+    background-color: var(--white);
+}
+.routes-result-container {
+    background-color: var(--color1);
+    display: grid;
+    grid-template-columns: 40% 60%;
+    grid-template-rows: auto;
+    width: 100%;
+    margin-bottom: 5px;
+}
+.pic-link {
+    grid-column-start: 1;
+    background-color: var(--color2);
+    width: 100%;
+}
+
+.result-icon {
+    padding: 1%;
+    width: 100%;
+    object-fit: cover;
+    justify-self: center;
+    border: 2px solid #f0a500;
+}
+.route-information {
+    grid-column-start: 2;
+    width: 100%;
+}
+
+/* *** *** *** *** *** ***  */
+/* ***  SLIDER *** ****  */
+/**** *** ***  *** *** ****/
+
+.slidecontainer {
+    width: 100%;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 25px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: 0.2s;
+    transition: opacity 0.2s;
+}
+
+.slider:hover {
+    opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    background: #04aa6d;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    background: #04aa6d;
+    cursor: pointer;
+}
+
+/* *** *** *** *** *** ***  */
+/* ***  ROUTE PROFILE **** */
+/**** *** ***  *** *** ****/
+.route-profile-container {
+    border: 5px solid var(--border);
+    width: 90%;
+    height: 90%;
+    grid-row-start: 2;
+    display: grid;
+    align-self: center;
+    justify-self: center;
+    grid-template-columns: 40% 60%;
+}
+
+.profile-right-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    padding-left: 15px;
+    color: var(--text);
+    background-color: var(--color3);
+}
+
+.profile-right-container > h3 {
+    color: var(--text);
+    font-size: 60px;
+}
+.easy {
+    color: var(--easy);
+    font-size: 10px;
+}
+.intermediate {
+    color: var(--intermediate);
+    font-size: 10px;
+}
+.map-container-right {
+    grid-row-start: 1;
+    justify-content: center;
+    object-fit: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+canvas {
+    height: 100px;
+}
+
+.map-container {
+    height: 100%;
+    width: 100%;
+}
+
+/* *** *** *** *** *** ***  */
+/* ***  OLD CODE *** ****  */
+/**** *** ***  *** *** ****/
+
 /* CENTRAL CONTAINER */
 .central-container {
     grid-row-start: 2;
@@ -80,14 +279,6 @@ a {
 .logo-container-center {
     justify-self: center;
     width: 800px;
-}
-
-.map-container {
-    grid-row-start: 2;
-    height: 700px;
-    width: 1000px;
-    justify-self: self-end;
-    background-color: deeppink;
 }
 
 .left-side-map-container {
@@ -271,27 +462,6 @@ input {
 
 /* MENU BAR CONTAINER */
 
-.menu-bar-container {
-    position: absolute;
-    top: 10px;
-    right: 95px;
-    /* background-color: #f9f7f7; */
-    width: 360px;
-    height: 34px;
-    border: 1px solid #112d4e;
-    padding: 10px;
-    z-index: 1;
-    border-radius: 26px;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-}
-.link-navbar {
-    font-size: 20px;
-    color: #112d4e;
-    margin-right: 5px;
-    align-self: center;
-}
 /* PROFILE CONTAINER */
 
 .profile-container {
@@ -302,35 +472,7 @@ input {
     grid-template-columns: 20% 80%;
     margin: 40px;
 }
-.profile-container-other {
-    background-color: #112d4e;
-    border: 5px solid #f0a500;
-    padding: 40px;
-    grid-row-start: 2;
-    display: grid;
-    align-self: center;
-    justify-self: center;
-    grid-template-columns: 20% 80%;
-    /* margin: 10%; */
-}
-.profile-right-container {
-    padding-left: 15px;
-}
 
-.profile-right-container > h2 {
-    color: #f0a500;
-    font-size: 40px;
-}
-.profile-container-pic {
-    height: 250px;
-    grid-row-start: 1;
-    object-fit: cover;
-    justify-content: center;
-    object-fit: cover;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
 .changepic {
     position: relative;
     left: 40px;
@@ -409,27 +551,11 @@ textarea {
 }
 
 /* FIND BIKERZ COMPONENT */
-.find-bikerz-container {
-    border-top: 1px solid #112d4e;
-    margin-top: 10px;
-    width: 100%;
-    margin: 40px;
-    justify-content: center;
-    grid-row-start: 2;
-}
+
 .find-bikerz-input {
     height: 30px;
 }
 
-.result-input {
-    grid-row-start: 3;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    justify-content: space-around;
-    justify-items: center;
-    align-items: center;
-    padding: 15px;
-}
 .user-result-container {
     display: flex;
     flex-direction: row;
@@ -439,14 +565,6 @@ textarea {
     width: 200px;
     padding: 10px;
     margin: 15px;
-}
-.result-icon {
-    height: 150px;
-    width: 150px;
-    object-fit: cover;
-    border-radius: 50%;
-    justify-self: center;
-    border: 2px solid #f0a500;
 }
 
 .friendship-button-container {
@@ -727,7 +845,7 @@ footer {
     line-height: 30px;
     padding-left: 40px;
     padding-right: 40px;
-    background-color: #112d4e;
+    background-color: var(--color5);
     color: #dbe2ef;
     height: 100%;
 }

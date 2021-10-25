@@ -2,13 +2,13 @@
 import { Component } from "react";
 import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 import FindRoute from "./find-route";
-import FriendsList from "./friends";
+// import FriendsList from "./friends";
 import ProfilePic from "./profilepic";
 import Profile from "./profile";
-import OtherUserProfile from "./otherUserProfile";
+import RouteProfile from "./route-profile";
 import { Uploader } from "./uploader";
 import { MenuBar } from "./menu-bar";
-import Chat from "./chat";
+// import Chat from "./chat";
 import Map from "./routes";
 
 export default class APP extends Component {
@@ -98,74 +98,40 @@ export default class APP extends Component {
         return (
             <BrowserRouter>
                 <div className="body-container">
-                    {this.state.errorIsVisible && (
-                        <div className="bikerz-not-found-message">
-                            <h1>SORRY BIKERZ NOT FOUND, TRY AGAIN</h1>
-                        </div>
-                    )}
+                 
 
                     <div className="navbar">
-                        <Link to="/">
-                            <img
-                                className="logo"
-                                src="/img/logo/logoBPb.png"
-                                alt="logo"
-                            />
-                        </Link>
-                        <ProfilePic
-                            userID={this.state.userID}
-                            className={this.state.picProfileSmall}
-                            imageUrl={this.state.imageUrl}
-                            first={this.state.first}
-                            last={this.state.last}
-                            clickHandler={() => {
-                                this.setState((oldState) => ({
-                                    menuIsVisible: !oldState.menuIsVisible,
-                                }));
-                            }}
+                        <img
+                            className="logo"
+                            src="/img/logo/logoBPb.png"
+                            alt="logo"
                         />
+                        <div className="navbar-menu">
+                            <a href="/find-route">
+                                <h6>HOME |</h6>
+                            </a>
+                            <a href="/find-route">
+                                <h6>FIND ROUTE |</h6>
+                            </a>
+                        </div>
                     </div>
                     <Switch>
-                        <Route exact path="/">
-                            <Profile
-                                bio={this.state.bio}
-                                className={this.state.picProfilebig}
-                                imageUrl={this.state.imageUrl}
-                                cameraPic={this.state.cameraPic}
-                                first={this.state.first}
-                                last={this.state.last}
-                                storeBioInApp={this.storeBioInApp}
-                                clickHandler={() => {
-                                    this.setState((oldState) => ({
-                                        uploaderIsVisible:
-                                            !oldState.uploaderIsVisible,
-                                    }));
-                                }}
-                            />{" "}
-                        </Route>
+                        
                         <Route path="/find-route">
                             <FindRoute first={this.state.first} />
                         </Route>
-                        <Route path="/chat">
-                            <Chat userID={this.state.userID} />
-                        </Route>
+
                         <Route path="/routes">
                             <Map userID={this.state.userID} />
                         </Route>
 
-                        <Route path="/friends">
-                            <FriendsList userID={this.state.userID} />
-                        </Route>
-                        <Route path="/bikerz/:otherUserID">
-                            <OtherUserProfile
+                        <Route path="/route/:routeID">
+                            <RouteProfile
                                 userID={this.state.userID}
-                                functioErrorAppears={this.functioErrorAppears}
-                                notificationDot={this.notificationDot}
-                                privateChatFunction={this.privateChatFunction}
                             />
                         </Route>
                     </Switch>
-                    <footer>©2021. BIKEPACKING IRGENDWO</footer>
+                    <footer>©2021. Route finder</footer>
                 </div>
                 {/* ⬇️⬇️⬇️⬇️⬇️⬇️ HERE BELOW ARE LISTED THE MODAL THAT CAN APPEAR OR DISAPPEAR ACCORDING TO THE RELATIVE onCLICK FUNCTIONS */}
                 {this.state.uploaderIsVisible && (
