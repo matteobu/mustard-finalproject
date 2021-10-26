@@ -53,56 +53,42 @@ module.exports.infoRouteProfile = (routeID) => {
     return db.query(q, params);
 };
 // WHERE location = $1
+// ALL THE INFO FROM A USER
+module.exports.usersStarInformation = (id) => {
+    return db.query(`SELECT * FROM users WHERE id = $1`, [id]);
+};
 
-// OLD CODE FROM SOCIAL NETWORK
-// // ALL THE INFO FROM A USER
-// module.exports.usersStarInformation = (id) => {
-//     return db.query(`SELECT * FROM users WHERE id = $1`, [id]);
-// };
-// module.exports.userInfoProfile = (id) => {
-//     return db.query(
-//         `SELECT users.id, first, last, bio, pic_url, accepted
-//         FROM users
-//         LEFT JOIN friendships
-//         ON users.id = sender_id
-//         OR users.id = recipient_id
-//         WHERE users.id = $1`,
-//         [id]
-//     );
-// };
+module.exports.makeFavorite = (userID, routeID) => {
+    const q = `
+            INSERT INTO favorites (sender_id, recipient_id) 
+            VALUES ($1, $2) 
+            RETURNING *
+            `;
+    const params = [userID, routeID];
+    return db.query(q, params);
+};
 
-// module.exports.onlineUserIDsArrayProfileInfo = (IDs) => {
-//     return db.query(
-//         `SELECT users.id, first, last, pic_url, sender_id, recipient_id, accepted
-//         FROM users
-//         LEFT JOIN friendships
-//         ON users.id = sender_id
-//         OR users.id = recipient_id
-//         WHERE users.id = ANY($1)`,
-//         [IDs]
-//     );
-// };
-// module.exports.onlineFriendsInfo = (IDs) => {
-//     return db.query(
-//         `SELECT users.id, first, last, pic_url FROM friendships
-//         JOIN users
-//         ON (accepted = true AND recipient_id = ANY($1) AND sender_id = users.id)
-//         OR (accepted = true AND sender_id = ANY($1) AND recipient_id = users.id) `,
-//         [IDs]
-//     );
-// };
+module.exports.checkFavorites = (userID) => {
+    const q = `
+                SELECT routes.name FROM favorites
+                LEFT JOIN routes
+                ON sender_id = $1 AND favorites.id = recipient_id
+                `;
+    const params = [userID];
+    return db.query(q, params);
+};
 
-// // CHECKING PASSWORD FROM EMAIL
-// module.exports.listID = (email) => {
-//     return db.query(`SELECT password, id FROM users WHERE email = $1`, [email]);
-// };
+// CHECKING PASSWORD FROM EMAIL
+module.exports.listID = (email) => {
+    return db.query(`SELECT password, id FROM users WHERE email = $1`, [email]);
+};
 
-// // CHECK EMAIL IF IS ON THE DB
-// module.exports.checkEmail = (email) => {
-//     return db.query(`SELECT id FROM users WHERE email = $1 RETURNING id`, [
-//         email,
-//     ]);
-// };
+// CHECK EMAIL IF IS ON THE DB
+module.exports.checkEmail = (email) => {
+    return db.query(`SELECT id FROM users WHERE email = $1 RETURNING id`, [
+        email,
+    ]);
+};
 
 // // CODE CHECK AND ADDING TO TABLE
 // module.exports.addCode = (email, code) => {

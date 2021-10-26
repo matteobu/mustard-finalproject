@@ -1,6 +1,8 @@
 import ReactDOM from "react-dom";
 // import SayingHello from "./SayingHello";
 import Welcome from "./welcome.js";
+import Main from "./main";
+
 import App from "./app";
 // REDUX PART
 import { Provider } from "react-redux";
@@ -29,18 +31,20 @@ const store = createStore(
 
 const elem = (
     <Provider store={store}>
-        <App />
+        <App  />
     </Provider>
 );
 
-// fetch("/user/id.json")
-//     .then((response) => response.json())
-//     .then((data) => {
-//         if (!data.userID) {
-//             ReactDOM.render(<Welcome />, document.querySelector("main"));
-//             // ReactDOM.render(<SayingHello />, document.querySelector("main"));
-//         } else {
-init(store);
-ReactDOM.render(elem, document.querySelector("main"));
-// }
-// });
+fetch("/user/id.json")
+    .then((response) => response.json())
+    .then((data) => {
+        if (!data.userID) {
+            console.log(`data.userID`, data.userID);
+            // ReactDOM.render(<Welcome />, document.querySelector("main"));
+            ReactDOM.render(<Main />, document.querySelector("main"));
+            // ReactDOM.render(<SayingHello />, document.querySelector("main"));
+        } else {
+            init(store);
+            ReactDOM.render(elem , document.querySelector("main"));
+        }
+    });

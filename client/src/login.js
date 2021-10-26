@@ -76,9 +76,9 @@ export class Login extends Component {
                     <Link className="link-login" to="/">
                         Not registered?{" "}
                     </Link>
-                    <Link className="link-login" to="/reset">
+                    {/* <Link className="link-login" to="/reset">
                         Forgot Password?{" "}
-                    </Link>
+                    </Link> */}
                     <div className="error-message">
                         {this.state.error && <h2>{this.state.error}</h2>}
                     </div>

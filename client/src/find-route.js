@@ -4,15 +4,22 @@ import { socket } from "./socket";
 import { useSelector } from "react-redux";
 
 export default function FindRoute() {
-    // console.log("PROPS IN FIND BIKERZ", props);
-    // const [route, setRoute] = useState([]);
     const [filter, setFilter] = useState("");
-    // const [countries, setCountries] = useState([]);
+    // const [activeFilter, setActiveFilter] = useState("");
+    // const [buttonClass, setButtonClass] = useState("inactive");
     const routesData = useSelector((state) => state.routes);
-    console.log(`routesData`, routesData);
+
+    const isActive = (value) => {
+        if (value == filter) {
+            return "active";
+        } else return "inactive";
+    };
 
     const handleFilter = (e) => {
+        e.preventDefault();
         console.log(`e.target.name`, e.target.name);
+        console.log(`e`, e);
+
         setFilter(e.target.name);
     };
 
@@ -20,21 +27,11 @@ export default function FindRoute() {
         if (!filter) {
             socket.emit("allRoutes");
         } else socket.emit("specific route", filter);
-        console.log(`location on USE EFFECT`, filter);
 
         return () => {
             console.log();
         };
     }, [filter]);
-
-    // var slider = document.getElementById("myRange");
-    // var output = document.getElementById("demo");
-    // output.innerHTML = slider.value; // Display the default slider value
-
-    // // Update the current slider value (each time you drag the slider handle)
-    // slider.oninput = function () {
-    //     output.innerHTML = this.value;
-    // };
 
     return (
         <>
@@ -44,17 +41,31 @@ export default function FindRoute() {
                         <h3> DO YOU FANCY A RIDE IN BERLIN?</h3>
                         <h3> CHOOSE YOUR FAV LOCATION OR GRADE!</h3>
                     </div>
+
                     <div className="location-buttons">
-                        <button name="city" onClick={(e) => handleFilter(e)}>
+                        <button
+                            className={isActive("city")}
+                            name="city"
+                            onClick={(e) => handleFilter(e)}
+                        >
                             CITY
                         </button>
-                        <button name="lake" onClick={(e) => handleFilter(e)}>
+                        <button
+                            className={isActive("lake")}
+                            name="lake"
+                            onClick={(e) => handleFilter(e)}
+                        >
                             LAKE
                         </button>
-                        <button name="forest" onClick={(e) => handleFilter(e)}>
+                        <button
+                            className={isActive("forest")}
+                            name="forest"
+                            onClick={(e) => handleFilter(e)}
+                        >
                             FOREST
                         </button>
                     </div>
+
                     {/* <div className="slidecontainer">
                         <input
                             type="range"
@@ -65,10 +76,15 @@ export default function FindRoute() {
                         ></input>
                     </div> */}
                     <div className="grade-buttons">
-                        <button name="easy" onClick={(e) => handleFilter(e)}>
+                        <button
+                            name="easy"
+                            className={isActive("easy")}
+                            onClick={(e) => handleFilter(e)}
+                        >
                             EASY
                         </button>
                         <button
+                            className={isActive("intermediate")}
                             name="intermediate"
                             onClick={(e) => handleFilter(e)}
                         >
@@ -80,14 +96,13 @@ export default function FindRoute() {
                     {routesData &&
                         routesData.map((route, i) => (
                             <div className="routes-result-container" key={i}>
-                                <div className="pic-link">
-                                    <Link to={`route/${route.id}`}>
+                                <Link to={`route/${route.id}`}>
+                                    <div className="pic-link">
                                         <img
-                                            className="result-icon"
-                                            src="/img/route-pic/city/city_01.png"
+                                            src={`/img/route-pic/${route.id}_${route.location}.png`}
                                         ></img>
-                                    </Link>
-                                </div>
+                                    </div>
+                                </Link>
                                 <div className="route-information">
                                     <h2>{route.name}</h2>
                                     <h3>Location: {route.location}</h3>

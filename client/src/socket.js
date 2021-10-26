@@ -4,6 +4,8 @@ import {
     specificRoutesReceived,
     routeProfileInfo,
 } from "./redux/routes/slice.js";
+import { userInfoReceived } from "./redux/users/slice.js";
+import { routeFavoriteRoute } from "./redux/favorite/slice.js";
 
 export let socket;
 
@@ -12,6 +14,9 @@ export const init = (store) => {
         socket = io.connect();
     }
 
+    socket.on("all info from user", async (data) => {
+        await store.dispatch(userInfoReceived(data));
+    });
     socket.on("all routes from DB", async (data) => {
         await store.dispatch(routesReceived(data));
     });
@@ -20,5 +25,11 @@ export const init = (store) => {
     });
     socket.on("route profile info", async (data) => {
         await store.dispatch(routeProfileInfo(data));
+    });
+    // socket.on("route fav true", async (data) => {
+    //     await store.dispatch(routeFavoriteRoute(data));
+    // });
+    socket.on("user's fav", async (data) => {
+        await store.dispatch(routeFavoriteRoute(data));
     });
 };

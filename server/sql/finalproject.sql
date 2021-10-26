@@ -21,14 +21,60 @@
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
 
+
+-- LAKE INFORMATION
 -- INSERT INTO routes (name, location, distance, grade, path)
--- VALUES('Berlin Sprea', 'city', '245', 'easy', 'cycle path');
+-- VALUES('Mauerweg am Wasser Loop', 'lake', '35', 'intermediate', 'cycle path');
 
 -- INSERT INTO routes (name, location, distance, grade, path)
--- VALUES('Templiner See', 'lake', '25', 'intermediate', 'off road');
+-- VALUES('Durch den Wald – Müggelsee Loop', 'lake', '35', 'intermediate', 'off road');
 
 -- INSERT INTO routes (name, location, distance, grade, path)
--- VALUES('Templiner Forest', 'forest', '35', 'intermediate', 'off road');
+-- VALUES('Loop from Altstadt Spandau', 'lake', '36', 'easy', 'cycle path');
+
+-- INSERT INTO routes (name, location, distance, grade, path)
+-- VALUES('Pfaueninselchaussee – Grunewaldturm Loop', 'lake', '68', 'intermediate', 'cycle path');
+
+-- INSERT INTO routes (name, location, distance, grade, path)
+-- VALUES('Blick auf Werder', 'lake', '45', 'easy', 'cycle path');
+
+
+
+-- CITY INFORMATION
+
+-- INSERT INTO routes (name, location, distance, grade, path)
+-- VALUES('Mauerweg along Teltowkanal', 'city', '43', 'intermediate', 'cycle path');
+
+-- INSERT INTO routes (name, location, distance, grade, path)
+-- VALUES('Berliner Mauerweg Loop', 'city', '30', 'easy', 'off road');
+
+-- INSERT INTO routes (name, location, distance, grade, path)
+-- VALUES('Karpfenteiche – Schlosspark', 'city', '28', 'intermediate', 'cycle path');
+
+-- INSERT INTO routes (name, location, distance, grade, path)
+-- VALUES('Bergmannkiez', 'city', '16', 'easy', 'cycle path');
+
+-- INSERT INTO routes (name, location, distance, grade, path)
+-- VALUES('Gendarmenmarkt Loop', 'city', '32', 'intermediate', 'cycle path');
+
+
+-- FOREST INFORMATION
+
+-- INSERT INTO routes (name, location, distance, grade, path)
+-- VALUES('Round Trip in Rahnsdorf', 'forest', '35', 'easy', 'cycle path');
+
+-- INSERT INTO routes (name, location, distance, grade, path)
+-- VALUES('Havelland Loop', 'forest', '85', 'intermediate', 'cycle path');
+
+-- INSERT INTO routes (name, location, distance, grade, path)
+-- VALUES('Pankeweg – Liepnitzsee Loop', 'forest', '55', 'easy', 'cycle path');
+
+-- INSERT INTO routes (name, location, distance, grade, path)
+-- VALUES('Schwielowsee Loop', 'forest', '100', 'intermediate', 'off road');
+
+-- INSERT INTO routes (name, location, distance, grade, path)
+-- VALUES('Gabelfelder Radweg Loop', 'forest', '55', 'easy', 'cycle path');
+
 
 
 
@@ -38,18 +84,12 @@
 
 
 
-CREATE TABLE password_reset_codes(
-      id SERIAL PRIMARY KEY,
-      code VARCHAR(255) NOT NULL,
-      email VARCHAR(255) NOT NULL ,
-      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      );
 
--- CREATE TABLE friendships(
---       id SERIAL PRIMARY KEY,
---       sender_id INT REFERENCES users(id) NOT NULL,
---       recipient_id INT REFERENCES users(id) NOT NULL,
---       accepted BOOLEAN DEFAULT false);
+CREATE TABLE favorites(
+      id SERIAL PRIMARY KEY,
+      sender_id INT REFERENCES users(id) NOT NULL,
+      recipient_id INT REFERENCES routes(id) NOT NULL,
+      accepted BOOLEAN DEFAULT true);
 
 -- CREATE TABLE chat(
 --       id SERIAL PRIMARY KEY,

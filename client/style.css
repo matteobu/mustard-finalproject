@@ -32,9 +32,9 @@ h6 {
 }
 
 .body-container {
-    background-color: var(--color1);
+    background-color: var(--color3);
     display: grid;
-    grid-template-rows: 5% 90% 5%;
+    grid-template-rows: 7% 88% 5%;
     min-height: 100vh;
 }
 
@@ -52,17 +52,17 @@ a {
     position: absolute;
     width: 100%;
     height: 30px;
-    /* background-color: var(--color3); */
+    background-color: var(--color3);
     display: grid;
     grid-template-columns: 50% 50%;
 }
 
 .logo {
     grid-column-start: 1;
-    top: 10px;
-    left: 40px;
+
+    left: 15px;
     position: absolute;
-    width: 200px;
+    width: 50px;
 }
 .navbar-menu {
     margin: 0;
@@ -74,7 +74,7 @@ a {
     flex-direction: row;
 }
 .navbar-menu > a {
-    color: var(--color5);
+    color: var(--text);
     margin: 0;
     margin-left: 5px;
 }
@@ -85,7 +85,7 @@ a {
     right: 95px;
     width: 360px;
     height: 34px;
-    border: 1px solid #112d4e;
+    /* border: 1px solid #112d4e; */
     padding: 10px;
     z-index: 1;
     border-radius: 26px;
@@ -107,14 +107,14 @@ a {
     grid-row-start: 2;
     display: grid;
     grid-template-columns: 30% 70%;
-    border-top: 1px solid #112d4e;
-    width: 100%;
+    /* border-top: 1px solid #112d4e; */
     justify-content: center;
+    padding-left: 15px;
 }
 
 .search-option-container {
     grid-column-start: 1;
-    background-color: var(--color3);
+    background-color: var(--color2);
     display: grid;
     grid-template-rows: 20% 10% 10% 60%;
 }
@@ -130,63 +130,77 @@ a {
     justify-content: center;
 }
 
-.profile-right-container > button,
-.location-buttons > button,
-.grade-buttons > button {
+.inactive {
     height: 30px;
-    width: 100px;
-    border: 2px solid var(--color1);
+    width: 120px;
+    border: 2px solid var(--color5);
     border-radius: 10px;
-    background-color: var(--color2);
-    color: var(--color1);
+    background-color: var(--text);
+    color: var(--color5);
     margin: 5px;
 }
+.active {
+    height: 30px;
+    width: 120px;
+    border: 2px solid var(--color5);
+    border-radius: 10px;
+    background-color: var(--color3);
+    color: var(--color5);
+    margin: 5px;
+}
+.fav-button {
+    height: 30px;
+    width: 60px;
+    border: 2px solid var(--color5);
+    border-radius: 10px;
+    background-color: var(--intermediate);
+    color: var(--white);
+    margin: 5px;
+}
+
 .result-input {
     overflow-y: scroll;
     grid-column-start: 2;
     width: 100%;
-    height: 90vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+    height: 88vh;
+    display: grid;
+    grid-template-columns: 33% 34% 33%;
+    grid-template-rows: 50% 50%;
+    justify-content: space-between;
     justify-items: center;
     align-items: center;
-    background-color: var(--white);
+    background-color: var(--color3);
 }
 .routes-result-container {
-    background-color: var(--color1);
+    background-color: var(--newComponent);
     display: grid;
-    grid-template-columns: 40% 60%;
-    grid-template-rows: repeat(200px);
-    width: 90%;
-    padding: 30px;
-    margin-bottom: 5px;
+    grid-template-rows: 50% 50%;
+    width: 220px;
+    object-fit: cover;
 }
 .pic-link {
-    grid-column-start: 1;
+    grid-row-start: 1;
     background-color: var(--color2);
     width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-.result-icon {
-    padding: 1%;
+.pic-link > img {
     width: 100%;
-    object-fit: cover;
-    justify-self: center;
     border: 2px solid #f0a500;
 }
+
 .route-information {
-    grid-column-start: 2;
-    width: 100%;
+    grid-row-start: 2;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    padding-left: 20px;
-    
 }
 
 .route-information > h2 {
     color: var(--text);
+    font-size: 10px;
 }
 
 /* *** *** *** *** *** ***  */
@@ -243,9 +257,8 @@ a {
 }
 
 .profile-right-container {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: 15% 5% 75% 5%;
     /* padding-left: 15px; */
     padding: 10px;
     color: var(--text);
@@ -254,7 +267,7 @@ a {
 
 .profile-right-container > h3 {
     color: var(--text);
-    font-size: 60px;
+    font-size: 45px;
 }
 .easy {
     color: var(--easy);
@@ -285,7 +298,7 @@ footer {
     line-height: 30px;
     padding-left: 40px;
     padding-right: 40px;
-    background-color: var(--color5);
+    background-color: var(--color3);
     color: #dbe2ef;
     height: 100%;
 }
@@ -347,6 +360,7 @@ footer {
 }
 
 .form-registration {
+    padding-top: 40px;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -356,22 +370,22 @@ input {
     width: 400px;
     height: 70px;
     font-size: 20px;
-    background-color: #3f72af;
+    background-color: var(--color3);
     border: 0;
-    border-bottom: 1px solid #f9f7f7;
+    border-bottom: 1px solid var(--text);
 }
 
 ::placeholder {
-    color: #f9f7f7;
+    color: var(--text);
 }
 
 .btn-register {
     width: 100px;
     justify-self: center;
-    border: 1px solid #f9f7f7;
-    background-color: #3f72af;
+    border: 1px solid var(--text);
+    background-color: var(--color3);
     margin: 15px;
-    color: #f9f7f7;
+    color: var(--text);
     border-radius: 10px;
 }
 
@@ -389,6 +403,8 @@ input {
 }
 
 .login-registration {
+    padding-top: 40px;
+
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -405,17 +421,17 @@ input {
     width: 400px;
     height: 70px;
     font-size: 20px;
-    background-color: #3f72af;
+    background-color: var(--color3);
     border: 0;
-    border-bottom: 1px solid #f9f7f7;
+    border-bottom: 1px solid var(--text);
 }
 .btn-login {
     width: 100px;
     justify-self: center;
-    border: 1px solid #f9f7f7;
-    background-color: #3f72af;
+    border: 1px solid var(--text);
+    background-color: var(--color3);
     margin: 15px;
-    color: #f9f7f7;
+    color: var(--text);
     border-radius: 10px;
 }
 
@@ -511,8 +527,9 @@ input {
     margin-top: 10px;
     grid-row-start: 2;
     display: grid;
-    grid-template-columns: 20% 80%;
+    grid-template-columns: 50% 50%;
     margin: 40px;
+    color: var(--text);
 }
 
 .changepic {

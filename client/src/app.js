@@ -2,8 +2,7 @@
 import { Component } from "react";
 import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 import FindRoute from "./find-route";
-// import FriendsList from "./friends";
-// import ProfilePic from "./profilepic";
+import Profile from "./profile";
 import Main from "./main";
 import RouteProfile from "./route-profile";
 import { Uploader } from "./uploader";
@@ -28,7 +27,6 @@ export default class APP extends Component {
         this.privateChatFunction = this.privateChatFunction.bind(this);
     }
     async componentDidMount() {
-        console.log("APP MOUNTED");
         const result = await fetch("/user.json").catch((err) =>
             console.log(err)
         );
@@ -101,7 +99,7 @@ export default class APP extends Component {
                     <div className="navbar">
                         <img
                             className="logo"
-                            src="/img/logo/logoBPb.png"
+                            src="/img/logo/logo-small.png"
                             alt="logo"
                         />
                         <div className="navbar-menu">
@@ -111,20 +109,21 @@ export default class APP extends Component {
                             <a href="/find-route">
                                 <h6>FIND ROUTE |</h6>
                             </a>
+                            <Link to="/profile">
+                                <h6> ACCOUNT |</h6>
+                            </Link>
                         </div>
                     </div>
                     <Switch>
                         <Route exact path="/">
-                            <Main first={this.state.first} />
+                            <FindRoute first={this.state.first} />
                         </Route>
                         <Route path="/find-route">
                             <FindRoute first={this.state.first} />
                         </Route>
-
-                        {/* <Route path="/routes">
-                            <Map userID={this.state.userID} />
-                        </Route> */}
-
+                        <Route path="/profile">
+                            <Profile first={this.state.userID} />
+                        </Route>
                         <Route path="/route/:routeID">
                             <RouteProfile userID={this.state.userID} />
                         </Route>
@@ -152,61 +151,3 @@ export default class APP extends Component {
         );
     }
 }
-
-// OLD APP FUNCTION COMPONENT PLEASE DO NOT CUT OR PASTE OR MODIFY THIS LINES BELOW JUST COPY
-
-// <>
-//     <div className="body-container">
-//         <div className="navbar">
-//             <img
-//                 className="logo"
-//                 src="/img/logo/logoBPw.png"
-//                 alt="logo"
-//             />
-
-//             <ProfilePic
-//                 className={this.state.picProfileSmall}
-//                 imageUrl={this.state.imageUrl}
-//                 first={this.state.first}
-//                 last={this.state.last}
-//                 clickHandler={() => {
-//                     this.setState((oldState) => ({
-//                         menuIsVisible: !oldState.menuIsVisible,
-//                     }));
-//                 }}
-//             />
-//         </div>
-//         {/* <div className="profile-pic-big-container"> */}
-//         <Profile
-//             bio={this.state.bio}
-//             className={this.state.picProfilebig}
-//             imageUrl={this.state.imageUrl}
-//             cameraPic={this.state.cameraPic}
-//             first={this.state.first}
-//             last={this.state.last}
-//             storeBioInApp={this.storeBioInApp}
-//             clickHandler={() => {
-//                 this.setState((oldState) => ({
-//                     uploaderIsVisible: !oldState.uploaderIsVisible,
-//                 }));
-//             }}
-//         />
-//         {/* </div> */}
-//         <footer>©2021. BIKEPACKING IRGENDWO</footer>
-//     </div>
-
-//     {this.state.uploaderIsVisible && (
-//         <Uploader
-//             userID={this.state.userID}
-//             imageUrl={this.state.imageUrl}
-//             functionUploadImage={this.functionUploadImage}
-//         />
-//     )}
-//     {this.state.menuIsVisible && (
-//         <MenuBar
-//             userID={this.state.userID}
-//             imageUrl={this.state.imageUrl}
-//             // functionUploadImage={this.functionUploadImage}
-//         />
-//     )}
-// </>

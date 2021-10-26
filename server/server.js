@@ -138,16 +138,16 @@ app.get("*", function (req, res) {
 server.listen(process.env.PORT || 3001, function () {
     console.log("Ehi, I'm listening 🤟: ");
 });
-const onlineUsers = {};
+// const onlineUsers = {};
 io.on("connection", async (socket) => {
     // ⬇⬇⬇⬇ USERID and SOCKET ID ⬇⬇⬇⬇
 
-    // const userID = socket.request.session.userID;
-    const { userID } = socket.request.session;
-    onlineUsers[socket.id] = userID;
-    if (!socket.request.session.userID) {
-        return socket.disconnect(true);
-    }
+    const userID = socket.request.session.userID;
+    // const { userID } = socket.request.session;
+    // onlineUsers[socket.id] = userID;
+    // if (!socket.request.session.userID) {
+    //     return socket.disconnect(true);
+    // }
 
     console.log(
         `socket id ${socket.id} with userID ${userID} is now connected`
@@ -161,30 +161,51 @@ io.on("connection", async (socket) => {
     // onlineUsers[socket.id] = userID;
     // const onlineUserIDsArray = [...new Set(Object.values(onlineUsers))];
 
-    socket.on("disconnect", () => {
-        delete onlineUsers[socket.id];
-    });
+    // socket.on("disconnect", () => {
+    //     delete onlineUsers[socket.id];
+    // });
 
+    socket.on("user-profile", () => {
+        // console.log("SOCKET ALL ROUTES ACTIVATED");
+        db.usersStarInformation(userID).then(({ rows }) => {
+            // console.log({ rows });
+            io.emit("all info from user", rows);
+        });
+    });
     socket.on("allRoutes", () => {
-        console.log("SOCKET ALL ROUTES ACTIVATED");
+        // console.log("SOCKET ALL ROUTES ACTIVATED");
         db.findRoutes().then(({ rows }) => {
-            console.log({ rows });
+            // console.log({ rows });
             io.emit("all routes from DB", rows);
         });
     });
     socket.on("specific route", (location) => {
-        console.log("SOCKET ALL ROUTES ACTIVATED", location);
+        // console.log("SOCKET ALL ROUTES ACTIVATED", location);
         db.findLocationRoutes(location).then(({ rows }) => {
-            console.log("specific route from DB", { rows });
+            // console.log("specific route from DB", { rows });
             io.emit("specific routes from DB", rows);
         });
     });
 
     socket.on("route-profile", (routeID) => {
-        console.log("SOCKET ROUTE PROFILE ACTIVATED", routeID);
+        // console.log("SOCKET ROUTE PROFILE ACTIVATED", routeID);
         db.infoRouteProfile(routeID).then(({ rows }) => {
-            console.log("specific route from DB", { rows });
+            // console.log("specific route from DB", { rows });
             io.emit("route profile info", rows);
+        });
+    });
+    socket.on("route added to fav", (routeID) => {
+        console.log("SOCKET ROUTE PROFILE ACTIVATED", routeID);
+        db.makeFavorite(userID, routeID).then(({ rows }) => {
+            console.log("specific route from DB", { rows });
+            // io.emit("route fav true", rows);
+        });
+    });
+    socket.on("favorite route for my User", () => {
+        console.log("SOCKET ROUTE PROFILE ACTIVATED", userID);
+        db.checkFavorites(userID).then(({ rows }) => {
+            console.log("specific route from DB", { rows });
+            io.emit("user's fav", rows);
         });
     });
 

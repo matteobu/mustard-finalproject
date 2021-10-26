@@ -5,6 +5,7 @@ import { socket } from "./socket";
 import { useSelector } from "react-redux";
 import Map from "./routes";
 import trackGeoJson from "./json/tracks.json";
+console.log(`trackGeoJson`, trackGeoJson);
 
 // import PvtChat from "./pvt-chat";
 
@@ -14,7 +15,13 @@ export default function RouteProfile(props) {
     // console.log(`props`, props);
     const routesProfileData = useSelector((state) => state.routes);
     const { routeID } = useParams();
-    // console.log(`routesProfileData`, routesProfileData);
+
+
+    const favoriteRoute = (routeID) => {
+        console.log("FAV BUTTON GOT CLICKED", routeID);
+        socket.emit("route added to fav", routeID);
+    };
+
 
     useEffect(() => {
         let first = [];
@@ -61,17 +68,12 @@ export default function RouteProfile(props) {
             socket.emit("route-profile", routeID);
             // console.log(`routesProfileData`, routesProfileData);
         }
+
         return () => {
             // console.log("cleanup function");
             abort = true;
         };
     }, []);
-    // const handleButton = () => {
-    //     // IF ELSE STATEMENT
-    //     if (privateChat) {
-    //         setPrivateChat(false);
-    //     } else setPrivateChat(true);
-    // };
 
     return (
         <>
@@ -80,45 +82,63 @@ export default function RouteProfile(props) {
                     <div className="route-profile-container" key={i}>
                         <div className="profile-right-container">
                             <h3> {info.name}</h3>
-                            <h5>
+                            <h5 className={info.grade}>
                                 {" "}
-                                this is HARD CODED YOU NEED TO CHANGE WITH A
-                                VALUE FROM THE DBLorem Ipsum is simply dummy
-                                text of the printing and typesetting industry.
-                                Lorem Ipsum has been the industry standard dummy
-                                text ever since the 1500s, when an unknown
-                                printer took a galley of type and scrambled it
-                                to make a type specimen book. It has survived
-                                not only five centuries, but also the leap into
-                                electronic typesetting, remaining essentially
-                                unchanged. It was popularised in the 1960s with
-                                the release of Letraset sheets containing Lorem
-                                Ipsum passages, and more recently with desktop
-                                publishing software like Aldus PageMaker
-                                including versions of Lorem Ipsum.{" "}
+                                {info.grade}, {info.path}, {info.location},{" "}
+                                {info.id}
                             </h5>
-                            <div>
-                                <h6 className={info.grade}>
-                                    {" "}
-                                    {info.grade}, {info.path}
-                                </h6>
-                                {/* <h6 className={info.grade}> {info.path}</h6> */}
-                            </div>
-                            <button>
-                                <a
-                                    href={`gpx/${info.location}_${info.id}.gpx`}
-                                    download
+                            <h5>
+                                Lorem ipsum dolor sit amet, consectetur
+                                adipiscing elit. Pellentesque at molestie diam.
+                                Quisque vestibulum ut lorem condimentum
+                                vestibulum. Integer vulputate blandit odio sed
+                                sodales. Nam rhoncus quis nulla blandit posuere.
+                                Praesent eu eros ornare, sagittis massa ut,
+                                ullamcorper lacus. Suspendisse nec mattis sem,
+                                ac mollis tortor. Praesent ut enim massa. Etiam
+                                a laoreet nisl, vitae sagittis nisl. Etiam vel
+                                augue nec felis tempus posuere eget vel ex.
+                                <br></br>
+                                Proin sed accumsan ligula. Etiam ut imperdiet
+                                justo. Nulla egestas accumsan libero, quis
+                                consequat lacus placerat sed. In pharetra, neque
+                                quis sodales fermentum, risus leo pulvinar nunc,
+                                et tristique neque justo non arcu. Donec lacus
+                                urna, laoreet eget massa sit amet, lacinia
+                                pellentesque velit. Aenean feugiat lacus aliquet
+                                gravida vehicula. Maecenas pulvinar ac est
+                                tempus fermentum. Mauris imperdiet, libero at
+                                varius sodales, justo ligula dictum velit,
+                                tempus pulvinar ipsum risus id est. Pellentesque
+                                metus ex, auctor nec odio vitae, rutrum laoreet
+                                leo. Praesent id maximus lectus. Donec et congue
+                                dui. Aenean in tellus quam.
+                            </h5>
+                            <div className="buttons">
+                                <button className="inactive">
+                                    <a
+                                        href={`/gpx/${info.id}_${info.location}.gpx`}
+                                        download
+                                    >
+                                        GPX FILE
+                                    </a>
+                                </button>
+                                <button
+                                    className="fav-button"
+                                    onClick={() => favoriteRoute(info.id)}
                                 >
-                                    GPX FILE
-                                </a>
-                            </button>
+                                    FAV ♥️
+                                </button>
+                            </div>
                         </div>
                         <div className="map-container-right">
-                            <Map
-                                routeID={routeID}
-                                longitude={lng}
-                                latitude={lat}
-                            />
+                            {lng && lat && (
+                                <Map
+                                    routeID={routeID}
+                                    longitude={lng}
+                                    latitude={lat}
+                                />
+                            )}
                         </div>
                     </div>
                 ))}

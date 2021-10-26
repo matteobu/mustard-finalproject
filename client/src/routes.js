@@ -20,13 +20,13 @@ const Map = ({ routeID, latitude, longitude }) => {
     const [location, setLocation] = useState(
         trackGeoJson.features[routeID - 1]
     );
-    // const handleButton = () => {
-    //     // new mapboxgl.Marker()
-    //     //     .setLngLat(e.lngLat)
-    //     //     .addTo(Map)
-    //     //     .setPopup(new mapboxgl.Popup().setHTML("<h1>Hello World!</h1>"))
-    //     //     .getPitchAlignment();
-    //     // return (location = trackGeoJson.features[]);
+    // const handleButton = (e) => {
+    //     new mapboxgl.Marker()
+    //         .setLngLat(e.lngLat)
+    //         .addTo(Map)
+    //         .setPopup(new mapboxgl.Popup().setHTML("<h1>Hello World!</h1>"))
+    //         .getPitchAlignment();
+    //     return (location = trackGeoJson.features);
     //     setLocationType(0);
     // };
 
@@ -40,14 +40,15 @@ const Map = ({ routeID, latitude, longitude }) => {
 
             zoom: zoom,
         });
+
         const bounds = [
             [10.82, 50.31],
             [14.85, 54.69],
         ];
         map.setMaxBounds(bounds);
 
-        map.on("load", function (e) {
-            console.log(`e`, e);
+        map.on("load", function () {
+            map.resize();
 
             map.addLayer({
                 id: "route",
