@@ -94,6 +94,7 @@ a {
     color: var(--text);
     margin: 0;
     margin-left: 5px;
+    font-size: 20px;
 }
 
 .menu-bar-container {
@@ -161,6 +162,8 @@ a {
     background-color: var(--text);
     color: var(--color5);
     margin-left: 5px;
+    margin-bottom: 5px;
+
 }
 .active {
     height: 30px;
@@ -170,6 +173,8 @@ a {
     background-color: var(--color3);
     color: var(--color5);
     margin-left: 5px;
+    margin-bottom: 5px;
+
 }
 .add-favorite {
     height: 30px;
@@ -178,7 +183,8 @@ a {
     border-radius: 10px;
     background-color: var(--intermediate);
     color: var(--color5);
-    margin: 5px;
+    margin-left: 5px;
+    margin-bottom: 5px;
 }
 .remove-favorite {
     height: 30px;
@@ -187,7 +193,9 @@ a {
     border-radius: 10px;
     background-color: black;
     color: var(--white);
-    margin: 5px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+
 }
 
 .result-input {
@@ -319,7 +327,7 @@ a {
 
 .route-right-container {
     display: grid;
-    grid-template-rows: 15% 5% 70% 5% 5%;
+    grid-template-rows: 15% 5% 65% 5% 5% 5%;
     /* padding-left: 15px; */
     padding: 10px;
     color: var(--text);
@@ -783,13 +791,11 @@ input {
 /* CHAT */
 
 .pvt-chat {
-    grid-row-start: 2;
     position: absolute;
+    bottom: 9.5%;
     justify-self: flex-end;
-    bottom: 5%;
     display: grid;
     grid-template-columns: 80% 20%;
-    background-color: deeppink;
     z-index: 99;
 }
 .chat-and-online-container {
@@ -818,11 +824,10 @@ input {
 
 .chat-container {
     /* grid-column-start: 1; */
-    background-color: deeppink;
-    height: 500px;
-    width: 500px;
+    height: 250px;
+    width: 600px;
     display: grid;
-    grid-template-rows: 10% 75% 15%;
+    grid-template-rows: 80% 20%;
     border: 2px solid #f0a500;
 }
 
@@ -837,21 +842,20 @@ input {
     padding-left: 20px;
 }
 .chat-container > textarea {
-    grid-row-start: 3;
-    background-color: #112d4e;
+    grid-row-start: 2;
+    background-color: var(--color5);
     height: 100%;
     width: auto;
     padding: 0;
     color: #f0a500;
 }
 .chat-messages-container {
-    grid-row-start: 2;
+    grid-row-start: 1;
     display: flex;
     flex-direction: column-reverse;
-    background-color: #112d4e;
+    background-color: var(--color5);
     height: 100%;
     width: 100%;
-
     overflow-y: scroll;
     padding: 0;
     color: #749dcf;

@@ -6,7 +6,8 @@ import { useSelector } from "react-redux";
 export default function FindRoute() {
     const [filter, setFilter] = useState("");
     const routesData = useSelector((state) => state.routes);
-
+    const favoriteRoute = useSelector((state) => state.fav);
+    console.log(`favoriteRoute`, favoriteRoute);
     const isActive = (value) => {
         if (value == filter) {
             return "active";
@@ -19,6 +20,8 @@ export default function FindRoute() {
     };
 
     useEffect(() => {
+        socket.emit("favorite route for my User");
+
         if (!filter) {
             socket.emit("allRoutes");
         } else socket.emit("specific route", filter);
@@ -33,8 +36,11 @@ export default function FindRoute() {
             <div className="find-routes-container">
                 <div className="search-option-container">
                     <div className="INTRO-filter-container">
-                        <h3> DO YOU FANCY A RIDE IN BERLIN?</h3>
-                        <h3> CHOOSE YOUR FAV LOCATION OR GRADE!</h3>
+                        <h2> ARE YOU NEW IN BERLIN?</h2>
+
+                        <h3> CHOOSE ONE OF OUR BIKE ROUTES</h3>
+                        <h5>SELECT A PATH, GRADE OR LOCATION</h5>
+                        <h5>and be ready to ride!!</h5>
                     </div>
 
                     <div className="location-buttons">
@@ -118,6 +124,7 @@ export default function FindRoute() {
                                     <h6 className={route.grade}>
                                         {route.grade}, {route.path},{" "}
                                     </h6>
+                                    {/* {favoriteRoute && <h6>♥️</h6>} */}
                                 </div>
                             </div>
                         ))}

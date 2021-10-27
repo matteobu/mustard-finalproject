@@ -5,6 +5,8 @@ import { socket } from "./socket";
 import { useSelector } from "react-redux";
 import Map from "./routes";
 import trackGeoJson from "./json/tracks.json";
+import Comment from "./comment";
+
 // console.log(`trackGeoJson`, trackGeoJson);
 
 // import PvtChat from "./pvt-chat";
@@ -13,6 +15,7 @@ export default function RouteProfile() {
     const [lng, setLng] = useState();
     const [lat, setLat] = useState();
     const { routeID } = useParams();
+    const [privateChat, setPrivateChat] = useState(false);
 
     const routesProfileData = useSelector((state) => state.routes);
     const favoriteRoute = useSelector(
@@ -30,6 +33,17 @@ export default function RouteProfile() {
             console.log("remove favorite");
             socket.emit("remove from fav", routeID);
         }
+    };
+
+    const handleButton = () => {
+        // IF ELSE STATEMENT
+        if (privateChat) {
+            setPrivateChat(false);
+        } else setPrivateChat(true);
+        const usersOnPrivateChat = {
+            routeID: routeID,
+        };
+        socket.emit("private chat opened", usersOnPrivateChat);
     };
 
     useEffect(() => {
@@ -83,9 +97,11 @@ export default function RouteProfile() {
                 routesProfileData.map((info, i) => (
                     <div className="route-profile-container" key={i}>
                         <div className="route-right-container">
+                            {privateChat && <Comment routeID={routeID} />}
                             <h3> {info.name}</h3>
                             <h5 className={info.grade}>
-                                {info.grade}, {info.path}, {info.location}{" "}
+                                {info.grade}, {info.path}, {info.location},{" "}
+                                {info.distance}Km
                             </h5>
                             <h5>
                                 Lorem ipsum dolor sit amet, consectetur
@@ -122,6 +138,13 @@ export default function RouteProfile() {
                                     >
                                         GPX FILE
                                     </a>
+                                </button>
+                                <button
+                                    className="inactive"
+                                    onClick={handleButton}
+                                    name="comment"
+                                >
+                                    COMMENT
                                 </button>
                                 {!favoriteRoute && (
                                     <button

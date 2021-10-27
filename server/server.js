@@ -156,4 +156,24 @@ io.on("connection", async (socket) => {
             io.emit("user's fav", rows);
         });
     });
+
+    socket.on("newPvtMessage", ({ routeID, message }) => {
+        console.log(`message`, message);
+        db.insertPrivateMessage(userID, routeID, message).then(({ rows }) => {
+            console.log("id :>> ", rows[0].id);
+            let idForLastMessage = rows[0].id;
+            db.lastPrivateMessage(idForLastMessage).then(({ rows }) => {
+                // console.log("rows :>> ", rows);
+                io.emit("addPvtChatMsg", rows[0]);
+            });
+        });
+    });
+
+    socket.on("private chat opened", ({ otherUserID, userID }) => {
+        console.log("otherUserID :>> ", otherUserID);
+        db.lastThenPrivateMessages(userID, otherUserID).then(({ rows }) => {
+            console.log("LAST THEN MESSAGES :>> ", rows);
+            io.emit("most recent pvt messages", rows);
+        });
+    });
 });

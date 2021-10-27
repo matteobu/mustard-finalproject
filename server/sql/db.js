@@ -109,6 +109,43 @@ module.exports.checkEmail = (email) => {
     );
 };
 
+module.exports.insertPrivateMessage = (userID, routeID, message) => {
+    const q = `
+        INSERT INTO comments (sender_id, recipient_id , message)
+        VALUES($1, $2, $3)
+        RETURNING *
+        `;
+    const params = [userID, routeID, message];
+    return db.query(q, params);
+};
+
+module.exports.lastPrivateMessage = () => {
+    const q = `
+    SELECT *
+    FROM comments
+    JOIN users
+    ON sender_id = users.id
+    ORDER BY pvt_chat.id DESC
+    LIMIT 1
+        `;
+    return db.query(q);
+};
+
+module.exports.lastThenPrivateMessages = (userID, routeID) => {
+    const q = `
+        SELECT *
+        FROM comments
+        JOIN users
+        ON (sender_id = users.id)
+        WHERE (recipient_id = $1 AND sender_id = $2)
+        OR (sender_id = $1 AND recipient_id = $2)
+        ORDER BY pvt_chat.id DESC
+        LIMIT 10
+        `;
+    const params = [userID, routeID];
+    return db.query(q, params);
+};
+
 // // CODE CHECK AND ADDING TO TABLE
 // module.exports.addCode = (email, code) => {
 //     const params = [email, code];
@@ -318,15 +355,7 @@ module.exports.checkEmail = (email) => {
 //         `;
 //     return db.query(q);
 // };
-// module.exports.insertPrivateMessage = (userID, otherUserID, message) => {
-//     const q = `
-//         INSERT INTO pvt_chat (sender_id, recipient_id , message)
-//         VALUES($1, $2, $3)
-//         RETURNING id
-//         `;
-//     const params = [userID, otherUserID, message];
-//     return db.query(q, params);
-// };
+
 // // i.e. user's first name, last name, image, and chat msg
 // // INSERT INTO chat (sender_id, message)
 // // VALUES('3','Third Message');

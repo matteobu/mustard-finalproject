@@ -35,7 +35,7 @@ export default class APP extends Component {
                                 <h6>HOME |</h6>
                             </a>
                             <a href="/find-route">
-                                <h6>FIND ROUTE |</h6>
+                                <h6>ROUTE FINDER |</h6>
                             </a>
                             <Link to="/profile">
                                 <h6> FAVS ♥️ |</h6>
