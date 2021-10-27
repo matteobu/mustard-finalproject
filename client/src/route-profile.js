@@ -5,25 +5,32 @@ import { socket } from "./socket";
 import { useSelector } from "react-redux";
 import Map from "./routes";
 import trackGeoJson from "./json/tracks.json";
-console.log(`trackGeoJson`, trackGeoJson);
+// console.log(`trackGeoJson`, trackGeoJson);
 
 // import PvtChat from "./pvt-chat";
 
-export default function RouteProfile(props) {
+export default function RouteProfile() {
     const [lng, setLng] = useState();
     const [lat, setLat] = useState();
-    // console.log(`props`, props);
-    const routesProfileData = useSelector((state) => state.routes);
     const { routeID } = useParams();
 
+    const routesProfileData = useSelector((state) => state.routes);
+    const favoriteRoute = useSelector(
+        (state) => state.fav && state.fav.find((fav) => fav.id == routeID)
+    );
 
-    const favoriteRoute = (routeID) => {
-        console.log("FAV BUTTON GOT CLICKED", routeID);
-        socket.emit("route added to fav", routeID);
+    const favoriteRouteButton = (e) => {
+        if (e.target.name == "add-favorite") {
+            console.log("ADD TO  favorite");
+            socket.emit("route added to fav", routeID);
+        } else if (e.target.name == "remove-favorite") {
+            console.log("remove favorite");
+            socket.emit("remove from fav", routeID);
+        }
     };
-
-
     useEffect(() => {
+        socket.emit("favorite route for my User");
+
         let first = [];
         let second = [];
         let maxLng;
@@ -44,33 +51,20 @@ export default function RouteProfile(props) {
             maxLat = Math.max(...second);
             minLng = Math.min(...first);
             minLat = Math.min(...second);
-            console.log(minLat);
-            console.log(maxLat);
-
-            console.log(minLng);
-            console.log(maxLng);
         }
 
         let lngToPush = [(minLng + maxLng) / 2];
         let latToPush = [(minLat + maxLat) / 2];
 
-        console.log(`latToPush`, latToPush[0]);
-        console.log(`lngToPush `, lngToPush[0]);
-        console.log(`lat`, lat);
-        console.log(`lng`, lng);
-
         setLng(lngToPush);
         setLat(latToPush);
 
         let abort = false;
-        // console.log(`routeID`, routeID);
         if (!abort) {
             socket.emit("route-profile", routeID);
-            // console.log(`routesProfileData`, routesProfileData);
         }
 
         return () => {
-            // console.log("cleanup function");
             abort = true;
         };
     }, []);
@@ -80,12 +74,10 @@ export default function RouteProfile(props) {
             {routesProfileData &&
                 routesProfileData.map((info, i) => (
                     <div className="route-profile-container" key={i}>
-                        <div className="profile-right-container">
+                        <div className="route-right-container">
                             <h3> {info.name}</h3>
                             <h5 className={info.grade}>
-                                {" "}
-                                {info.grade}, {info.path}, {info.location},{" "}
-                                {info.id}
+                                {info.grade}, {info.path}, {info.location}{" "}
                             </h5>
                             <h5>
                                 Lorem ipsum dolor sit amet, consectetur
@@ -114,7 +106,7 @@ export default function RouteProfile(props) {
                                 leo. Praesent id maximus lectus. Donec et congue
                                 dui. Aenean in tellus quam.
                             </h5>
-                            <div className="buttons">
+                            <>
                                 <button className="inactive">
                                     <a
                                         href={`/gpx/${info.id}_${info.location}.gpx`}
@@ -123,13 +115,27 @@ export default function RouteProfile(props) {
                                         GPX FILE
                                     </a>
                                 </button>
-                                <button
-                                    className="fav-button"
-                                    onClick={() => favoriteRoute(info.id)}
-                                >
-                                    FAV ♥️
-                                </button>
-                            </div>
+                                {!favoriteRoute && (
+                                    <button
+                                        key={i}
+                                        name="add-favorite"
+                                        className="add-favorite"
+                                        onClick={(e) => favoriteRouteButton(e)}
+                                    >
+                                        add FAV ♥️
+                                    </button>
+                                )}
+                                {favoriteRoute && (
+                                    <button
+                                        key={i}
+                                        className="remove-favorite"
+                                        name="remove-favorite"
+                                        onClick={(e) => favoriteRouteButton(e)}
+                                    >
+                                        FAV -
+                                    </button>
+                                )}
+                            </>
                         </div>
                         <div className="map-container-right">
                             {lng && lat && (

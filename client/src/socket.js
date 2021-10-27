@@ -5,7 +5,7 @@ import {
     routeProfileInfo,
 } from "./redux/routes/slice.js";
 import { userInfoReceived } from "./redux/users/slice.js";
-import { routeFavoriteRoute } from "./redux/favorite/slice.js";
+import { routeFavoriteRoute, routeFavAdded } from "./redux/favorite/slice.js";
 
 export let socket;
 
@@ -26,9 +26,10 @@ export const init = (store) => {
     socket.on("route profile info", async (data) => {
         await store.dispatch(routeProfileInfo(data));
     });
-    // socket.on("route fav true", async (data) => {
-    //     await store.dispatch(routeFavoriteRoute(data));
-    // });
+
+    socket.on("insert route on fav", async (data) => {
+        await store.dispatch(routeFavAdded(data));
+    });
     socket.on("user's fav", async (data) => {
         await store.dispatch(routeFavoriteRoute(data));
     });

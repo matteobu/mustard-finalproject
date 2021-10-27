@@ -5,8 +5,6 @@ import { useSelector } from "react-redux";
 
 export default function FindRoute() {
     const [filter, setFilter] = useState("");
-    // const [activeFilter, setActiveFilter] = useState("");
-    // const [buttonClass, setButtonClass] = useState("inactive");
     const routesData = useSelector((state) => state.routes);
 
     const isActive = (value) => {
@@ -17,9 +15,6 @@ export default function FindRoute() {
 
     const handleFilter = (e) => {
         e.preventDefault();
-        console.log(`e.target.name`, e.target.name);
-        console.log(`e`, e);
-
         setFilter(e.target.name);
     };
 
@@ -43,74 +38,68 @@ export default function FindRoute() {
                     </div>
 
                     <div className="location-buttons">
+                        <h4>LOCATION: </h4>
+
                         <button
                             className={isActive("city")}
                             name="city"
                             onClick={(e) => handleFilter(e)}
                         >
-                            CITY
+                            City
                         </button>
                         <button
                             className={isActive("lake")}
                             name="lake"
                             onClick={(e) => handleFilter(e)}
                         >
-                            LAKE
+                            Lake
                         </button>
                         <button
                             className={isActive("forest")}
                             name="forest"
                             onClick={(e) => handleFilter(e)}
                         >
-                            FOREST
+                            Forest
                         </button>
                     </div>
-
-                    {/* <div className="slidecontainer">
-                        <input
-                            type="range"
-                            min="1"
-                            max="100"
-                            value="50"
-                            id="myRange"
-                        ></input>
-                    </div> */}
                     <div className="grade-buttons">
+                        <h4>GRADE: </h4>
                         <button
                             name="easy"
                             className={isActive("easy")}
                             onClick={(e) => handleFilter(e)}
                         >
-                            EASY
+                            Easy
                         </button>
                         <button
                             className={isActive("intermediate")}
                             name="intermediate"
                             onClick={(e) => handleFilter(e)}
                         >
-                            INTERMEDIATE
+                            Intermediate
                         </button>
                     </div>
                 </div>
                 <div className="result-input">
                     {routesData &&
                         routesData.map((route, i) => (
-                            <div className="routes-result-container" key={i}>
+                            <div className={route.location} key={i}>
                                 <Link to={`route/${route.id}`}>
                                     <div className="pic-link">
                                         <img
-                                            src={`/img/route-pic/${route.id}_${route.location}.png`}
+                                            id="immagine" src={`/img/route-pic/${route.id}_${route.location}.png`}
                                         ></img>
                                     </div>
                                 </Link>
                                 <div className="route-information">
                                     <h2>{route.name}</h2>
-                                    <h3>Location: {route.location}</h3>
-                                    <h3>Path:</h3> {route.path}
+                                    <h3>
+                                        {route.location} - ({route.distance}KM)
+                                    </h3>
+
                                     <h6 className={route.grade}>
-                                        {route.grade}, {route.path}
+                                        {route.grade}, {route.path},{" "}
                                     </h6>
-                                    <h3>Distance: {route.distance}</h3>
                                 </div>
                             </div>
                         ))}

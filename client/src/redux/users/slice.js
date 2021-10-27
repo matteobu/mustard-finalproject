@@ -10,7 +10,6 @@ export default function userReducer(state = null, action) {
 
 // ACTION CREATOR -------------------------------------
 export function userInfoReceived(user) {
-    // console.log("user on slice:>> ", user);
     return {
         type: "user/userInfoReceived",
         payload: { user },

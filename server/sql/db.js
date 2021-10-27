@@ -67,12 +67,21 @@ module.exports.makeFavorite = (userID, routeID) => {
     const params = [userID, routeID];
     return db.query(q, params);
 };
+module.exports.removeFavorite = (userID, routeID) => {
+    const q = `
+            DELETE FROM favorites 
+            WHERE sender_id = $1 
+            AND recipient_id = $2
+            `;
+    const params = [userID, routeID];
+    return db.query(q, params);
+};
 
 module.exports.checkFavorites = (userID) => {
     const q = `
-                SELECT routes.name FROM favorites
+                SELECT * FROM favorites
                 LEFT JOIN routes
-                ON sender_id = $1 AND favorites.id = recipient_id
+                ON accepted = true AND sender_id = $1 AND routes.id = recipient_id
                 `;
     const params = [userID];
     return db.query(q, params);
@@ -80,14 +89,23 @@ module.exports.checkFavorites = (userID) => {
 
 // CHECKING PASSWORD FROM EMAIL
 module.exports.listID = (email) => {
-    return db.query(`SELECT password, id FROM users WHERE email = $1`, [email]);
+    return db.query(
+        `SELECT password, id 
+                    FROM users 
+                    WHERE email = $1`,
+        [email]
+    );
 };
 
 // CHECK EMAIL IF IS ON THE DB
 module.exports.checkEmail = (email) => {
-    return db.query(`SELECT id FROM users WHERE email = $1 RETURNING id`, [
-        email,
-    ]);
+    return db.query(
+        `SELECT id 
+                    FROM users 
+                    WHERE email = $1 
+                    RETURNING id`,
+        [email]
+    );
 };
 
 // // CODE CHECK AND ADDING TO TABLE

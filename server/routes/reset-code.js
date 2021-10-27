@@ -14,27 +14,21 @@ const cryptoRandomString = require("crypto-random-string");
 // } = require("../server/middleware");
 
 router.use((req, res, next) => {
-    // console.log("LOGIN ROUTES");
-    // console.log("req.method: ", req.method);
-    // console.log("req.url: ", req.url);
+  
     next();
 });
 
 router.post("/", function (req, res) {
-    // console.log("SESSION VALUE ON POST RESET:>> ", req.body);
     const { email } = req.body;
-    // console.log("req.body :>> ", req.body);
 
     db.listID(email)
         .then(function (result) {
-            // console.log("result :>> ", result);
             if (result.rowCount === 0) {
                 res.json({ success: false });
             } else {
                 const secretCode = cryptoRandomString({
                     length: 6,
                 });
-                // console.log("result FROM LIST ID:>> ", result);
                 db.addCode(email, secretCode);
                 let toAddress = email;
                 let subject = "Bikepacking Irgendwo - Reset Password";
@@ -45,7 +39,6 @@ router.post("/", function (req, res) {
             }
         })
         .catch(function (err) {
-            console.log("ERROR IN POST LOGIN:>> ", err);
             res.json({ success: false });
         });
 });

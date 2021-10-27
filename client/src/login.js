@@ -21,7 +21,6 @@ export class Login extends Component {
                 [target.name]: target.value,
             },
             () => {
-                // console.log("registration update", this.state);
             }
         );
     }
@@ -74,11 +73,9 @@ export class Login extends Component {
                         </button>
                     </form>
                     <Link className="link-login" to="/">
-                        Not registered?{" "}
+                        Not registered?
                     </Link>
-                    {/* <Link className="link-login" to="/reset">
-                        Forgot Password?{" "}
-                    </Link> */}
+            
                     <div className="error-message">
                         {this.state.error && <h2>{this.state.error}</h2>}
                     </div>

@@ -39,7 +39,7 @@ h6 {
 }
 
 a {
-    color: white;
+    color: var(--color5);
     text-decoration: none;
 }
 /* *** *** *** *** *** ***  */
@@ -114,7 +114,7 @@ a {
 
 .search-option-container {
     grid-column-start: 1;
-    background-color: var(--color2);
+    background-color: var(--color3);
     display: grid;
     grid-template-rows: 20% 10% 10% 60%;
 }
@@ -125,19 +125,23 @@ a {
 }
 .location-buttons,
 .grade-buttons {
-    background-color: var(--color2);
+    background-color: var(--color3);
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
+}
+.location-buttons > h4,
+.grade-buttons > h4 {
+    color: var(--text);
 }
 
 .inactive {
     height: 30px;
-    width: 120px;
+    width: 88px;
     border: 2px solid var(--color5);
     border-radius: 10px;
     background-color: var(--text);
     color: var(--color5);
-    margin: 5px;
+    margin-left: 5px;
 }
 .active {
     height: 30px;
@@ -146,14 +150,23 @@ a {
     border-radius: 10px;
     background-color: var(--color3);
     color: var(--color5);
-    margin: 5px;
+    margin-left: 5px;
 }
-.fav-button {
+.add-favorite {
     height: 30px;
-    width: 60px;
+    width: 90px;
     border: 2px solid var(--color5);
     border-radius: 10px;
     background-color: var(--intermediate);
+    color: var(--color5);
+    margin: 5px;
+}
+.remove-favorite {
+    height: 30px;
+    width: 90px;
+    border: 2px solid var(--color5);
+    border-radius: 10px;
+    background-color: black;
     color: var(--white);
     margin: 5px;
 }
@@ -164,31 +177,52 @@ a {
     width: 100%;
     height: 88vh;
     display: grid;
-    grid-template-columns: 33% 34% 33%;
-    grid-template-rows: 50% 50%;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-rows: repeat(auto-fit, minmax(1fr, 1fr));
     justify-content: space-between;
     justify-items: center;
     align-items: center;
-    background-color: var(--color3);
+    background-color: var(--color2);
 }
-.routes-result-container {
-    background-color: var(--newComponent);
+.city {
+    background-color: var(--color5);
     display: grid;
     grid-template-rows: 50% 50%;
     width: 220px;
-    object-fit: cover;
+    height: 200px;
+    border: 2px solid var(--text);
+    margin: 40px;
+}
+.lake {
+    background-color: var(--color4);
+    display: grid;
+    grid-template-rows: 50% 50%;
+    width: 220px;
+    height: 200px;
+    border: 2px solid var(--text);
+    margin: 40px;
+}
+.forest {
+    background-color: var(--color3);
+    display: grid;
+    grid-template-rows: 50% 50%;
+    width: 220px;
+    height: 200px;
+    border: 2px solid var(--text);
+    margin: 40px;
 }
 .pic-link {
     grid-row-start: 1;
     background-color: var(--color2);
     width: 100%;
     height: 100%;
-    object-fit: cover;
 }
 
-.pic-link > img {
+#immagine {
     width: 100%;
-    border: 2px solid #f0a500;
+    height: 100%;
+    object-fit: cover;
+
 }
 
 .route-information {
@@ -200,7 +234,16 @@ a {
 
 .route-information > h2 {
     color: var(--text);
-    font-size: 10px;
+    font-size: 15px;
+}
+
+.route-information > h3 {
+    color: var(--decline);
+    font-size: 15px;
+}
+
+.route-information > h6 {
+    font-size: 15px;
 }
 
 /* *** *** *** *** *** ***  */
@@ -256,13 +299,18 @@ a {
     grid-template-columns: 40% 60%;
 }
 
-.profile-right-container {
+.route-right-container {
     display: grid;
-    grid-template-rows: 15% 5% 75% 5%;
+    grid-template-rows: 15% 5% 70% 5% 5%;
     /* padding-left: 15px; */
     padding: 10px;
     color: var(--text);
-    background-color: var(--color3);
+    background-color: var(--color5);
+}
+
+.route-right-container > h3 {
+    color: var(--text);
+    font-size: 40px;
 }
 
 .profile-right-container > h3 {
@@ -271,11 +319,11 @@ a {
 }
 .easy {
     color: var(--easy);
-    font-size: 10px;
+    font-size: 15px;
 }
 .intermediate {
     color: var(--intermediate);
-    font-size: 10px;
+    font-size: 15px;
 }
 .map-container-right {
     grid-row-start: 1;
@@ -302,6 +350,37 @@ footer {
     color: #dbe2ef;
     height: 100%;
 }
+
+/* *** *** *** *** *** ***  */
+/* ***  PROFILE  *** ****  */
+/**** *** ***  *** *** ****/
+
+.profile-container {
+    border-top: 1px solid #112d4e;
+    margin-top: 10px;
+    grid-row-start: 2;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    margin: 40px;
+    color: var(--text);
+}
+
+.profile-right-container {
+    grid-column-start: 2;
+    background-color: var(--color2);
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+.favorite-routes-container {
+    margin: 10px;
+    background-color: var(--newComponent);
+}
+
+.favorite-routes-container > h4 {
+    color: var(--color5);
+}
+
 /* *** *** *** *** *** ***  */
 /* ***  OLD CODE *** ****  */
 /**** *** ***  *** *** ****/
@@ -521,93 +600,6 @@ input {
 /* MENU BAR CONTAINER */
 
 /* PROFILE CONTAINER */
-
-.profile-container {
-    border-top: 1px solid #112d4e;
-    margin-top: 10px;
-    grid-row-start: 2;
-    display: grid;
-    grid-template-columns: 50% 50%;
-    margin: 40px;
-    color: var(--text);
-}
-
-.changepic {
-    position: relative;
-    left: 40px;
-    top: 160px;
-    width: 30px;
-    height: 30px;
-    z-index: 3;
-    border-radius: 50%;
-    background-color: #112d4e;
-}
-
-.camera-icon {
-    position: relative;
-    left: 5px;
-    top: 5px;
-    align-self: center;
-    width: 20px;
-}
-.bio-container {
-    background-color: darkolivegreen;
-}
-.profile-pic-big {
-    border: 5px solid #112d4e;
-    border-radius: 50%;
-    object-fit: cover;
-    width: 150px;
-    height: 150px;
-    justify-items: center;
-    object-fit: cover;
-    z-index: 2;
-}
-
-/* BIO CONTAINER */
-.bio-container {
-    background-color: deeppink;
-}
-
-textarea {
-    background-color: #112d4e;
-    border-bottom: 1px solid #dbe2ef;
-    width: 500px;
-    height: 150px;
-    font-size: 16px;
-}
-
-.my-bio {
-    border-bottom: 1px solid #dbe2ef;
-    width: 500px;
-    height: 150px;
-    color: #dbe2ef;
-    font-size: 16px;
-}
-.my-bio > h3 {
-    font-style: italic;
-    font-weight: lighter;
-}
-.btn-update-bio {
-    width: 100px;
-    justify-self: center;
-    border: 1px solid #f9f7f7;
-    background-color: #3f72af;
-    margin: 15px;
-    color: #f9f7f7;
-    border-radius: 10px;
-}
-
-.notificationDot {
-    position: absolute;
-    right: 38px;
-    top: 18px;
-    width: 12px;
-    height: 12px;
-    z-index: 3;
-    border-radius: 50%;
-    background-color: #f0a500;
-}
 
 /* FIND BIKERZ COMPONENT */
 

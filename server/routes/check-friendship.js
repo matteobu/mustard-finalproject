@@ -3,18 +3,14 @@ const router = express.Router();
 const db = require("../sql/db.js");
 
 router.use((req, res, next) => {
-    // console.log("CHECK FRIENDSHIP ROUTES");
-    // console.log("req.method: ", req.method);
-    // console.log("req.url: ", req.url);
+   
     next();
 });
 
 router.get("/:otherUserID", function (req, res) {
     let { otherUserID } = req.params;
     let { userID } = req.session;
-    // console.log("GET REQUEST ON /friendship : >>");
     db.checkFriendship(userID, otherUserID).then(({ rows }) => {
-        console.log({ rows });
         if (rows.length == 0) {
             res.json({
                 step: 0,

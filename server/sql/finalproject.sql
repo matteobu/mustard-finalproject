@@ -21,7 +21,11 @@
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
 
-
+CREATE TABLE favorites(
+      id SERIAL PRIMARY KEY,
+      sender_id INT REFERENCES users(id) NOT NULL,
+      recipient_id INT REFERENCES routes(id) NOT NULL,
+      accepted BOOLEAN DEFAULT true);
 -- LAKE INFORMATION
 -- INSERT INTO routes (name, location, distance, grade, path)
 -- VALUES('Mauerweg am Wasser Loop', 'lake', '35', 'intermediate', 'cycle path');
@@ -85,11 +89,7 @@
 
 
 
-CREATE TABLE favorites(
-      id SERIAL PRIMARY KEY,
-      sender_id INT REFERENCES users(id) NOT NULL,
-      recipient_id INT REFERENCES routes(id) NOT NULL,
-      accepted BOOLEAN DEFAULT true);
+
 
 -- CREATE TABLE chat(
 --       id SERIAL PRIMARY KEY,
