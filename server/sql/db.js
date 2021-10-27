@@ -37,6 +37,7 @@ module.exports.findLocationRoutes = (location) => {
     FROM routes 
     WHERE location = $1
     OR grade = $1
+    OR path = $1
     `;
 
     const params = [location];

@@ -3,6 +3,7 @@ import { Component } from "react";
 import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 import FindRoute from "./find-route";
 import Profile from "./profile";
+import Thanks from "./thanks";
 import Main from "./main";
 import RouteProfile from "./route-profile";
 
@@ -27,6 +28,9 @@ export default class APP extends Component {
                             alt="logo"
                         />
                         <div className="navbar-menu">
+                            <a href="/thanks">
+                                <h6 className="thanks">THANK YOU |</h6>
+                            </a>
                             <a href="/">
                                 <h6>HOME |</h6>
                             </a>
@@ -42,6 +46,9 @@ export default class APP extends Component {
                         </div>
                     </div>
                     <Switch>
+                        <Route exact path="/thanks">
+                            <Thanks first={this.state.first} />
+                        </Route>
                         <Route exact path="/">
                             <FindRoute first={this.state.first} />
                         </Route>

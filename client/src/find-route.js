@@ -79,6 +79,23 @@ export default function FindRoute() {
                             Intermediate
                         </button>
                     </div>
+                    <div className="path-buttons">
+                        <h4>PATH: </h4>
+                        <button
+                            name="cycle path"
+                            className={isActive("cycle path")}
+                            onClick={(e) => handleFilter(e)}
+                        >
+                            Cycle Path
+                        </button>
+                        <button
+                            className={isActive("off road")}
+                            name="off road"
+                            onClick={(e) => handleFilter(e)}
+                        >
+                            Off-Road
+                        </button>
+                    </div>
                 </div>
                 <div className="result-input">
                     {routesData &&
@@ -87,7 +104,8 @@ export default function FindRoute() {
                                 <Link to={`route/${route.id}`}>
                                     <div className="pic-link">
                                         <img
-                                            id="immagine" src={`/img/route-pic/${route.id}_${route.location}.png`}
+                                            id="immagine"
+                                            src={`/img/route-pic/${route.id}_${route.location}.png`}
                                         ></img>
                                     </div>
                                 </Link>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 // import FriendshipButton from "./friendshipBtn";
 import { socket } from "./socket";
 import { useSelector } from "react-redux";
@@ -16,8 +16,11 @@ export default function RouteProfile() {
 
     const routesProfileData = useSelector((state) => state.routes);
     const favoriteRoute = useSelector(
-        (state) => state.fav && state.fav.find((fav) => fav.id == routeID)
-    );
+        (state) =>
+            state.fav && state.fav.find((fav) => fav.recipient_id == routeID)
+    ); // BE AWARE WHEN REFACT !!
+
+    console.log(`OUTSIDE USE EFFECT `, favoriteRoute);
 
     const favoriteRouteButton = (e) => {
         if (e.target.name == "add-favorite") {
@@ -28,9 +31,14 @@ export default function RouteProfile() {
             socket.emit("remove from fav", routeID);
         }
     };
+
+    useEffect(() => {
+        console.log(`INSIDE SECOND USE EFFECT `, favoriteRoute);
+    }, [favoriteRoute]);
+
     useEffect(() => {
         socket.emit("favorite route for my User");
-
+        console.log(`INSIDE USE EFFECT `, favoriteRoute);
         let first = [];
         let second = [];
         let maxLng;

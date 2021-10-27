@@ -4,7 +4,11 @@ export default function favoriteReducer(state = null, action) {
     if (action.type == "fav/routeFavoriteRoute") {
         state = action.payload.data;
     } else if (action.type == "fav/routeFavAdded") {
-        return [...state, action.payload];
+        console.log(
+            `action.payload inside the SLICE OF FAV REDUCER`,
+            action.payload
+        );
+        return [...state, action.payload.newFav[0]];
     }
 
     return state;
