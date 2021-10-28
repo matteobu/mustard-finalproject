@@ -154,6 +154,16 @@ a {
     color: var(--text);
 }
 
+.profileBtn {
+    height: 30px;
+    width: 150px;
+    border: 2px solid var(--color5);
+    border-radius: 10px;
+    background-color: var(--text);
+    color: var(--color5);
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
 .inactive {
     height: 30px;
     width: 88px;

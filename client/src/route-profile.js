@@ -13,7 +13,7 @@ import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 // import PvtChat from "./pvt-chat";
 
 export default function RouteProfile(props) {
-    console.log(`props`, props);
+    // console.log(`props`, props);
     const [lng, setLng] = useState();
     const [lat, setLat] = useState();
     const { routeID } = useParams();
@@ -24,14 +24,14 @@ export default function RouteProfile(props) {
             state.fav && state.fav.find((fav) => fav.recipient_id == routeID)
     ); // BE AWARE WHEN REFACT !!
 
-    console.log(`OUTSIDE USE EFFECT `, favoriteRoute);
+    // console.log(`OUTSIDE USE EFFECT `, favoriteRoute);
 
     const favoriteRouteButton = (e) => {
         if (e.target.name == "add-favorite") {
-            console.log("ADD TO  favorite");
+            // console.log("ADD TO  favorite");
             socket.emit("route added to fav", routeID);
         } else if (e.target.name == "remove-favorite") {
-            console.log("remove favorite");
+            // console.log("remove favorite");
             socket.emit("remove from fav", routeID);
         }
     };
@@ -53,18 +53,13 @@ export default function RouteProfile(props) {
     //     console.log(`INSIDE SECOND USE EFFECT `, favoriteRoute);
     // }, [favoriteRoute]);
 
-    const start = [
-        trackGeoJson.features[routeID - 1].geometry.coordinates[0][0][0],
-        trackGeoJson.features[routeID - 1].geometry.coordinates[0][0][1],
-    ];
-
-    console.log(`start on route progile`, start);
     useEffect(() => {
-        props.coordinates(start);
+        // console.log(`start on route profile`, start);
+        // props.coordinates(start);
         socket.emit("comment opened", routeID);
 
         socket.emit("favorite route for my User");
-        console.log(`INSIDE USE EFFECT `, favoriteRoute);
+        // console.log(`INSIDE USE EFFECT `, favoriteRoute);
         let first = [];
         let second = [];
         let maxLng;
@@ -79,10 +74,10 @@ export default function RouteProfile(props) {
                 first.push(x[0]);
                 second.push(x[1]);
             });
-        console.log(
-            `longitude coordinate`,
-            trackGeoJson.features[routeID - 1].geometry.coordinates[0][0][1]
-        );
+        // console.log(
+        //     `longitude coordinate`,
+        //     trackGeoJson.features[routeID - 1].geometry.coordinates[0][0][1]
+        // );
 
         if (coordArray.length) {
             maxLng = Math.max(...first);
@@ -96,6 +91,14 @@ export default function RouteProfile(props) {
 
         setLng(lngToPush);
         setLat(latToPush);
+
+        const start = [
+            trackGeoJson.features[routeID - 1].geometry.coordinates[0][0][0],
+            trackGeoJson.features[routeID - 1].geometry.coordinates[0][0][1],
+            { lngToPush },
+            { latToPush },
+        ];
+        socket.emit("info for open map", start);
 
         let abort = false;
         if (!abort) {
@@ -165,19 +168,20 @@ export default function RouteProfile(props) {
                                 leo. Praesent id maximus lectus. Donec et congue
                                 dui. Aenean in tellus quam.
                             </h5>
-
-                            <button className="inactive">
-                                <a
-                                    href={`/gpx/${info.id}_${info.location}.gpx`}
-                                    download
-                                >
-                                    GPX FILE
-                                </a>
-                            </button>
+                            <div className="profile-route-buttons">
+                                <button className="profileBtn">
+                                    <Link to="/open-map">STARTING POINT</Link>
+                                </button>
+                                <button className="profileBtn">
+                                    <a
+                                        href={`/gpx/${info.id}_${info.location}.gpx`}
+                                        download
+                                    >
+                                        GPX FILE
+                                    </a>
+                                </button>
+                            </div>
                             <Comment routeID={routeID} />
-                            <Link to="/open-map">
-                                <h6 className="thanks">MAPS |</h6>
-                            </Link>
                         </div>
                         <div className="map-container-right">
                             {lng && lat && (

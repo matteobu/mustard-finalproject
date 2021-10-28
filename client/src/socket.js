@@ -3,6 +3,7 @@ import {
     routesReceived,
     specificRoutesReceived,
     routeProfileInfo,
+    infoReadyForOpenMap,
 } from "./redux/routes/slice.js";
 import { userInfoReceived } from "./redux/users/slice.js";
 import { routeFavoriteRoute, routeFavAdded } from "./redux/favorite/slice.js";
@@ -41,5 +42,9 @@ export const init = (store) => {
     socket.on("addComment", async (data) => {
         console.log(`data`, data);
         await store.dispatch(addComment(data));
+    });
+    socket.on("info ready for open map", async (info) => {
+        console.log(`data`, info);
+        await store.dispatch(infoReadyForOpenMap(info));
     });
 };

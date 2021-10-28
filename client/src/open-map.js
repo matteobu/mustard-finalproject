@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl";
+import { useSelector } from "react-redux";
 
 import geoJson from "./json/berlin-caffe.json";
 import trackGeoJson from "./json/tracks.json";
@@ -11,19 +12,23 @@ mapboxgl.accessToken =
 
 const OpenMap = (props) => {
     const mapContainerRef = useRef(null);
-    // console.log(`propss`, props);
+    console.log(`propss`, props);
     // const [startingLngLat, setstartingLngLat] = useState("");
     const [lng, setLng] = useState(13.404954);
     const [lat, setLat] = useState(52.520008);
     const [zoom, setZoom] = useState(9);
 
-    const handleButton = (e) => {
-        // new mapboxgl.Marker()
-        //     .setLngLat(e.lngLat)
-        //     .addTo(Map)
-        //     .setPopup(new mapboxgl.Popup().setHTML("<h1>Hello World!</h1>"))
-        //     .getPitchAlignment();
-    };
+    const infoRoute = useSelector((state) => state.routes);
+
+    console.log(`infoRoute`, infoRoute);
+
+    // const handleButton = (e) => {
+    //     // new mapboxgl.Marker()
+    //     //     .setLngLat(e.lngLat)
+    //     //     .addTo(Map)
+    //     //     .setPopup(new mapboxgl.Popup().setHTML("<h1>Hello World!</h1>"))
+    //     //     .getPitchAlignment();
+    // };
     useEffect(() => {
         const map = new mapboxgl.Map({
             container: mapContainerRef.current,
@@ -39,10 +44,7 @@ const OpenMap = (props) => {
         map.setMaxBounds(bounds);
         console.log(`props.start on open map`, props.start);
         const start = props.start;
-        // const start = [
-        //     trackGeoJson.features[2 - 1].geometry.coordinates[0][0][1],
-        //     trackGeoJson.features[2 - 1].geometry.coordinates[0][0][0],
-        // ];
+
         // const start = [startingLngLat];
         // map.on("click", function () {
         //     map.addLayer({
@@ -90,6 +92,8 @@ const OpenMap = (props) => {
         // Clean up on unmount
 
         async function getRoute(end) {
+
+            
             // make a directions request using cycling profile
             // an arbitrary start will always be the same
             // only the end or destination will change
@@ -173,7 +177,9 @@ const OpenMap = (props) => {
         });
 
         map.on("click", (event) => {
-            const coords = start;
+            const coords = Object.keys(event.lngLat).map(
+                (key) => event.lngLat[key]
+            );
             const end = {
                 type: "FeatureCollection",
                 features: [
@@ -182,14 +188,12 @@ const OpenMap = (props) => {
                         properties: {},
                         geometry: {
                             type: "Point",
-                            coordinates: start,
+                            coordinates: coords,
                         },
                     },
                 ],
             };
             if (map.getLayer("end")) {
-                console.log(`FIRST CLICK`);
-
                 map.getSource("end").setData(end);
             } else {
                 map.addLayer({
@@ -205,7 +209,7 @@ const OpenMap = (props) => {
                                     properties: {},
                                     geometry: {
                                         type: "Point",
-                                        coordinates: start,
+                                        coordinates: coords,
                                     },
                                 },
                             ],
@@ -218,7 +222,6 @@ const OpenMap = (props) => {
                 });
             }
             getRoute(coords);
-            console.log(coords);
         });
 
         return () => console.log(); // map.remove();

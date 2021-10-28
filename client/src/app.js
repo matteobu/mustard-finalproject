@@ -15,13 +15,16 @@ export default class APP extends Component {
 
         this.coordinates = this.coordinates.bind(this);
     }
-    async componentDidMount() {}
+    // async componentDidMount() {
+    // }
 
-    coordinates(value) {
-        console.log(`value`, value);
+    async coordinates(value) {
+        console.log(`value on APP`, value);
         this.setState(() => ({
             start: value,
         }));
+
+        WebSocket.console.log(`this.state`, this.state);
     }
     render() {
         // if (!this.state.userID) {
@@ -56,29 +59,22 @@ export default class APP extends Component {
                     </div>
                     <Switch>
                         <Route exact path="/thanks">
-                            <Thanks first={this.state.first} />
+                            <Thanks />
                         </Route>
                         <Route exact path="/">
-                            <FindRoute first={this.state.first} />
+                            <FindRoute />
                         </Route>
                         <Route path="/find-route">
-                            <FindRoute first={this.state.first} />
+                            <FindRoute />
                         </Route>
                         <Route path="/profile">
-                            <Profile first={this.state.userID} />
+                            <Profile />
                         </Route>
                         <Route path="/route/:routeID">
-                            <RouteProfile
-                                coordinates={this.coordinates}
-                                userID={this.state.userID}
-                            />
+                            <RouteProfile coordinates={this.coordinates} />
                         </Route>
                         <Route path="/open-map">
-                            <OpenMap
-                                // routeID={this.state.routeID}
-                                start={this.state.start}
-                                // coordinates={this.coordinates}
-                            />
+                            <OpenMap start={this.state.start} />
                         </Route>
                     </Switch>
                     <footer>©2021. Bike Tour in Berlin</footer>

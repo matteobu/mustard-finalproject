@@ -176,4 +176,12 @@ io.on("connection", async (socket) => {
             io.emit("last then comments on route", rows);
         });
     });
+
+    socket.on("info for open map", (info) => {
+        console.log("info route from route profile:>> ", info);
+        // db.lastTenComments(routeID).then(({ rows }) => {
+        //     // console.log("LAST THEN MESSAGES :>> ", rows);
+        io.emit("info ready for open map", info);
+        // });
+    });
 });
