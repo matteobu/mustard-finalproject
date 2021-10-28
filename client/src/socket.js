@@ -6,6 +6,7 @@ import {
 } from "./redux/routes/slice.js";
 import { userInfoReceived } from "./redux/users/slice.js";
 import { routeFavoriteRoute, routeFavAdded } from "./redux/favorite/slice.js";
+import { routeLastTenComments, addComment } from "./redux/comments/slice.js";
 
 export let socket;
 
@@ -32,5 +33,13 @@ export const init = (store) => {
     });
     socket.on("user's fav", async (data) => {
         await store.dispatch(routeFavoriteRoute(data));
+    });
+    socket.on("last then comments on route", async (data) => {
+        console.log(`data`, data);
+        await store.dispatch(routeLastTenComments(data));
+    });
+    socket.on("addComment", async (data) => {
+        console.log(`data`, data);
+        await store.dispatch(addComment(data));
     });
 };

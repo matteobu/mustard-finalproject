@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 export default function Profile(props) {
     const userInfo = useSelector((state) => state.user);
     const favoriteRoute = useSelector((state) => state.fav);
-
+    console.log(`favoriteRoute`, favoriteRoute);
     useEffect(() => {
         socket.emit("user-profile");
         socket.emit("favorite route for my User");
@@ -21,7 +21,8 @@ export default function Profile(props) {
                 <div className="profile-container">
                     <div className="profile-left-container">
                         <h2>
-                            Hi! {userInfo[0].first}, here you can see which routes are your Favs!
+                            Hi! {userInfo[0].first}, here you can see which
+                            routes are your Favs!
                         </h2>
                     </div>
                     <div className="profile-right-container">

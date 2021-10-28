@@ -3,10 +3,10 @@ import { socket } from "./socket";
 import { useSelector } from "react-redux";
 
 export default function Comment(props) {
-    console.log("PROPS ON PRIVATE CHAT :>> ", props);
+    // console.log("PROPS ON PRIVATE CHAT :>> ", props);
     const elemRef = useRef();
-    const privateMessages = useSelector((state) => state.pvtmessages);
-
+    const commentsOnRoute = useSelector((state) => state.comment);
+    // console.log(`commentsOnRoute`, commentsOnRoute);
     useEffect(() => {
         elemRef.current.scrollTop =
             elemRef.current.scrollHeight - elemRef.current.clientHeight;
@@ -19,24 +19,20 @@ export default function Comment(props) {
                 routeID: props.routeID,
                 message: e.target.value,
             };
-            socket.emit("newPvtMessage", routeToAddComment);
+            socket.emit("new comment", routeToAddComment);
             e.target.value = "";
         }
     };
 
     return (
-        <div className="pvt-chat">
-            <div className="chat-container">
-                <div className="chat-messages-container" ref={elemRef}>
-                    {privateMessages &&
-                        privateMessages.map((message, i) => (
-                            <div className="chat-message" key={i}>
-                                <img
-                                    className="result-icon-on-chat"
-                                    src={message.pic_url}
-                                ></img>
-                                <h6>{message.first}</h6>
-                                <h4>{message.message}</h4>
+        <div className="comments-component">
+            <div className="comment-container">
+                <div className="comments-message-container" ref={elemRef}>
+                    {commentsOnRoute &&
+                        commentsOnRoute.map((comment, i) => (
+                            <div className="comment-message" key={i}>
+                                <h6>{comment.first}: </h6>
+                                <h4>{comment.message}</h4>
                             </div>
                         ))}
                 </div>

@@ -3,6 +3,7 @@ import { Registration } from "./registration";
 import { Login } from "./login";
 import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 
+
 export default function Main() {
     return (
         <BrowserRouter>
@@ -19,16 +20,17 @@ export default function Main() {
                 <div className="central-container">
                     <div className="left-registration">
                         <div>
-                            {" "}
                             <img
                                 className="logo-container"
                                 src="/img/logo/logo-home.png"
                                 alt="logo"
                             />
                             <h1>
-                                A website where you can find the perfect route for you! Regardless you want to ride in the city, to a lake or trough the forest!
-                               
+                                A website where you can find the perfect route
+                                for you! Regardless you want to ride in the
+                                city, to a lake or trough the forest, just ride!
                             </h1>
+                        
                         </div>
                     </div>
                     <Switch>

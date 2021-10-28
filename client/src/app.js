@@ -6,14 +6,23 @@ import Profile from "./profile";
 import Thanks from "./thanks";
 import Main from "./main";
 import RouteProfile from "./route-profile";
+import OpenMap from "./open-map";
 
 export default class APP extends Component {
     constructor(props) {
         super(props);
         this.state = {};
+
+        this.coordinates = this.coordinates.bind(this);
     }
     async componentDidMount() {}
 
+    coordinates(value) {
+        console.log(`value`, value);
+        this.setState(() => ({
+            start: value,
+        }));
+    }
     render() {
         // if (!this.state.userID) {
         //     return <div>Loading...</div>;
@@ -59,7 +68,17 @@ export default class APP extends Component {
                             <Profile first={this.state.userID} />
                         </Route>
                         <Route path="/route/:routeID">
-                            <RouteProfile userID={this.state.userID} />
+                            <RouteProfile
+                                coordinates={this.coordinates}
+                                userID={this.state.userID}
+                            />
+                        </Route>
+                        <Route path="/open-map">
+                            <OpenMap
+                                // routeID={this.state.routeID}
+                                start={this.state.start}
+                                // coordinates={this.coordinates}
+                            />
                         </Route>
                     </Switch>
                     <footer>©2021. Bike Tour in Berlin</footer>

@@ -109,7 +109,7 @@ module.exports.checkEmail = (email) => {
     );
 };
 
-module.exports.insertPrivateMessage = (userID, routeID, message) => {
+module.exports.insertComment = (userID, routeID, message) => {
     const q = `
         INSERT INTO comments (sender_id, recipient_id , message)
         VALUES($1, $2, $3)
@@ -119,30 +119,29 @@ module.exports.insertPrivateMessage = (userID, routeID, message) => {
     return db.query(q, params);
 };
 
-module.exports.lastPrivateMessage = () => {
+module.exports.lastComment = () => {
     const q = `
     SELECT *
     FROM comments
     JOIN users
     ON sender_id = users.id
-    ORDER BY pvt_chat.id DESC
+    ORDER BY comments.id DESC
     LIMIT 1
         `;
     return db.query(q);
 };
 
-module.exports.lastThenPrivateMessages = (userID, routeID) => {
+module.exports.lastTenComments = (routeID) => {
     const q = `
         SELECT *
         FROM comments
         JOIN users
-        ON (sender_id = users.id)
-        WHERE (recipient_id = $1 AND sender_id = $2)
-        OR (sender_id = $1 AND recipient_id = $2)
-        ORDER BY pvt_chat.id DESC
+        ON sender_id = users.id
+        WHERE (recipient_id = $1)
+        ORDER BY comments.id DESC
         LIMIT 10
         `;
-    const params = [userID, routeID];
+    const params = [routeID];
     return db.query(q, params);
 };
 

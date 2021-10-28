@@ -6,16 +6,17 @@ import { useSelector } from "react-redux";
 import Map from "./routes";
 import trackGeoJson from "./json/tracks.json";
 import Comment from "./comment";
+import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 
 // console.log(`trackGeoJson`, trackGeoJson);
 
 // import PvtChat from "./pvt-chat";
 
-export default function RouteProfile() {
+export default function RouteProfile(props) {
+    console.log(`props`, props);
     const [lng, setLng] = useState();
     const [lat, setLat] = useState();
     const { routeID } = useParams();
-    const [privateChat, setPrivateChat] = useState(false);
 
     const routesProfileData = useSelector((state) => state.routes);
     const favoriteRoute = useSelector(
@@ -34,23 +35,34 @@ export default function RouteProfile() {
             socket.emit("remove from fav", routeID);
         }
     };
+    // const usersOnPrivateChat = {
+    //             routeID: routeID,
+    //         };
+    // const handleButton = () => {
+    //     // IF ELSE STATEMENT
+    //     if (privateChat) {
+    //         setPrivateChat(false);
+    //     } else setPrivateChat(true);
+    //     const usersOnPrivateChat = {
+    //         routeID: routeID,
+    //     };
+    //     socket.emit("private chat opened", usersOnPrivateChat);
+    // };
 
-    const handleButton = () => {
-        // IF ELSE STATEMENT
-        if (privateChat) {
-            setPrivateChat(false);
-        } else setPrivateChat(true);
-        const usersOnPrivateChat = {
-            routeID: routeID,
-        };
-        socket.emit("private chat opened", usersOnPrivateChat);
-    };
+    // useEffect(() => {
+    //     console.log(`INSIDE SECOND USE EFFECT `, favoriteRoute);
+    // }, [favoriteRoute]);
 
+    const start = [
+        trackGeoJson.features[routeID - 1].geometry.coordinates[0][0][0],
+        trackGeoJson.features[routeID - 1].geometry.coordinates[0][0][1],
+    ];
+
+    console.log(`start on route progile`, start);
     useEffect(() => {
-        console.log(`INSIDE SECOND USE EFFECT `, favoriteRoute);
-    }, [favoriteRoute]);
+        props.coordinates(start);
+        socket.emit("comment opened", routeID);
 
-    useEffect(() => {
         socket.emit("favorite route for my User");
         console.log(`INSIDE USE EFFECT `, favoriteRoute);
         let first = [];
@@ -67,6 +79,10 @@ export default function RouteProfile() {
                 first.push(x[0]);
                 second.push(x[1]);
             });
+        console.log(
+            `longitude coordinate`,
+            trackGeoJson.features[routeID - 1].geometry.coordinates[0][0][1]
+        );
 
         if (coordArray.length) {
             maxLng = Math.max(...first);
@@ -97,11 +113,30 @@ export default function RouteProfile() {
                 routesProfileData.map((info, i) => (
                     <div className="route-profile-container" key={i}>
                         <div className="route-right-container">
-                            {privateChat && <Comment routeID={routeID} />}
                             <h3> {info.name}</h3>
                             <h5 className={info.grade}>
                                 {info.grade}, {info.path}, {info.location},{" "}
                                 {info.distance}Km
+                                {!favoriteRoute && (
+                                    <button
+                                        key={i}
+                                        name="add-favorite"
+                                        className={info.grade + "-favorite"}
+                                        onClick={(e) => favoriteRouteButton(e)}
+                                    >
+                                        add fav ♥️
+                                    </button>
+                                )}
+                                {favoriteRoute && (
+                                    <button
+                                        key={i}
+                                        className="remove-favorite"
+                                        name="remove-favorite"
+                                        onClick={(e) => favoriteRouteButton(e)}
+                                    >
+                                        remove fav
+                                    </button>
+                                )}
                             </h5>
                             <h5>
                                 Lorem ipsum dolor sit amet, consectetur
@@ -130,43 +165,19 @@ export default function RouteProfile() {
                                 leo. Praesent id maximus lectus. Donec et congue
                                 dui. Aenean in tellus quam.
                             </h5>
-                            <>
-                                <button className="inactive">
-                                    <a
-                                        href={`/gpx/${info.id}_${info.location}.gpx`}
-                                        download
-                                    >
-                                        GPX FILE
-                                    </a>
-                                </button>
-                                <button
-                                    className="inactive"
-                                    onClick={handleButton}
-                                    name="comment"
+
+                            <button className="inactive">
+                                <a
+                                    href={`/gpx/${info.id}_${info.location}.gpx`}
+                                    download
                                 >
-                                    COMMENT
-                                </button>
-                                {!favoriteRoute && (
-                                    <button
-                                        key={i}
-                                        name="add-favorite"
-                                        className="add-favorite"
-                                        onClick={(e) => favoriteRouteButton(e)}
-                                    >
-                                        add FAV ♥️
-                                    </button>
-                                )}
-                                {favoriteRoute && (
-                                    <button
-                                        key={i}
-                                        className="remove-favorite"
-                                        name="remove-favorite"
-                                        onClick={(e) => favoriteRouteButton(e)}
-                                    >
-                                        FAV -
-                                    </button>
-                                )}
-                            </>
+                                    GPX FILE
+                                </a>
+                            </button>
+                            <Comment routeID={routeID} />
+                            <Link to="/open-map">
+                                <h6 className="thanks">MAPS |</h6>
+                            </Link>
                         </div>
                         <div className="map-container-right">
                             {lng && lat && (

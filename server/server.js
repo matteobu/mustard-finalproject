@@ -157,23 +157,23 @@ io.on("connection", async (socket) => {
         });
     });
 
-    socket.on("newPvtMessage", ({ routeID, message }) => {
-        console.log(`message`, message);
-        db.insertPrivateMessage(userID, routeID, message).then(({ rows }) => {
-            console.log("id :>> ", rows[0].id);
+    socket.on("new comment", ({ routeID, message }) => {
+        // console.log(`message`, message);
+        db.insertComment(userID, routeID, message).then(({ rows }) => {
+            // console.log("id :>> ", rows[0].id);
             let idForLastMessage = rows[0].id;
-            db.lastPrivateMessage(idForLastMessage).then(({ rows }) => {
+            db.lastComment(idForLastMessage).then(({ rows }) => {
                 // console.log("rows :>> ", rows);
-                io.emit("addPvtChatMsg", rows[0]);
+                io.emit("addComment", rows[0]);
             });
         });
     });
 
-    socket.on("private chat opened", ({ otherUserID, userID }) => {
-        console.log("otherUserID :>> ", otherUserID);
-        db.lastThenPrivateMessages(userID, otherUserID).then(({ rows }) => {
-            console.log("LAST THEN MESSAGES :>> ", rows);
-            io.emit("most recent pvt messages", rows);
+    socket.on("comment opened", (routeID) => {
+        // console.log("routeID :>> ", routeID);
+        db.lastTenComments(routeID).then(({ rows }) => {
+            // console.log("LAST THEN MESSAGES :>> ", rows);
+            io.emit("last then comments on route", rows);
         });
     });
 });
