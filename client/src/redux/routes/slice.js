@@ -8,7 +8,7 @@ export default function routeReducer(state = null, action) {
     } else if (action.type == "routes/routeProfileInfo") {
         return (state = action.payload.specificData);
     } else if (action.type == "routes/infoReadyForOpenMap") {
-        return (state = action.payload);
+        return (state = [...state, action.payload]);
     }
     return state;
 }

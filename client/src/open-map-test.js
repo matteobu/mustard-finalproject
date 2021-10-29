@@ -1,7 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import { useSelector } from "react-redux";
-
 import geoJson from "./json/berlin-caffe.json";
 import trackGeoJson from "./json/tracks.json";
 
@@ -18,23 +17,13 @@ const OpenMap = (props) => {
     const [lat, setLat] = useState(52.520008);
     const [zoom, setZoom] = useState(9);
     const [usersCoordinate, setCrd] = useState();
+    // const [location, setLocation] = useState(trackGeoJson.features[1 - 1]);
 
     const infoRoute = useSelector((state) => state.routes);
-
-    // console.log(`infoRoute`, infoRouclte);
-
-    // const handleButton = (e) => {
-    //     // new mapboxgl.Marker()
-    //     //     .setLngLat(e.lngLat)
-    //     //     .addTo(Map)
-    //     //     .setPopup(new mapboxgl.Popup().setHTML("<h1>Hello World!</h1>"))
-    //     //     .getPitchAlignment();
-    // };
 
     useEffect(() => {
         const map = new mapboxgl.Map({
             container: mapContainerRef.current,
-            // style: "mapbox://styles/mapbox/streets-v11",
             style: "mapbox://styles/matteo-mustard/ckv11nuwk2ciq14mt36dxist7",
             center: [lng, lat],
             zoom: zoom,
@@ -44,7 +33,6 @@ const OpenMap = (props) => {
             [13.74824315032486, 52.68945575885245],
         ];
         map.setMaxBounds(bounds);
-        // console.log(`props.start on open map`, props.start);
         const start = props.start;
 
         map.addControl(
@@ -59,31 +47,8 @@ const OpenMap = (props) => {
             })
         );
 
-        var options = {
-            enableHighAccuracy: true,
-            timeout: 5000,
-            maximumAge: 0,
-        };
-
-        function success(pos) {
-            var crd = pos.coords;
-            console.log(`crd`, crd);
-            var crdToSet = [crd.latitude, crd.longitude];
-            setCrd(crdToSet);
-        }
-
-        function error(err) {
-            console.warn(`ERROR(${err.code}): ${err.message}`);
-        }
-        navigator.geolocation.getCurrentPosition(success, error, options);
-
         map.addControl(new mapboxgl.NavigationControl(), "top-right");
-        // map.addControl(
-        //     new MapboxDirections({
-        //         accessToken: mapboxgl.accessToken,
-        //     }),
-        //     "top-left"
-        // );
+
         map.on("move", () => {
             setLng(map.getCenter().lng.toFixed(4));
             setLat(map.getCenter().lat.toFixed(4));
@@ -93,10 +58,34 @@ const OpenMap = (props) => {
         // Clean up on unmount
         map.on("load", () => {
             async function getRoute() {
+                var options = {
+                    enableHighAccuracy: true,
+                    timeout: 5000,
+                    maximumAge: 0,
+                };
+
+                var endCoordinates;
+                function success(pos) {
+                    var crd = pos.coords;
+                    // console.log(`crd`, crd);
+                    endCoordinates = [crd.latitude, crd.longitude];
+                    setCrd(endCoordinates);
+                }
+
+                function error(err) {
+                    console.warn(`ERROR(${err.code}): ${err.message}`);
+                }
+                navigator.geolocation.getCurrentPosition(
+                    success,
+                    error,
+                    options
+                );
+
+                console.log(`endCoordinates`, endCoordinates);
+                console.log(`endCoordinates`, usersCoordinate);
                 // make a directions request using cycling profile
                 // an arbitrary start will always be the same
                 // only the end or destination will change
-                console.log(`start startstartstartstartstart`, start);
                 const query = await fetch(
                     `https://api.mapbox.com/directions/v5/mapbox/cycling/13.386303426788103,52.453063695365934;${start[0]},${start[1]}?steps=true&geometries=geojson&access_token=${mapboxgl.accessToken}`,
                     { method: "GET" }
@@ -118,6 +107,7 @@ const OpenMap = (props) => {
                 // }
                 // // otherwise, we'll make a new request
                 // else {
+
                 map.addLayer({
                     id: "route",
                     type: "line",
@@ -130,24 +120,37 @@ const OpenMap = (props) => {
                         "line-cap": "round",
                     },
                     paint: {
-                        "line-color": "#3887be",
+                        "line-color": "#f30",
                         "line-width": 3,
                         "line-opacity": 1,
                     },
                 });
-                // }
-                // add turn instructions here at the end
+
+                // const handleButton = (e) => {
+                //     map.addLayer({
+                //         id: "route",
+                //         type: "line",
+                //         source: {
+                //             type: "geojson",
+                //             data: location,
+                //         },
+                //         layout: {
+                //             "line-join": "round",
+                //             "line-cap": "round",
+                //         },
+                //         paint: {
+                //             "line-color": "#3887be",
+                //             "line-width": 5,
+                //             "line-opacity": 1,
+                //         },
+                //     });
+                // };
             }
 
-            // map.on("click", (e) => {
-            //     console.log(`e`, e);
-            // });
-
-            // make an initial directions request that
-            // starts and ends at the same location
             getRoute(start);
 
             // Add starting point to the map
+
             map.addLayer({
                 id: "point",
                 type: "circle",
@@ -169,7 +172,7 @@ const OpenMap = (props) => {
                 },
                 paint: {
                     "circle-radius": 10,
-                    "circle-color": "#3887be",
+                    "circle-color": "#f30",
                 },
             });
             // this is where the code from the next step will go

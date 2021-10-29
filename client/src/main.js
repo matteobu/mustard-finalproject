@@ -27,8 +27,7 @@ export default function Main() {
                             />
                             <h1>
                                 A website where you can find the perfect route
-                                for you! Regardless you want to ride in the
-                                city, to a lake or trough the forest, just ride!
+                                for you! Regardless of whether you want to cycle in the city, to a lake or through the forest, just ride!
                             </h1>
                         
                         </div>

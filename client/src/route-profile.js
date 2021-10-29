@@ -170,11 +170,11 @@ export default function RouteProfile(props) {
                             </h5>
                             <div className="profile-route-buttons">
                                 <button className="profileBtn">
-                                    <Link to="/open-map-test">TEST</Link>
+                                    <Link to="/open-map-test">GET THERE!</Link>
                                 </button>
-                                <button className="profileBtn">
+                                {/* <button className="profileBtn">
                                     <Link to="/open-map">STARTING POINT</Link>
-                                </button>
+                                </button> */}
                                 <button className="profileBtn">
                                     <a
                                         href={`/gpx/${info.id}_${info.location}.gpx`}
