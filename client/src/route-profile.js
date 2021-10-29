@@ -54,8 +54,14 @@ export default function RouteProfile(props) {
     // }, [favoriteRoute]);
 
     useEffect(() => {
+        const start = [
+            trackGeoJson.features[routeID - 1].geometry.coordinates[0][0][0],
+            trackGeoJson.features[routeID - 1].geometry.coordinates[0][0][1],
+            { lngToPush },
+            { latToPush },
+        ];
         // console.log(`start on route profile`, start);
-        // props.coordinates(start);
+        props.coordinates(start);
         socket.emit("comment opened", routeID);
 
         socket.emit("favorite route for my User");
@@ -92,13 +98,7 @@ export default function RouteProfile(props) {
         setLng(lngToPush);
         setLat(latToPush);
 
-        const start = [
-            trackGeoJson.features[routeID - 1].geometry.coordinates[0][0][0],
-            trackGeoJson.features[routeID - 1].geometry.coordinates[0][0][1],
-            { lngToPush },
-            { latToPush },
-        ];
-        socket.emit("info for open map", start);
+        // socket.emit("info for open map", start);
 
         let abort = false;
         if (!abort) {

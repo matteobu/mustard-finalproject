@@ -12,15 +12,16 @@ mapboxgl.accessToken =
 
 const OpenMap = (props) => {
     const mapContainerRef = useRef(null);
-    console.log(`propss`, props);
+    // console.log(`propss`, props);
     // const [startingLngLat, setstartingLngLat] = useState("");
     const [lng, setLng] = useState(13.404954);
     const [lat, setLat] = useState(52.520008);
     const [zoom, setZoom] = useState(9);
+    const [usersCoordinate, setCrd] = useState();
 
     const infoRoute = useSelector((state) => state.routes);
 
-    console.log(`infoRoute`, infoRoute);
+    // console.log(`infoRoute`, infoRouclte);
 
     // const handleButton = (e) => {
     //     // new mapboxgl.Marker()
@@ -29,6 +30,12 @@ const OpenMap = (props) => {
     //     //     .setPopup(new mapboxgl.Popup().setHTML("<h1>Hello World!</h1>"))
     //     //     .getPitchAlignment();
     // };
+
+    useEffect(() => {
+        console.log(`usersCoordinate`, usersCoordinate);
+        return () => {};
+    }, [usersCoordinate]);
+
     useEffect(() => {
         const map = new mapboxgl.Map({
             container: mapContainerRef.current,
@@ -42,7 +49,7 @@ const OpenMap = (props) => {
             [13.74824315032486, 52.68945575885245],
         ];
         map.setMaxBounds(bounds);
-        console.log(`props.start on open map`, props.start);
+        // console.log(`props.start on open map`, props.start);
         const start = props.start;
 
         // const start = [startingLngLat];
@@ -76,13 +83,49 @@ const OpenMap = (props) => {
         // );
 
         // Add navigation control (the +/- zoom buttons)
-        map.addControl(new mapboxgl.NavigationControl(), "top-right");
         map.addControl(
-            new MapboxDirections({
-                accessToken: mapboxgl.accessToken,
-            }),
-            "top-left"
+            new mapboxgl.GeolocateControl({
+                positionOptions: {
+                    enableHighAccuracy: true,
+                },
+                // When active the map will receive updates to the device's location as it changes.
+                trackUserLocation: true,
+                // Draw an arrow next to the location dot to indicate which direction the device is heading.
+                showUserHeading: true,
+            })
         );
+
+        var options = {
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 0,
+        };
+
+        function success(pos) {
+            var crd = pos.coords;
+            var crdToSet = [crd.latitude, crd.longitude];
+            setCrd(crdToSet);
+            console.log(`crdToSet`, crdToSet);
+            console.log(`crd before click`, usersCoordinate);
+
+            console.log("Your current position is:");
+            console.log(`Latitude : ${crd.latitude}`);
+            console.log(`Longitude: ${crd.longitude}`);
+            console.log(`More or less ${crd.accuracy} meters.`);
+        }
+
+        function error(err) {
+            console.warn(`ERROR(${err.code}): ${err.message}`);
+        }
+
+        navigator.geolocation.getCurrentPosition(success, error, options);
+        map.addControl(new mapboxgl.NavigationControl(), "top-right");
+        // map.addControl(
+        //     new MapboxDirections({
+        //         accessToken: mapboxgl.accessToken,
+        //     }),
+        //     "top-left"
+        // );
         map.on("move", () => {
             setLng(map.getCenter().lng.toFixed(4));
             setLat(map.getCenter().lat.toFixed(4));
@@ -91,14 +134,12 @@ const OpenMap = (props) => {
 
         // Clean up on unmount
 
-        async function getRoute(end) {
-
-            
+        async function getRoute(usersCoordinate) {
             // make a directions request using cycling profile
             // an arbitrary start will always be the same
             // only the end or destination will change
             const query = await fetch(
-                `https://api.mapbox.com/directions/v5/mapbox/cycling/${start[0]},${start[1]};${end[0]},${end[1]}?steps=true&geometries=geojson&access_token=${mapboxgl.accessToken}`,
+                `https://api.mapbox.com/directions/v5/mapbox/cycling/${start[0]},${start[1]};${usersCoordinate[0]},${usersCoordinate[1]}?steps=true&geometries=geojson&access_token=${mapboxgl.accessToken}`,
                 { method: "GET" }
             );
             const json = await query.json();
@@ -176,10 +217,14 @@ const OpenMap = (props) => {
             // this is where the code from the next step will go
         });
 
+        console.log(`crd before click`, usersCoordinate);
+
         map.on("click", (event) => {
             const coords = Object.keys(event.lngLat).map(
                 (key) => event.lngLat[key]
             );
+
+            console.log(`coords`, coords);
             const end = {
                 type: "FeatureCollection",
                 features: [
@@ -226,6 +271,7 @@ const OpenMap = (props) => {
 
         return () => console.log(); // map.remove();
     }, []);
+
     return (
         <div className="main-map-container">
             <div className="map-container" ref={mapContainerRef} />
