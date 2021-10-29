@@ -419,7 +419,7 @@ footer {
     flex-wrap: wrap;
     flex-direction: row;
     overflow-y: scroll;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 .favorite-routes-container {
     margin: 10px;

@@ -118,13 +118,12 @@ export default function FindRoute() {
                                 <div className="route-information">
                                     <h2>{route.name}</h2>
                                     <h3>
-                                        {route.location} - ({route.distance}KM)
+                                        {route.location} - ({route.distance}km)
                                     </h3>
 
                                     <h6 className={route.grade}>
-                                        {route.grade}, {route.path},{" "}
+                                        {route.grade}, {route.path}
                                     </h6>
-                                    {/* {favoriteRoute && <h6>♥️</h6>} */}
                                 </div>
                             </div>
                         ))}

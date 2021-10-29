@@ -127,7 +127,7 @@ export default function RouteProfile(props) {
                                         className={info.grade + "-favorite"}
                                         onClick={(e) => favoriteRouteButton(e)}
                                     >
-                                        add fav ♥️
+                                        add to fav ♥️
                                     </button>
                                 )}
                                 {favoriteRoute && (
@@ -170,7 +170,7 @@ export default function RouteProfile(props) {
                             </h5>
                             <div className="profile-route-buttons">
                                 <button className="profileBtn">
-                                    <Link to="/open-map-test">GET THERE!</Link>
+                                    <Link to="/open-map-test">GET DIRECTIONS!</Link>
                                 </button>
                                 {/* <button className="profileBtn">
                                     <Link to="/open-map">STARTING POINT</Link>
