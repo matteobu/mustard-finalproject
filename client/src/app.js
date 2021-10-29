@@ -7,6 +7,7 @@ import Thanks from "./thanks";
 import Main from "./main";
 import RouteProfile from "./route-profile";
 import OpenMap from "./open-map";
+import OpenMapTest from "./open-map-test";
 
 export default class APP extends Component {
     constructor(props) {
@@ -75,6 +76,9 @@ export default class APP extends Component {
                         </Route>
                         <Route path="/open-map">
                             <OpenMap start={this.state.start} />
+                        </Route>
+                        <Route path="/open-map-test">
+                            <OpenMapTest start={this.state.start} />
                         </Route>
                     </Switch>
                     <footer>©2021. Bike Tour in Berlin</footer>

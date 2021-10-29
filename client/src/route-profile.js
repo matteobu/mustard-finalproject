@@ -170,6 +170,9 @@ export default function RouteProfile(props) {
                             </h5>
                             <div className="profile-route-buttons">
                                 <button className="profileBtn">
+                                    <Link to="/open-map-test">TEST</Link>
+                                </button>
+                                <button className="profileBtn">
                                     <Link to="/open-map">STARTING POINT</Link>
                                 </button>
                                 <button className="profileBtn">
